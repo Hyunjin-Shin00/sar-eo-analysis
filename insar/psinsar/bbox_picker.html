@@ -1,0 +1,425 @@
+<meta charset="utf-8">
+<title>SNWE Bounding Box Picker — stackSentinel.py</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Leaflet + Leaflet.draw (CDN, 인터넷 연결 필요) -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet-draw@1.0.4/dist/leaflet.draw.css">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet-draw@1.0.4/dist/leaflet.draw.js"></script>
+
+<style>
+  :root {
+    --bg: #0f172a;
+    --panel: #1e293b;
+    --panel2: #273449;
+    --border: #334155;
+    --text: #e2e8f0;
+    --muted: #94a3b8;
+    --accent: #38bdf8;
+    --accent2: #22c55e;
+    --mono: ui-monospace, SFMono-Regular, "Cascadia Code", Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body {
+    font-family: -apple-system, "Segoe UI", "Malgun Gothic", sans-serif;
+    background: var(--bg); color: var(--text);
+    display: flex; height: 100vh; overflow: hidden;
+  }
+  #map { flex: 1; height: 100%; }
+
+  #panel {
+    width: 380px; min-width: 380px; height: 100%;
+    background: var(--panel); border-left: 1px solid var(--border);
+    display: flex; flex-direction: column; overflow-y: auto;
+  }
+  .p-head { padding: 16px 18px 10px; border-bottom: 1px solid var(--border); }
+  .p-head h1 { font-size: 16px; margin: 0 0 4px; }
+  .p-head p { font-size: 12px; color: var(--muted); margin: 0; line-height: 1.5; }
+  .section { padding: 14px 18px; border-bottom: 1px solid var(--border); }
+  .section h2 {
+    font-size: 11px; text-transform: uppercase; letter-spacing: .06em;
+    color: var(--muted); margin: 0 0 10px; font-weight: 600;
+  }
+
+  /* SNWE grid */
+  .snwe { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .snwe .cell {
+    background: var(--panel2); border: 1px solid var(--border);
+    border-radius: 8px; padding: 8px 10px;
+  }
+  .snwe .cell .lbl { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; }
+  .snwe .cell .val { font-family: var(--mono); font-size: 15px; margin-top: 2px; color: var(--accent); }
+
+  /* copy blocks */
+  .copyblock {
+    background: #0b1220; border: 1px solid var(--border); border-radius: 8px;
+    padding: 10px 12px; font-family: var(--mono); font-size: 13px;
+    word-break: break-all; color: #e2e8f0; margin-bottom: 8px; min-height: 20px;
+    user-select: all;
+  }
+  .copyblock.big { font-size: 15px; color: var(--accent2); }
+  button {
+    font: inherit; cursor: pointer; border: none; border-radius: 8px;
+    padding: 9px 12px; font-size: 13px; font-weight: 600; transition: .12s;
+  }
+  .btn-primary { background: var(--accent); color: #06283d; width: 100%; }
+  .btn-primary:hover { background: #7dd3fc; }
+  .btn-ghost { background: var(--panel2); color: var(--text); border: 1px solid var(--border); }
+  .btn-ghost:hover { background: #33445c; }
+  .btn-row { display: flex; gap: 8px; margin-top: 4px; }
+  .btn-row button { flex: 1; }
+
+  .field-row { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+  .field-row label { font-size: 12px; color: var(--muted); }
+  input[type=text], input[type=number], select {
+    background: #0b1220; border: 1px solid var(--border); color: var(--text);
+    border-radius: 6px; padding: 6px 8px; font: inherit; font-size: 13px;
+  }
+  input[type=text] { flex: 1; }
+  .hint { font-size: 11px; color: var(--muted); line-height: 1.5; margin: 6px 0 0; }
+  .toast {
+    position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+    background: var(--accent2); color: #052e16; padding: 10px 18px;
+    border-radius: 20px; font-size: 13px; font-weight: 600;
+    opacity: 0; pointer-events: none; transition: opacity .2s; z-index: 9999;
+  }
+  .toast.show { opacity: 1; }
+  .badge { display: inline-block; background: var(--panel2); border: 1px solid var(--border);
+           border-radius: 20px; padding: 2px 10px; font-size: 11px; color: var(--muted); }
+  code { font-family: var(--mono); color: var(--accent); }
+
+  /* 포인트 목록 */
+  #ptList { display: flex; flex-direction: column; gap: 6px; }
+  .pt-row {
+    display: flex; align-items: center; gap: 8px;
+    background: var(--panel2); border: 1px solid var(--border);
+    border-radius: 8px; padding: 6px 8px;
+  }
+  .pt-row .pt-idx {
+    width: 22px; height: 22px; flex: none; border-radius: 50%;
+    background: #f59e0b; color: #3a2606; font-size: 11px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .pt-row .pt-val { flex: 1; font-family: var(--mono); font-size: 12.5px; color: #fbbf24; }
+  .pt-row .pt-btn { background: none; border: none; color: var(--muted); padding: 4px 6px; font-size: 13px; }
+  .pt-row .pt-btn:hover { color: var(--text); }
+  .pt-empty { font-size: 12px; color: var(--muted); }
+
+  /* 지도 위 마커 핀 */
+  .pin-icon .pin {
+    width: 14px; height: 14px; border-radius: 50%;
+    background: #f59e0b; border: 2px solid #fff; box-shadow: 0 0 4px rgba(0,0,0,.6);
+  }
+  /* 실시간 커서 좌표 */
+  .coord-readout {
+    background: rgba(15,23,42,.85); color: #e2e8f0; border: 1px solid var(--border);
+    border-radius: 6px; padding: 4px 10px; font-family: var(--mono); font-size: 12px;
+    box-shadow: 0 1px 4px rgba(0,0,0,.4);
+  }
+  .coord-readout b { color: var(--accent); }
+</style>
+
+<div id="map"></div>
+
+<div id="panel">
+  <div class="p-head">
+    <h1>🛰️ SNWE Bounding Box Picker</h1>
+    <p>지도에서 사각형 또는 폴리곤을 그리면 <code>stackSentinel.py -b</code> 에 넣을
+       <b>S N W E</b> (남 북 서 동) 좌표가 자동 계산됩니다.</p>
+  </div>
+
+  <!-- 좌표 이동 -->
+  <div class="section">
+    <h2>위치 이동</h2>
+    <div class="field-row">
+      <input type="text" id="goto" placeholder="위도, 경도  예: 37.44, 126.55">
+      <button class="btn-ghost" id="gotoBtn">이동</button>
+    </div>
+    <p class="hint">위경도를 입력하고 이동하거나, 지도를 직접 스크롤/줌 하세요.</p>
+  </div>
+
+  <!-- 포인트 좌표 -->
+  <div class="section">
+    <h2>포인트 좌표 <span class="badge" id="ptCount">0개</span></h2>
+    <div id="ptList"><div class="pt-empty">지도 좌측 상단 📍 마커 도구로 점을 찍으세요.</div></div>
+    <div class="btn-row" id="ptBtns" style="display:none;">
+      <button class="btn-ghost" id="copyPts">📋 전체 좌표 복사</button>
+      <button class="btn-ghost" id="clearPts">🗑 포인트 지우기</button>
+    </div>
+  </div>
+
+  <!-- 결과 -->
+  <div class="section">
+    <h2>Bounding Box <span class="badge" id="shapeType">미선택</span></h2>
+    <div class="snwe">
+      <div class="cell"><div class="lbl">South (S)</div><div class="val" id="vS">–</div></div>
+      <div class="cell"><div class="lbl">North (N)</div><div class="val" id="vN">–</div></div>
+      <div class="cell"><div class="lbl">West (W)</div><div class="val" id="vW">–</div></div>
+      <div class="cell"><div class="lbl">East (E)</div><div class="val" id="vE">–</div></div>
+    </div>
+
+    <div class="field-row" style="margin-top:12px;">
+      <label for="prec">소수점 자리</label>
+      <select id="prec">
+        <option>2</option><option selected>4</option><option>5</option><option>6</option>
+      </select>
+      <span class="hint" style="margin:0;" id="areaInfo"></span>
+    </div>
+  </div>
+
+  <!-- -b 인자 -->
+  <div class="section">
+    <h2>-b 인자 (S N W E)</h2>
+    <div class="copyblock big" id="bboxOut">그려주세요…</div>
+    <button class="btn-primary" id="copyBbox">📋 -b 값 복사</button>
+  </div>
+
+  <!-- 전체 명령어 -->
+  <div class="section">
+    <h2>전체 명령어</h2>
+    <div class="copyblock" id="cmdOut">그려주세요…</div>
+    <div class="btn-row">
+      <button class="btn-ghost" id="copyCmd">📋 명령어 복사</button>
+      <button class="btn-ghost" id="clearBtn">🗑 지우기</button>
+    </div>
+    <p class="hint">기본 명령어 템플릿은 파일 상단
+      <code>CMD_TEMPLATE</code> 에서 수정할 수 있습니다.
+      <code>{BBOX}</code> 위치에 좌표가 삽입됩니다.</p>
+  </div>
+</div>
+
+<div class="toast" id="toast">복사됨!</div>
+
+<script>
+/* ────────────────────────────────────────────────────────────
+   전체 명령어 템플릿 — {BBOX} 자리에 "S N W E" 가 들어갑니다.
+   실제 run_stackSentinel.sh 형식에 맞춰 필요하면 수정하세요.
+   ──────────────────────────────────────────────────────────── */
+const CMD_TEMPLATE =
+  `stackSentinel.py -s SLC/ -o POD/ -a SLC/ -d DEM/GLO30_ICNH.wgs84.dem -W slc -b '{BBOX}' -n 2 -p vv`;
+
+/* ── 지도 초기화 ── */
+const map = L.map('map', { center: [37.44, 126.55], zoom: 11 });
+
+const esriImagery = L.tileLayer(
+  'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+  { maxZoom: 19, attribution: 'Tiles &copy; Esri — Source: Esri, Maxar, Earthstar Geographics' }
+).addTo(map);
+
+const esriLabels = L.tileLayer(
+  'https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}',
+  { maxZoom: 19, opacity: 0.9 }
+).addTo(map);
+
+const osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+  { maxZoom: 19, attribution: '&copy; OpenStreetMap' });
+
+const esriTopo = L.tileLayer(
+  'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',
+  { maxZoom: 19, attribution: 'Tiles &copy; Esri' });
+
+L.control.layers(
+  { 'Esri 위성영상': esriImagery, 'Esri 지형도': esriTopo, 'OpenStreetMap': osm },
+  { '지명/경계 라벨': esriLabels },
+  { collapsed: false, position: 'topright' }
+).addTo(map);
+
+L.control.scale({ imperial: false }).addTo(map);
+
+/* ── 실시간 커서 위경도 표시 ── */
+const CoordReadout = L.Control.extend({
+  options: { position: 'bottomleft' },
+  onAdd() {
+    this._div = L.DomUtil.create('div', 'coord-readout');
+    this._div.innerHTML = '커서: 지도 위로 이동';
+    return this._div;
+  }
+});
+const coordCtl = new CoordReadout();
+map.addControl(coordCtl);
+map.on('mousemove', (e) => {
+  const prec = parseInt(document.getElementById('prec').value, 10);
+  coordCtl._div.innerHTML =
+    `위도 <b>${e.latlng.lat.toFixed(prec)}</b>　경도 <b>${normLon(e.latlng.lng).toFixed(prec)}</b>`;
+});
+
+/* ── 그리기 도구 ── */
+const drawnItems = new L.FeatureGroup().addTo(map);
+
+const pinIcon = L.divIcon({
+  className: 'pin-icon', html: '<div class="pin"></div>',
+  iconSize: [18, 18], iconAnchor: [9, 9]
+});
+
+const drawControl = new L.Control.Draw({
+  position: 'topleft',
+  draw: {
+    rectangle: { shapeOptions: { color: '#38bdf8', weight: 2, fillOpacity: 0.15 } },
+    polygon:   { shapeOptions: { color: '#22c55e', weight: 2, fillOpacity: 0.15 },
+                 allowIntersection: true, showArea: false },
+    marker:    { icon: pinIcon },
+    polyline: false, circle: false, circlemarker: false
+  },
+  edit: { featureGroup: drawnItems, remove: true }
+});
+map.addControl(drawControl);
+
+/* ── 이벤트 ── */
+map.on(L.Draw.Event.CREATED, (e) => {
+  if (e.layerType === 'marker') {
+    drawnItems.addLayer(e.layer);           // 포인트는 여러 개 허용
+  } else {
+    // bbox 도형(사각형/폴리곤)은 항상 하나만 유지 — 기존 bbox 도형만 제거
+    drawnItems.getLayers().forEach(l => {
+      if (l instanceof L.Polygon) drawnItems.removeLayer(l);
+    });
+    drawnItems.addLayer(e.layer);
+    currentType = e.layerType;
+  }
+  update();
+});
+map.on(L.Draw.Event.EDITED, update);
+map.on(L.Draw.Event.DELETED, update);
+
+let currentType = null, hasShape = false, lastBounds = null;
+
+function normLon(lon) {                      // 경도를 -180~180 로 정규화
+  return ((lon + 540) % 360) - 180;
+}
+
+let ptData = [];   // 현재 포인트 목록 {lat, lon}
+
+function update() {
+  const prec = parseInt(document.getElementById('prec').value, 10);
+  const f = v => v.toFixed(prec);
+  const layers = drawnItems.getLayers();
+  const bboxLayer = layers.find(l => l instanceof L.Polygon);   // Rectangle도 Polygon 상속
+  const markers   = layers.filter(l => l instanceof L.Marker);
+
+  // ── 포인트 목록 ──
+  renderPoints(markers, f);
+
+  // ── Bounding Box ──
+  hasShape = !!bboxLayer;
+  if (!hasShape) {
+    ['vS','vN','vW','vE'].forEach(id => document.getElementById(id).textContent = '–');
+    document.getElementById('shapeType').textContent = '미선택';
+    document.getElementById('bboxOut').textContent = '그려주세요…';
+    document.getElementById('cmdOut').textContent = '그려주세요…';
+    document.getElementById('areaInfo').textContent = '';
+    lastBounds = null;
+    return;
+  }
+
+  const b = bboxLayer.getBounds();
+  const S = b.getSouth(), N = b.getNorth();
+  let W = normLon(b.getWest()), E = normLon(b.getEast());
+  lastBounds = { S, N, W, E };
+
+  document.getElementById('vS').textContent = f(S);
+  document.getElementById('vN').textContent = f(N);
+  document.getElementById('vW').textContent = f(W);
+  document.getElementById('vE').textContent = f(E);
+  document.getElementById('shapeType').textContent =
+    (bboxLayer instanceof L.Rectangle) ? '사각형' : '폴리곤 → 외접 사각형';
+
+  const bbox = `${f(S)} ${f(N)} ${f(W)} ${f(E)}`;
+  document.getElementById('bboxOut').textContent = bbox;
+  document.getElementById('cmdOut').textContent = CMD_TEMPLATE.replace('{BBOX}', bbox);
+
+  // 대략적 크기 (km)
+  const midLat = (S + N) / 2 * Math.PI / 180;
+  const hKm = (N - S) * 111.32;
+  const wKm = (E - W) * 111.32 * Math.cos(midLat);
+  document.getElementById('areaInfo').textContent =
+    `≈ ${wKm.toFixed(0)} × ${hKm.toFixed(0)} km`;
+}
+
+function renderPoints(markers, f) {
+  const list = document.getElementById('ptList');
+  document.getElementById('ptCount').textContent = markers.length + '개';
+  document.getElementById('ptBtns').style.display = markers.length ? 'flex' : 'none';
+
+  if (!markers.length) {
+    list.innerHTML = '<div class="pt-empty">지도 좌측 상단 📍 마커 도구로 점을 찍으세요.</div>';
+    ptData = [];
+    return;
+  }
+
+  ptData = markers.map(m => {
+    const ll = m.getLatLng();
+    return { lat: ll.lat, lon: normLon(ll.lng) };
+  });
+
+  list.innerHTML = '';
+  ptData.forEach((p, i) => {
+    const txt = `${f(p.lat)}, ${f(p.lon)}`;
+    const row = document.createElement('div');
+    row.className = 'pt-row';
+    row.innerHTML =
+      `<div class="pt-idx">${i + 1}</div>` +
+      `<div class="pt-val">${txt}</div>` +
+      `<button class="pt-btn" title="이 좌표 복사">📋</button>`;
+    row.querySelector('.pt-btn').addEventListener('click', () => copy(txt));
+    // 마커에 마우스 올리면 하이라이트, 클릭 시 팝업
+    row.addEventListener('mouseenter', () => markers[i].openPopup());
+    list.appendChild(row);
+    markers[i].bindPopup(`포인트 ${i + 1}<br>위도 <b>${f(p.lat)}</b><br>경도 <b>${f(p.lon)}</b>`);
+  });
+}
+
+document.getElementById('prec').addEventListener('change', update);
+
+/* 포인트 복사/지우기 */
+document.getElementById('copyPts').addEventListener('click', () => {
+  if (!ptData.length) return;
+  const prec = parseInt(document.getElementById('prec').value, 10);
+  const f = v => v.toFixed(prec);
+  copy(ptData.map((p, i) => `${i + 1}: ${f(p.lat)}, ${f(p.lon)}`).join('\n'));
+});
+document.getElementById('clearPts').addEventListener('click', () => {
+  drawnItems.getLayers().forEach(l => { if (l instanceof L.Marker) drawnItems.removeLayer(l); });
+  update();
+});
+
+/* ── 복사 ── */
+function copy(text) {
+  navigator.clipboard.writeText(text).then(showToast, () => {
+    // clipboard API 실패 시 폴백
+    const ta = document.createElement('textarea');
+    ta.value = text; document.body.appendChild(ta); ta.select();
+    document.execCommand('copy'); ta.remove(); showToast();
+  });
+}
+let toastTimer;
+function showToast(msg = '복사됨!') {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 1400);
+}
+
+document.getElementById('copyBbox').addEventListener('click', () => {
+  if (lastBounds) copy(document.getElementById('bboxOut').textContent);
+});
+document.getElementById('copyCmd').addEventListener('click', () => {
+  if (lastBounds) copy(document.getElementById('cmdOut').textContent);
+});
+document.getElementById('clearBtn').addEventListener('click', () => {
+  drawnItems.clearLayers(); hasShape = false; update();
+});
+
+/* ── 위치 이동 ── */
+function gotoCoord() {
+  const raw = document.getElementById('goto').value.trim();
+  const m = raw.split(/[,\s]+/).map(Number).filter(v => !isNaN(v));
+  if (m.length >= 2) { map.setView([m[0], m[1]], Math.max(map.getZoom(), 12)); }
+  else showToast('형식: 위도, 경도');
+}
+document.getElementById('gotoBtn').addEventListener('click', gotoCoord);
+document.getElementById('goto').addEventListener('keydown', e => { if (e.key === 'Enter') gotoCoord(); });
+
+update();
+</script>

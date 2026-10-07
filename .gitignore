@@ -1,0 +1,51 @@
+# 자격증명 — 절대 커밋하지 않는다
+.env
+.netrc
+*credentials*
+*secret*
+
+# 데이터 (저장소에는 코드만 둔다)
+*.tif
+*.tiff
+*.nc
+*.h5
+*.hdf
+*.nitf
+*.SAFE/
+*.zip
+*.gz
+*.dim
+*.data/
+*.img
+*.hdr
+*.shp
+*.shx
+*.dbf
+*.prj
+*.cpg
+*.geojson
+data/
+outputs/
+results/
+
+# 산출 그림
+*.png
+*.jpg
+*.jpeg
+*.webp
+*.gif
+*.pdf
+
+# 파이썬
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.ipynb_checkpoints/
+.pytest_cache/
+
+# OS / 편집기
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
