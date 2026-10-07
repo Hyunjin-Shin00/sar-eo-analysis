@@ -1,9 +1,15 @@
-# eo-analysis
+# sar-eo-analysis
 
-위성영상 분석 코드 모음 — SAR · 광학 위성으로 재난, 환경, 산업활동을 정량화한 작업들의 최종본.
+**SAR 중심** 위성영상 분석 코드 모음 — 간섭측량(InSAR)으로 지반변위를 재고, 변화탐지로 재난 피해를
+가려내고, 지원 소프트웨어가 없는 위성을 쓰려고 센서모델을 직접 세운 작업들의 최종본.
+광학(Sentinel-2 · Landsat · 정지궤도)과 수동 마이크로파 작업도 함께 들어 있습니다.
 
-> Earth observation analysis code — SAR and optical processing for disaster response,
-> environmental monitoring and industrial activity. Final versions only.
+> SAR-first Earth observation code — InSAR ground deformation, SAR change detection,
+> and sensor models written from scratch for satellites no software supports.
+> Optical and passive-microwave work included. Final versions only.
+
+24개 프로젝트 중 **16개가 SAR**(InSAR · PS-InSAR · SBAS · Offset Tracking · ACD · 엄밀센서모델),
+5개가 광학, 3개가 복합·기타입니다.
 
 분석 결과와 프로젝트 설명은 **[hyunjin-shin00.github.io](https://hyunjin-shin00.github.io)** 에 정리되어 있습니다.
 이 저장소에는 코드만 둡니다.
@@ -50,8 +56,8 @@
 ## 시작하기
 
 ```bash
-git clone https://github.com/Hyunjin-Shin00/eo-analysis.git
-cd eo-analysis
+git clone https://github.com/Hyunjin-Shin00/sar-eo-analysis.git
+cd sar-eo-analysis
 
 python -m venv .venv && source .venv/bin/activate   # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
