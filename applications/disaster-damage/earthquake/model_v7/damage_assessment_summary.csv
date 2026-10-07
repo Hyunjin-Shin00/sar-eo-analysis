@@ -1,0 +1,4 @@
+category,hand_damaged,hand_intact,flagged,pct_of_total
+full_destruction,86,0,151,0.49
+partial_affected,0,8,2742,8.97
+minor_or_none,0,67,27665,90.53

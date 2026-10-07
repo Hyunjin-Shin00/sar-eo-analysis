@@ -1,0 +1,112 @@
+{
+  "version": 7,
+  "generated_at": "2026-07-01T01:23:36.295230Z",
+  "best_run": "v7c_hci_w5",
+  "description": "HCI w=5, LC w=1, hand-neg w=5",
+  "features": [
+    "v2_post_std_abs",
+    "v2_post_grad_abs",
+    "v2_d_grad_ratio",
+    "v2_post_contrast_abs",
+    "v2_d_BRIGHT_ratio",
+    "v2_d_homogeneity_diff"
+  ],
+  "scaler_mean": [
+    20.318858489416,
+    21.34911118429139,
+    1.0698092426405676,
+    3.5050570079347563,
+    1.262328970212507,
+    -0.00016835465194460527
+  ],
+  "scaler_scale": [
+    19.990654401548827,
+    23.368221597286144,
+    1.828349232906934,
+    1.7496756482431373,
+    0.39396147533563763,
+    0.0068080834069997745
+  ],
+  "lr_coef": [
+    0.9471519122135023,
+    -0.3151661552921206,
+    -0.11763386948378986,
+    -1.0016479051700526,
+    0.214562567418068,
+    -0.8308990435519581
+  ],
+  "lr_intercept": -0.9309332277951513,
+  "gbt_feature_importance": [
+    0.29238149782262324,
+    0.2227272688463967,
+    0.1407983857679627,
+    0.14699372711669373,
+    0.08945972390325843,
+    0.10763939654306513
+  ],
+  "decision_threshold_lr": 0.5428055765652479,
+  "decision_threshold_gb": 3.6191909096504415e-05,
+  "comparison": [
+    {
+      "run": "v7c_hci_w5",
+      "desc": "HCI w=5, LC w=1, hand-neg w=5",
+      "n_train": 15028,
+      "n_pos": 86,
+      "n_neg": 14942,
+      "cv_auc_lr": 0.8357,
+      "cv_auc_gb": 0.7633,
+      "cv_ap_lr": 0.8766,
+      "cv_ap_gb": 0.81
+    },
+    {
+      "run": "v7b_hci_w3",
+      "desc": "HCI w=3, LC w=1, hand-neg w=5",
+      "n_train": 15028,
+      "n_pos": 86,
+      "n_neg": 14942,
+      "cv_auc_lr": 0.8361,
+      "cv_auc_gb": 0.8071,
+      "cv_ap_lr": 0.8764,
+      "cv_ap_gb": 0.8255
+    },
+    {
+      "run": "v7a_hci_w2",
+      "desc": "HCI w=2, LC w=1, hand-neg w=5",
+      "n_train": 15028,
+      "n_pos": 86,
+      "n_neg": 14942,
+      "cv_auc_lr": 0.8361,
+      "cv_auc_gb": 0.7869,
+      "cv_ap_lr": 0.8758,
+      "cv_ap_gb": 0.8275
+    },
+    {
+      "run": "v7d_hci_only",
+      "desc": "HCI-only (LC dropped), hand-neg w=5",
+      "n_train": 6397,
+      "n_pos": 86,
+      "n_neg": 6311,
+      "cv_auc_lr": 0.8332,
+      "cv_auc_gb": 0.8208,
+      "cv_ap_lr": 0.8758,
+      "cv_ap_gb": 0.8223
+    },
+    {
+      "run": "v6f_repro",
+      "desc": "hand-neg w=5 + all MS==0 w=1 (v6f)",
+      "n_train": 15028,
+      "n_pos": 86,
+      "n_neg": 14942,
+      "cv_auc_lr": 0.8363,
+      "cv_auc_gb": 0.7765,
+      "cv_ap_lr": 0.8751,
+      "cv_ap_gb": 0.7943
+    }
+  ],
+  "hci_definition": "ms_damage_pct_0m == 0  AND  ms_num_observations >= 2  AND  ms_uncertainty == 0",
+  "notes": [
+    "HCI (High-Confidence Intact) pool of 6,246 MS==0 polygons with multi-observation and zero uncertainty is used as hard negatives.",
+    "Rationale: unfiltered MS==0 has ~23% label noise (hand-pos hidden in it); HCI filter drops noise to ~8%.",
+    "Best sample_weight tuning: see comparison table below."
+  ]
+}
