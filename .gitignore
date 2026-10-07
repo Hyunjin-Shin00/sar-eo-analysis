@@ -28,13 +28,15 @@ data/
 outputs/
 results/
 
-# 산출 그림
+# 산출 그림 — 단, figures/ 안의 참고용 webp 는 올린다
 *.png
 *.jpg
 *.jpeg
 *.webp
 *.gif
 *.pdf
+!**/figures/
+!**/figures/*.webp
 
 # 파이썬
 __pycache__/

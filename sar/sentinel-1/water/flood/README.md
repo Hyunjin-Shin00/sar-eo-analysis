@@ -9,6 +9,25 @@
 | [`notebooks/`](notebooks/) | 임계값 전략 비교·결과 검토용 노트북. |
 | [`satchat/`](satchat/) | 서비스 모듈판 — SNAP 비의존(전처리된 dB GeoTIFF 입력) + KuroSiwo 벤치마크 평가. |
 
+## 결과 예시
+
+이 폴더 코드로 만든 산출물입니다. 데이터는 저장소에 없고 그림만 참고용으로 둡니다.
+
+![전처리 → Edge-Otsu → 경사 마스크 → 전후 차분 → 면적 집계](figures/01-workflow.webp)
+*전처리 → Edge-Otsu → 경사 마스크 → 전후 차분 → 면적 집계*
+
+![Edge-Otsu — 경계 버퍼 표본이라 히스토그램이 이봉형이 된다](figures/02-edge-otsu-histogram.webp)
+*Edge-Otsu — 경계 버퍼 표본이라 히스토그램이 이봉형이 된다*
+
+![진주 홍수 — 침수(GAIN) · 퇴수(LOSS)](figures/03-jinju-change.webp)
+*진주 홍수 — 침수(GAIN) · 퇴수(LOSS)*
+
+![KuroSiwo 67타일 평가 — 사후 수체 F1 VV 0.905 / VH 0.926](figures/08-kurosiwo-f1.webp)
+*KuroSiwo 67타일 평가 — 사후 수체 F1 VV 0.905 / VH 0.926*
+
+![Copernicus EMS 공식 활성화 지도와 대조](figures/L2-ems-comparison.webp)
+*Copernicus EMS 공식 활성화 지도와 대조*
+
 ## 코드
 
 | 파일 | 역할 | 입력 | 출력 |

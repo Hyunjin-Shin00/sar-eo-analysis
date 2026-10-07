@@ -10,6 +10,16 @@
 | [`descending/`](descending/) | 하강궤도 PS 처리 체인. |
 | [`stamps_patches/`](stamps_patches/) | StaMPS 파이썬 포팅본에 적용한 패치 — 업스트림 원본은 포함하지 않는다. |
 
+## 결과 예시
+
+이 폴더 코드로 만든 산출물입니다. 데이터는 저장소에 없고 그림만 참고용으로 둡니다.
+
+![PS-InSAR LOS 속도 — 도심 영구산란체](figures/02-ps-velocity-seodaemun.webp)
+*PS-InSAR LOS 속도 — 도심 영구산란체*
+
+![싱크홀 지점 인근 SBAS 측정점](figures/03-sbas-gangdong-sinkhole.webp)
+*싱크홀 지점 인근 SBAS 측정점*
+
 ## 코드
 
 | 파일 | 역할 | 입력 | 출력 |
