@@ -9,16 +9,6 @@
 | [`mintpy/`](mintpy/) | MintPy 기반 SBAS 파이프라인 (대기보정 포함). |
 | [`wide-area/`](wide-area/) | 광역 처리를 위한 타일 분할·병합. 메모리 한계를 타일링으로 우회한다. |
 
-## 결과 예시
-
-이 폴더 코드로 만든 산출물입니다. 데이터는 저장소에 없고 그림만 참고용으로 둡니다.
-
-![부산 광역 SBAS 속도장](figures/04-busan-wide-sbas.webp)
-*부산 광역 SBAS 속도장*
-
-![SBAS 간섭쌍 베이스라인 네트워크](figures/01-baseline-network.webp)
-*SBAS 간섭쌍 베이스라인 네트워크*
-
 ## 코드
 
 | 파일 | 역할 | 입력 | 출력 |
