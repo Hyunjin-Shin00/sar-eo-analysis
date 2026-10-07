@@ -2,6 +2,15 @@
 
 **BlueBON — 자사 초소형 위성.** L0 원시 패킷부터 L1C 까지의 전처리 전 과정과, 그 위에 올린 응용. 센서를 직접 다루는 유일한 모듈이라 복사보정·기하보정·MTF 가 모두 들어 있다.
 
+## 먼저 볼 문서
+
+| 문서 | 내용 |
+|---|---|
+| [`SPEC.md`](SPEC.md) | **센서 사양** — 밴드 구성·SRF 가중 중심·TDI별 포화 DN·검출기·처리 레벨·정량 분석 시 주의 |
+| [`OVERVIEW.md`](OVERVIEW.md) | 전체 처리 흐름과 코드별 상세, **알려진 문제 12건** |
+| [`THIRD_PARTY.md`](THIRD_PARTY.md) | 포함하지 않은 제3자 라이브러리와 업스트림 |
+| [`../../docs/reports/bluebon-pointing-error.md`](../../docs/reports/bluebon-pointing-error.md) | 포인팅 오차 상관분석 보고서 |
+
 ## 하위
 
 | 디렉터리 | 내용 |

@@ -63,6 +63,7 @@ applications/               위성 산출물 → 판정·경보·보고
 common/                     다운로드 · 유틸 · 시각화
 environment/                conda 환경 정의
 docs/projects/              인수인계·방법론 문서
+docs/reports/               연구개발계획서·결과보고서 (원문 PDF 대신 내용을 md 로)
 ```
 
 각 프로젝트의 **배경 · 방법 · 결과 · 한계**는 홈페이지의 프로젝트별 설명에 있습니다.
@@ -84,6 +85,8 @@ docs/projects/              인수인계·방법론 문서
 | 지원 SW 없는 위성을 쓰고 싶다 | [`sar/nextsat-2/sensor-model/`](sar/nextsat-2/sensor-model/) — 거리-도플러부터 직접 |
 | 위성 영상을 처음부터 만들고 싶다 | [`eo/bluebon/l0-to-l1a/`](eo/bluebon/l0-to-l1a/) — 원시 패킷부터 반사도까지 |
 | 안 된 기록이 궁금하다 | [`docs/projects/`](docs/projects/) — 재현 실패 · 탈상관 대조실험 |
+| 연구개발 문서를 보고 싶다 | [`docs/reports/`](docs/reports/) — 계획서 · 결과보고서 |
+| 자사 위성 사양이 궁금하다 | [`eo/bluebon/SPEC.md`](eo/bluebon/SPEC.md) — 밴드 · TDI · 처리 레벨 |
 
 ### 기법 고르기
 
