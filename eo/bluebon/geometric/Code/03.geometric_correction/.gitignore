@@ -1,0 +1,45 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# macOS
+._*
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Logs
+*.log
+batch_logs/*.log
+pipeline_output.log
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Large model files
+*.ckpt
+*.zip
+geometric_correction/models/CheckPoints/
+geometric_correction/models/*.ckpt
+
+# Output directories (optional - uncomment if you don't want to track outputs)
+# output/
+# results/
+
+# Temporary files
+*.tmp
+*.bak
+*.cache

@@ -1,0 +1,2 @@
+./estimate-kernel 15 hollywood.jpg kernel.tif
+./deconv hollywood.jpg kernel.tif deblurred.png

@@ -1,0 +1,16 @@
+430845578   28648 -rwxrwxrwx   1 bkchoi   bkchoi     29335333  8월  3 18:55 ./250804_084708/radiometric_v5/bb_l1a_20250804_084708_8band_f32.tiff
+443236133   98708 -rwxrwxrwx   1 bkchoi   bkchoi    101069375  8월  3 00:59 ./260310_074249/radiometric_v5/bb_l1a_20260310_074249_8band_f32.tiff
+458949633   24524 -rwxrwxrwx   1 bkchoi   bkchoi     25110896  8월  2 21:03 ./260411_073449/radiometric_v5/bb_l1a_20260411_073449_8band_f32.tiff
+458953216   54392 -rwxrwxrwx   1 bkchoi   bkchoi     55692354  7월 31 15:19 ./260708_074748/radiometric_v5/bb_l1a_20260708_074748_8band_f32.tiff
+443285699   17188 -rwxrwxrwx   1 bkchoi   bkchoi     17599944  8월  2 21:55 ./260404_073529/radiometric_v5/bb_l1a_20260404_073529_8band_f32.tiff
+458949676   55352 -rwxrwxrwx   1 bkchoi   bkchoi     56679003  8월  2 20:14 ./260417_075642/radiometric_v5/bb_l1a_20260417_075642_8band_f32.tiff
+458953353  457960 -rwxrwxrwx   1 bkchoi   bkchoi    468945772  7월 31 14:16 ./260717_081149/radiometric_v5/bb_l1a_20260717_081149_8band_f32.tiff
+443236699    3620 -rwxrwxrwx   1 bkchoi   bkchoi      3703945  7월 31 18:49 ./260604_075905/radiometric_v5/bb_l1a_20260604_075905_8band_f32.tiff
+458951364  245956 -rwxrwxrwx   1 bkchoi   bkchoi    251858326  7월 31 17:42 ./260614_075959/radiometric_v5/bb_l1a_20260614_075959_8band_f32.tiff
+458953182  120360 -rwxrwxrwx   1 bkchoi   bkchoi    123245432  7월 31 15:28 ./260705_090836/radiometric_v5/bb_l1a_20260705_090836_8band_f32.tiff
+443232922  419624 -rwxrwxrwx   1 bkchoi   bkchoi    429690942  8월  2 23:46 ./260326_064528/radiometric_v5/bb_l1a_20260326_064528_8band_f32.tiff
+443236663  725364 -rwxrwxrwx   1 bkchoi   bkchoi    742768387  8월  2 15:22 ./260601_074645/radiometric_v5/bb_l1a_20260601_074645_8band_f32.tiff
+458953377  277688 -rwxrwxrwx   1 bkchoi   bkchoi    284350537  7월 31 14:03 ./260718_074421/radiometric_v5/bb_l1a_20260718_074421_8band_f32.tiff
+443236508  116864 -rwxrwxrwx   1 bkchoi   bkchoi    119666853  8월  2 17:55 ./260430_082350/radiometric_v5/bb_l1a_20260430_082350_8band_f32.tiff
+430845280    7800 -rwxrwxrwx   1 bkchoi   bkchoi      7984144  8월  3 20:11 ./250629_085709/radiometric_v5/bb_l1a_20250629_085709_8band_f32.tiff
+458950035    2320 -rwxrwxrwx   1 bkchoi   bkchoi      2373989  8월  2 19:56 ./260419_052931/radiometric_v5/bb_l1a_20260419_052931_8band_f32.tiff

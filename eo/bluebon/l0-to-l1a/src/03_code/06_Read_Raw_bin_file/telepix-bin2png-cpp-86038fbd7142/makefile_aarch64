@@ -1,0 +1,44 @@
+# Compiler settings
+CXX = $(CROSS_COMPILE)g++
+CXXFLAGS = -Wall
+LDFLAGS = -L. -L/opt/arm64-libs-new/lib -static -lssl -lcrypto -lpng -lz -ltiff
+
+# Include Directories
+INCLUDE_DIR = ./
+CXXFLAGS += -I$(INCLUDE_DIR) -I/opt/arm64-libs/include
+
+# Source files
+SOURCES = main.cpp 
+
+# Object files directory
+OBJDIR = obj
+
+# Object files
+OBJECTS = $(patsubst %.cpp,$(OBJDIR)/%.o,$(SOURCES))
+
+# Executable name
+EXECUTABLE = bin2png
+
+# Check if the DEBUG flag is set
+ifeq ($(DEBUG),1)
+    CXXFLAGS += -DDEBUG_OUTPUT
+endif
+
+# Default target
+all: $(EXECUTABLE)
+
+# Linking the executable
+$(EXECUTABLE): $(OBJECTS)
+	$(CXX) $(OBJECTS) -o $@ $(LDFLAGS)
+
+# Compiling source files
+$(OBJDIR)/%.o: %.cpp
+	@mkdir -p $(@D)
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+# Clean up
+clean:
+	rm -f $(OBJECTS) $(EXECUTABLE)
+
+# Phony targets
+.PHONY: all clean

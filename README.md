@@ -44,7 +44,13 @@ eo/                         광학·열적외
   sentinel-2/
     burn-severity/            dNBR 산불 피해등급
     thermal-anomaly/          TAI 제련소 가동 판정
-  cubesat/                  자사 위성 복사보정·포인팅 오차
+  bluebon/                  자사 초소형 위성 — 센서를 직접 다루는 유일한 모듈
+    l0-to-l1a/                원시 패킷 → DN → 복사휘도 → TOA 반사도 → RGB
+    radiometric/              복사보정 · 밴드 정합 · 정확도 검증
+    geometric/                기하보정 V3 — 특징점 정합, RPC, 웹 UI
+    deblur-mtf/               에지법 MTF 측정과 커널 디블러링
+    pointing/ · research/
+    downstream/               AOD · 연무제거 · 해색(적조) · 초해상화
 
 passive-microwave/          구름·극야 무관, 해상도 낮음
   sea-ice/                  SIC · SIT · 표류 (OSI-SAF · NSIDC · SMOS)
@@ -72,6 +78,7 @@ docs/projects/              인수인계·방법론 문서
 | 재난 피해를 가리고 싶다 | [`sar/sentinel-1/change-detection/coherence/`](sar/sentinel-1/change-detection/coherence/) |
 | 홍수 범위를 내고 싶다 | [`sar/sentinel-1/water/flood/`](sar/sentinel-1/water/flood/) — Edge-Otsu |
 | 지원 SW 없는 위성을 쓰고 싶다 | [`sar/nextsat-2/sensor-model/`](sar/nextsat-2/sensor-model/) — 거리-도플러부터 직접 |
+| 위성 영상을 처음부터 만들고 싶다 | [`eo/bluebon/l0-to-l1a/`](eo/bluebon/l0-to-l1a/) — 원시 패킷부터 반사도까지 |
 | 안 된 기록이 궁금하다 | [`docs/projects/`](docs/projects/) — 재현 실패 · 탈상관 대조실험 |
 
 ### 기법 고르기
@@ -134,6 +141,8 @@ EDL_USER = os.environ.get("EARTHDATA_USER", "")
   제가 적용한 패치만 있습니다. 원본은 [StaMPS](https://github.com/dbekaert/StaMPS) 에서 받으세요.
 - **ISCE2**, **MintPy**, **PyGMTSAR**, **SNAP** 은 별도 설치가 필요합니다.
 - `sar/nextsat-2/isce2-spoofing/` 은 ISCE2 설치본을 **고치지 않고** 런타임에 패치합니다.
+- BlueBON 쪽에서 제외한 제3자 라이브러리(RoMa · LightGlue · rpcfit · ResShift · Swin2-MoSE ·
+  deblur-l0 · spdlog)는 [`eo/bluebon/THIRD_PARTY.md`](eo/bluebon/THIRD_PARTY.md) 에 정리했습니다.
 
 ## 라이선스
 

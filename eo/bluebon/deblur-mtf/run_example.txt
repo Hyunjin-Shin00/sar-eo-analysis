@@ -1,0 +1,15 @@
+[README.txt 예시]
+./estimate-kernel 15 hollywood.jpg kernel.tif
+./deconv hollywood.jpg kernel.tif deblurred.png
+
+--
+
+[BlueBON 파라미터 설정]
+./estimate-kernel 15 MS1.tiff kernel_MS1_k15_iter5.tiff --iterations 5
+
+15: 커널 사이즈(픽셀)
+--iterations 5: 선명한 이미지와 커널을 번갈아가며 추정하는 교대 최적화 방식 횟수 결정. 기본적으로 5회 반복하나, 산출된 커널 형태를 보고 안정화될 때까지 횟수를 늘릴 수 있음.
+
+./deconv MS1.tiff kernel_MS1_k15_iter5.tiff MS1_deblurred_k15_iter5_a1000.tiff --alpha=1000
+
+--alpha=1000: alpha=3000이 디폴트 값. alpha 값이 커질수록 엣지를 더 강하게 살리도록 복원함. BlueBON의 경우 디폴트 값을 쓰면 줄무늬 노이즈가 강하게 살아나서, 1000을 기본으로 함.

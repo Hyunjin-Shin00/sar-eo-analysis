@@ -1,0 +1,19 @@
+version: "3.8"
+
+services:
+  geocorrect:
+    image: blubon-geocorrect:latest
+    build:
+      context: ..          # 프로젝트 루트
+      dockerfile: docker/Dockerfile
+    runtime: nvidia        # nvidia-container-toolkit 필요
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility
+    volumes:
+      # 데이터 디렉토리 마운트 (호스트 경로 → 컨테이너 경로)
+      - /path/to/your/data:/data
+      # Google Earth Engine 인증키
+      - /path/to/ee-key.json:/app/Code/auth/ee-service-account-key.json:ro
+    # 실행 예시 (docker-compose run geocorrect --input ... 로 오버라이드 가능)
+    command: ["--help"]

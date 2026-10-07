@@ -1,0 +1,402 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+BlueBON 관측영상 전처리 파이프라인 — 최종 v5 (dark/PRNU 보정 + 밴드 정합).
+
+  입력 : <INPUT_DIR> 하위 8밴드 raw TIFF  (YYMMDD_HHMMSS_{0..7}_gray.tiff)
+  처리 : ① 전 밴드(PAN 포함) 복사보정 = (raw - dark_ref[col]) * flat_prnu[col] - δ_persistent[col]
+              · dark_ref      : 야간 원양 dark 평균 (가산)
+              · flat_prnu     : Libya-4 full-width flat (곱셈, PRNU+vignetting), 기본 --prnu-mode flat
+              · δ_persistent  : 다중 장면 평균 고주파 열 잔차 (가산, 미세 세로줄무늬 제거), 기본 on
+         ② 밴드 정합 = RGBN(Blue/Green/Red/NIR) 중심 anchor 자동선택
+                     + jitter+회전(collin) 보정 (regjit_rgbn_rot 방식)
+         ③ 공통 crop -> 좌우 flip
+  출력 : <INPUT_DIR>/radiometric_v5/   (--out-name 으로 변경 가능)  ★기본 = TOA radiance★
+         - MS{0..7}_DN_dark_rc_p.tiff              (개별밴드 12bit, TOA radiance)
+         - bb_l1a_20<stem>_8band.tiff              (병합 8밴드 12bit, TOA radiance)
+         - bb_l1a_20<stem>_8band_f32.tiff          (병합 8밴드 float32, TOA radiance W/m²/sr/nm)
+         - [옵션] bb_l1a-ref_20<stem>_8band_f32.tiff (병합 8밴드 float32, TOA reflectance; --sza)
+         - registration_shifts.csv, bb_l1a-rgb_20<stem>.png (원해상도 RGB)
+   radiance = 보정DN·gain_band(FM1)/band_width. gain은 TDI/line-rate 종속(--tdi/--lp)
+
+사용법:
+  python3 pipeline.py <INPUT_DIR>
+  옵션: --prnu-mode flat|residual · --no-delta · --out-name <dir>
+        --to-reflectance --sza <deg> (TOA reflectance 추가) · --tdi 2,4,8,8,16,16,16,4 · --lp 666
+
+정합 규약: phase_cross_correlation(ref, mov) -> shift(mov, s) 하면 ref 에 정렬.
+참조 데이터: REF_DIR 의 {PAN,MS1..7}_dark_ref.tiff / _prnu_flat_coef.dat / _delta_persistent.dat
+자세한 내용: PIPELINE.md
+"""
+import os
+import sys
+import glob
+import math
+import argparse
+import numpy as np
+import tifffile
+from skimage.registration import phase_cross_correlation
+from scipy.ndimage import shift as nd_shift
+from scipy.ndimage import gaussian_filter, gaussian_filter1d, map_coordinates, median_filter
+
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "radcal"))
+
+REF_DIR = "/mnt/e/bkchoi/working/radiometric_correction/ref/master"   # dark/PRNU 참조
+
+# 절대복사(radiance) 변환 기본 설정 — La Crau 촬영(사용자 확인): band0..7 TDI, line rate 667(≈666)
+RAD_TDI_DEFAULT = "2,4,8,8,16,16,16,4"
+RAD_LP_DEFAULT = 666
+SRF_PATH = "/mnt/e/bkchoi/working/radiometric_correction/ref/SpectralResponseFunction.xlsx"
+
+CAP_ORDER = [1, 2, 3, 0, 7, 4, 5, 6]                         # 촬영 순서
+BAND_NAME = {0: "PAN", 1: "Blue", 2: "Green", 3: "Red", 4: "RE1", 5: "RE2", 6: "RE3", 7: "NIR"}
+MS_BANDS  = [1, 2, 3, 4, 5, 6, 7]
+RGBN      = [1, 2, 3, 7]                                     # anchor/jitter 기준 focus
+UPSAMPLE  = 10
+SHIFT_ORDER = 1
+# jitter(collin) 파라미터
+JIT_WIN, JIT_STEP, JIT_SMTH, NX_BLK = 1200, 400, 500.0, 7
+MAX_CHAIN_SHIFT = 64.0   # 인접밴드 shift 허용 한계(px). 초과 = 정합 실패(포화/무텍스처 밴드)
+
+
+# --------------------------------------------------------------------------
+def prep_hp(im, sigma=3.0):
+    x = im.astype(np.float64)
+    return x - gaussian_filter(x, sigma=sigma)
+
+
+def pcc(ref, mov):
+    s, _, _ = phase_cross_correlation(prep_hp(ref), prep_hp(mov), upsample_factor=UPSAMPLE)
+    return np.array(s, dtype=np.float64)
+
+
+def ref_name(n):
+    return "PAN" if n == 0 else f"MS{n}"
+
+
+def chain_shifts(img, skip=(), order=CAP_ORDER, max_shift=MAX_CHAIN_SHIFT):
+    """촬영순 인접쌍 PCC 를 누적해 밴드별 절대 shift 산출.
+
+    skip(전면포화 등 정합 불가 밴드)은 PCC 를 아예 돌리지 않고 직전 신뢰 밴드의
+    shift 를 물려준 뒤(값은 main 에서 0 으로 덮음), 다음 밴드는 그 신뢰 밴드와
+    직접 정합(bridge)해 체인을 잇는다. skip 이 아닌데도 |shift| > max_shift 인
+    쌍은 정합 실패로 보고 같은 방식으로 우회한다 — 안 그러면 그 오차가 뒤 밴드
+    전체로 누적된다."""
+    S = {order[0]: np.zeros(2)}
+    ref = order[0]                                           # 마지막으로 신뢰된 밴드
+    for b in order[1:]:
+        if b in skip:
+            print("   %s: 정합 제외(포화) -> shift 미적용, 공통 crop 만" % BAND_NAME[b], flush=True)
+            S[b] = S[ref].copy()
+            continue
+        s = pcc(img[ref], img[b])
+        if np.max(np.abs(s)) > max_shift:
+            print("   [WARN] %s->%s shift=(%.1f,%.1f) 한계(%.0fpx) 초과 -> %s 정합 실패로 "
+                  "판단, %s shift 재사용 후 bridge" % (BAND_NAME[ref], BAND_NAME[b],
+                  s[0], s[1], max_shift, BAND_NAME[b], BAND_NAME[ref]), flush=True)
+            S[b] = S[ref].copy()
+            continue
+        S[b] = S[ref] + s
+        ref = b
+    return S
+
+
+def load_corrected(obs_dir, stem, n, prnu_mode="flat", use_delta=True):
+    """반환: (보정영상, raw 전면포화 여부).  전면포화 밴드는 텍스처가 없어 정합 불가."""
+    raw = tifffile.imread(os.path.join(obs_dir, f"{stem}_{n}_gray.tiff")).astype(np.float32)
+    rn = ref_name(n)                                        # PAN 포함 전 밴드 dark/PRNU 보정
+    dark = tifffile.imread(os.path.join(REF_DIR, f"{rn}_dark_ref.tiff")).astype(np.float32).ravel()
+    coef = f"{rn}_prnu_flat_coef.dat" if prnu_mode == "flat" else f"{rn}_residul_prnu_coef.dat"
+    prnu = np.loadtxt(os.path.join(REF_DIR, coef)).astype(np.float32)
+    flat = bool(raw.min() == raw.max())
+    if flat:
+        print("   [WARN] %s(%s): raw 전 픽셀이 %d (전면포화 또는 무신호) — 정합 제외, 산출물 신뢰불가"
+              % (rn, BAND_NAME[n], int(raw.min())), flush=True)
+    out = (raw - dark[None, :]) * prnu[None, :]            # dark + PRNU
+    if use_delta:                                          # 지속 가산 잔차(δ) 제거 = dark 보강
+        dpath = os.path.join(REF_DIR, f"{rn}_delta_persistent.dat")
+        if os.path.exists(dpath):
+            out = out - np.loadtxt(dpath).astype(np.float32)[None, :]
+    return out, flat
+
+
+def _smooth_rows(rc, val, H):
+    val = median_filter(np.asarray(val, float), size=3)
+    c = np.interp(np.arange(H), rc, val, left=val[0], right=val[-1])
+    return gaussian_filter1d(c, JIT_SMTH)
+
+
+def residual_field(anchor_img, band_img, H, W):
+    """collin: across-track 블록별 잔차 -> 컬럼 선형회귀(회전/keystone) -> row 스무딩.
+       반환 ay,ax,by,bx :  dy(r,c)=ay(r)+by(r)*(c-c0),  dx(r,c)=ax(r)+bx(r)*(c-c0)."""
+    c0 = W / 2.0
+    ahp, bhp = prep_hp(anchor_img), prep_hp(band_img)
+    gstd = ahp.std()
+    xs = np.linspace(0, W, NX_BLK + 1).astype(int)
+    xcen = np.array([(xs[j] + xs[j + 1]) / 2 for j in range(NX_BLK)])
+    rc, AY, AX, BY, BX = [], [], [], [], []
+    r = 0
+    while r + JIT_WIN <= H:
+        cc, dyb, dxb = [], [], []
+        for j in range(NX_BLK):
+            at = ahp[r:r + JIT_WIN, xs[j]:xs[j + 1]]
+            bt = bhp[r:r + JIT_WIN, xs[j]:xs[j + 1]]
+            if at.std() < gstd * 0.4:
+                continue
+            s, _, _ = phase_cross_correlation(at, bt, upsample_factor=UPSAMPLE)
+            if np.max(np.abs(s)) <= 8.0:
+                cc.append(xcen[j] - c0); dyb.append(s[0]); dxb.append(s[1])
+        if len(cc) >= 3:
+            cc = np.array(cc)
+            py = np.polyfit(cc, dyb, 1); px = np.polyfit(cc, dxb, 1)
+            rc.append(r + JIT_WIN / 2)
+            AY.append(py[1]); BY.append(py[0]); AX.append(px[1]); BX.append(px[0])
+        r += JIT_STEP
+    rc = np.array(rc)
+    if len(rc) < 3:
+        z = np.zeros(H); return z, z, z.copy(), z.copy()
+    return (_smooth_rows(rc, AY, H), _smooth_rows(rc, AX, H),
+            _smooth_rows(rc, BY, H), _smooth_rows(rc, BX, H))
+
+
+def field_warp(img, add_dy, add_dx, ay, ax, by, bx):
+    H, W = img.shape
+    c0 = W / 2.0
+    cols = np.arange(W, dtype=np.float32)[None, :]
+    rows = np.arange(H, dtype=np.float32)[:, None]
+    dc = cols - c0
+    tot_dy = (add_dy + ay[:, None]) + by[:, None] * dc
+    tot_dx = (add_dx + ax[:, None]) + bx[:, None] * dc
+    r_coord = rows - tot_dy.astype(np.float32)
+    c_coord = cols - tot_dx.astype(np.float32)
+    return map_coordinates(img, [r_coord, c_coord], order=1, mode="constant", cval=np.nan)
+
+
+def to_u16(x):
+    """DN 보존 uint16 변환: NaN->0, 반올림, clip[0,65535] (스케일/정규화 없음)."""
+    return np.clip(np.rint(np.nan_to_num(x, nan=0.0)), 0, 65535).astype(np.uint16)
+
+
+def valid_bounds(shifts, H, W):
+    top, bot, left, right = 0, H - 1, 0, W - 1
+    for (sy, sx) in shifts:
+        top = max(top, max(0, math.ceil(sy)));  bot = min(bot, (H - 1) + min(0, math.floor(sy)))
+        left = max(left, max(0, math.ceil(sx))); right = min(right, (W - 1) + min(0, math.floor(sx)))
+    return top, bot, left, right
+
+
+def detect_stem(obs_dir):
+    hits = sorted(glob.glob(os.path.join(obs_dir, "*_0_gray.tiff")))
+    if not hits:
+        sys.exit(f"[ERROR] '{obs_dir}' 하위에 *_0_gray.tiff 없음")
+    base = os.path.basename(hits[0])
+    return base[:-len("_0_gray.tiff")]
+
+
+# --------------------------------------------------------------------------
+def _norm12(x):
+    """밴드별 min-max 정규화 → 0..4095 uint16 (01_DN_to_L.py 12bit 방식)."""
+    v = np.nan_to_num(x.astype(np.float64), nan=0.0)
+    lo, hi = float(v.min()), float(v.max())
+    return np.clip((v - lo) / max(hi - lo, 1e-9) * 4095.0, 0, 4095).astype(np.uint16)
+
+
+def _rio_write(path, prof, bands, retries=5):
+    """rasterio 쓰기 (Windows/drvfs 일시적 파일잠금 대비 재시도). bands=[(idx,arr,desc),...]."""
+    import time
+    import rasterio
+    for k in range(retries):
+        try:
+            if os.path.exists(path):
+                try:
+                    os.remove(path)
+                except OSError:
+                    pass
+            with rasterio.open(path, "w", **prof) as d:
+                for idx, arr, desc in bands:
+                    d.write(arr, idx)
+                    if desc is not None:
+                        d.set_band_description(idx, desc)
+            return
+        except Exception as e:
+            if k == retries - 1:
+                raise
+            print("   [retry %d] 쓰기 실패(%s), 1.5s 후 재시도: %s" % (k + 1, type(e).__name__, path), flush=True)
+            time.sleep(1.5)
+
+
+def save_products(out_dir, stem, reg, tdi_list, lp, to_reflectance=False, sza=None):
+    """기본 산출 = TOA radiance.  (보정 DN(reg) → 분광복사휘도 L = DN·gain_band/band_width)
+       - 밴드별 12bit  : MS{0..7}_DN_dark_rc_p.tiff          (TOA radiance 12bit)
+       - 8밴드 12bit   : bb_l1a_20{stem}_8band.tiff           (TOA radiance 12bit)
+       - 8밴드 float32 : bb_l1a_20{stem}_8band_f32.tiff       (TOA radiance, W/m²/sr/nm)
+       옵션 to_reflectance:
+       - 8밴드 float32 : bb_l1a-ref_20{stem}_8band_f32.tiff   (TOA reflectance; --sza 필요)"""
+    import datetime
+    from rasterio.transform import Affine
+    from dn_to_radiance import (compute_fm1_band_gains, compute_band_F0,
+                                BAND_WIDTH, spectral_radiance_to_toar)
+    from band_integrate import load_srf
+
+    tdi = {b: int(tdi_list[b]) for b in range(8)}
+    gains, _ = compute_fm1_band_gains(tdi=tdi, lp=lp)
+    H, W = reg[0].shape
+    pf = dict(driver="GTiff", width=W, height=H, count=8, dtype="float32",
+              transform=Affine(1, 0, 0, 0, -1, 0), crs=None,
+              compress="deflate", predictor=3, interleave="band")
+    pu = dict(pf); pu.update(dtype="uint16", predictor=2)
+    p1 = dict(pu); p1.update(count=1)
+
+    L = {b: (np.nan_to_num(reg[b], nan=0.0) * gains[b] / BAND_WIDTH[b]).astype(np.float32)
+         for b in range(8)}
+
+    # 밴드별 12bit (TOA radiance) : MS{n}_DN_dark_rc_p.tiff
+    for b in range(8):
+        _rio_write(os.path.join(out_dir, f"MS{b}_DN_dark_rc_p.tiff"), p1,
+                   [(1, _norm12(L[b]), None)])
+    # 8밴드 12bit (TOA radiance)
+    _rio_write(os.path.join(out_dir, f"bb_l1a_20{stem}_8band.tiff"), pu,
+               [(b + 1, _norm12(L[b]), BAND_NAME[b]) for b in range(8)])
+    # 8밴드 float32 (TOA radiance)
+    _rio_write(os.path.join(out_dir, f"bb_l1a_20{stem}_8band_f32.tiff"), pf,
+               [(b + 1, L[b], BAND_NAME[b]) for b in range(8)])
+    print("   TOA radiance: 8밴드 12bit + f32 + 밴드별 12bit (TDI=%s lp=%d)" % (tdi_list, lp), flush=True)
+
+    if to_reflectance:
+        assert sza is not None, "--to-reflectance 시 --sza(태양천정각, deg) 필요"
+        doy = datetime.datetime.strptime(stem[:6], "%y%m%d").timetuple().tm_yday
+        F0 = compute_band_F0(load_srf(SRF_PATH))
+        out = os.path.join(out_dir, f"bb_l1a-ref_20{stem}_8band_f32.tiff")
+        bands = [(b + 1,
+                  spectral_radiance_to_toar(L[b].astype(np.float64), F0[b], sza, doy).astype(np.float32),
+                  BAND_NAME[b]) for b in range(8)]
+        _rio_write(out, pf, bands)
+        print("   TOA reflectance -> %s  (SZA=%.2f° DOY=%d)" % (out, sza, doy), flush=True)
+
+
+def main(obs_dir, prnu_mode="flat", out_name="radiometric_v5", use_delta=True,
+         tdi_list=None, lp=RAD_LP_DEFAULT, to_reflectance=False, sza=None):
+    stem = detect_stem(obs_dir)
+    out_dir = os.path.join(obs_dir, out_name)
+    os.makedirs(out_dir, exist_ok=True)
+    print(f"=== pipeline: {obs_dir}\n    stem={stem}  out={out_dir}  prnu={prnu_mode} delta={use_delta} ===", flush=True)
+
+    # ① 로드 + dark/PRNU (+ δ persistent 가산 잔차 제거)
+    print("① dark/PRNU correction (prnu=%s, delta=%s) ..." % (prnu_mode, use_delta), flush=True)
+    loaded = {n: load_corrected(obs_dir, stem, n, prnu_mode, use_delta) for n in CAP_ORDER}
+    img = {n: a for n, (a, _) in loaded.items()}
+    flat = {n for n, (_, f) in loaded.items() if f}           # 전면포화 = 정합 불가 밴드
+    H, W = img[CAP_ORDER[0]].shape
+    if flat.intersection(RGBN):
+        sys.exit("[ERROR] anchor 후보(RGBN) 중 전면포화 밴드 존재: %s — 정합 불가"
+                 % [BAND_NAME[b] for b in sorted(flat.intersection(RGBN))])
+
+    # ②-a 인접쌍 shift 체인 -> RGBN 중 최적 anchor
+    print("② registration: chain shifts + RGBN anchor ...", flush=True)
+    S = chain_shifts(img, skip=flat)
+    anchor = min(RGBN, key=lambda anc: max(np.hypot(*(S[b] - S[anc])) for b in RGBN))
+    apply_shift = {b: (S[b] - S[anchor]) for b in CAP_ORDER}
+    for b in flat:                                            # 포화 밴드: 워프 없이 공통 crop 만
+        apply_shift[b] = np.zeros(2)
+    print("   anchor = %s" % BAND_NAME[anchor], flush=True)
+
+    # ②-b 평행이동(base) — 잔차필드 추정용
+    top, bot, left, right = valid_bounds([apply_shift[b] for b in CAP_ORDER], H, W)
+    regT = {}
+    for b in CAP_ORDER:
+        sy, sx = apply_shift[b]
+        sh = img[b] if (abs(sy) < 1e-6 and abs(sx) < 1e-6) else \
+             nd_shift(img[b], shift=(sy, sx), order=SHIFT_ORDER, mode="constant", cval=0.0, prefilter=False)
+        regT[b] = sh[top:bot + 1, left:right + 1]
+
+    # ②-c jitter+회전(collin) 필드 추정
+    print("   jitter+rotation field (collin) ...", flush=True)
+    Hc, Wc = regT[anchor].shape
+    def to_full(c):
+        f = np.zeros(H)
+        if len(c) == 0: return f
+        f[top:top + len(c)] = c; f[:top] = c[0]; f[top + len(c):] = c[-1]
+        return f
+    fields = {}
+    for b in CAP_ORDER:
+        if b == anchor or b in flat:                           # 포화 밴드는 잔차필드 추정 자체가 무의미
+            z = np.zeros(H); fields[b] = (z, z, z.copy(), z.copy()); continue
+        ay, ax, by, bx = residual_field(regT[anchor], regT[b], Hc, Wc)
+        fields[b] = (to_full(ay), to_full(ax), to_full(by), to_full(bx))
+
+    # ②-d 단일 remap warp + 공통 crop
+    halfW = W / 2.0
+    def bmax(b):
+        ay, ax, by, bx = fields[b]
+        return (np.max(np.abs(apply_shift[b][0] + ay) + np.abs(by) * halfW),
+                np.max(np.abs(apply_shift[b][1] + ax) + np.abs(bx) * halfW))
+    mY = int(math.ceil(max(bmax(b)[0] for b in CAP_ORDER))) + 1
+    mX = int(math.ceil(max(bmax(b)[1] for b in CAP_ORDER))) + 1
+    if H - 2 * mY <= 0 or W - 2 * mX <= 0:                   # crop 이 빈 배열이 되는 경우
+        sys.exit("[ERROR] crop margin 과대 (mY=%d mX=%d / H=%d W=%d) — 밴드 정합 실패.\n"
+                 "        밴드별 shift: %s" % (mY, mX, H, W,
+                 {BAND_NAME[b]: np.round(apply_shift[b], 2).tolist() for b in CAP_ORDER}))
+    reg = {}
+    for b in CAP_ORDER:
+        ay, ax, by, bx = fields[b]
+        w = img[b] if (b == anchor or b in flat) else \
+            field_warp(img[b], apply_shift[b][0], apply_shift[b][1], ay, ax, by, bx)
+        reg[b] = np.fliplr(w[mY:H - mY, mX:W - mX])          # ③ crop + 좌우 flip
+
+    # 저장: 기본 = TOA radiance (12bit 밴드별 + 8밴드 12bit/f32), 옵션 = TOA reflectance
+    print("saving (default=TOA radiance) ...", flush=True)
+    tdis = tdi_list or [int(x) for x in RAD_TDI_DEFAULT.split(",")]
+    save_products(out_dir, stem, reg, tdis, lp, to_reflectance=to_reflectance, sza=sza)
+
+    write_csv(out_dir, anchor, apply_shift, (mY, mX), (8, reg[0].shape[0], reg[0].shape[1]), flat)
+    save_rgb_png(out_dir, stem, reg)
+    print("DONE. band order 0..7 = PAN,Blue,Green,Red,RE1,RE2,RE3,NIR ->", out_dir)
+
+
+def write_csv(out_dir, anchor, apply_shift, margin, shape, flat=()):
+    with open(os.path.join(out_dir, "registration_shifts.csv"), "w") as f:
+        f.write("# anchor=%s (RGBN 중심) ; jitter=collin(회전+keystone)\n" % BAND_NAME[anchor])
+        f.write("# output shape (band,H,W)=%s ; crop margin rows+-%d cols+-%d\n" % (shape, margin[0], margin[1]))
+        if flat:
+            f.write("# 전면포화로 정합 제외(shift 미적용, crop 만): %s\n"
+                    % ",".join(BAND_NAME[b] for b in sorted(flat)))
+        f.write("band,name,shift_dy,shift_dx\n")
+        for b in CAP_ORDER:
+            f.write("%d,%s,%.4f,%.4f\n" % (b, BAND_NAME[b], apply_shift[b][0], apply_shift[b][1]))
+
+
+def save_rgb_png(out_dir, stem, reg, pct=(0.01, 99.999), gamma=2.2):
+    """원해상도 RGB 합성 PNG 저장 (이미지만; 축/타이틀/여백 없음).
+       R=MS3, G=MS2, B=MS1. 채널별 percentile 스트레치 + mild gamma -> uint8."""
+    from PIL import Image
+    Image.MAX_IMAGE_PIXELS = None                            # 대형 이미지 허용
+    h = min(reg[3].shape[0], reg[2].shape[0], reg[1].shape[0])
+    w = min(reg[3].shape[1], reg[2].shape[1], reg[1].shape[1])
+    chans = [reg[3][:h, :w], reg[2][:h, :w], reg[1][:h, :w]]  # R,G,B
+    out = np.zeros((h, w, 3), dtype=np.uint8)
+    for c, ch in enumerate(chans):
+        ch = np.nan_to_num(ch.astype(np.float32))
+        lo, hi = np.nanpercentile(ch, pct)
+        v = np.clip((ch - lo) / max(hi - lo, 1e-6), 0, 1) ** (1.0 / gamma)
+        out[..., c] = np.rint(v * 255).astype(np.uint8)
+    Image.fromarray(out).save(os.path.join(out_dir, f"bb_l1a-rgb_20{stem}.png"))
+
+
+if __name__ == "__main__":
+    ap = argparse.ArgumentParser()
+    ap.add_argument("input_dir",
+                    help="8밴드 raw TIFF 가 있는 관측 디렉터리")
+    ap.add_argument("--prnu-mode", default="flat", choices=["residual", "flat"],
+                    help="flat(기본)=full-width(넓은 vignetting 포함), residual=고주파 검출기 FPN만")
+    ap.add_argument("--out-name", default="radiometric_v5", help="출력 하위폴더명")
+    ap.add_argument("--no-delta", action="store_true", help="지속 가산 잔차(δ) 제거 끄기")
+    ap.add_argument("--to-reflectance", action="store_true",
+                    help="TOA reflectance(bb_l1a-ref_..._8band_f32.tiff) 추가 산출 (--sza 필요)")
+    ap.add_argument("--sza", type=float, default=None, help="태양천정각(deg) — --to-reflectance 시 필요")
+    ap.add_argument("--tdi", default=RAD_TDI_DEFAULT,
+                    help="radiance용 band0..7 TDI 콤마구분 (기본 %s)" % RAD_TDI_DEFAULT)
+    ap.add_argument("--lp", type=int, default=RAD_LP_DEFAULT, help="radiance용 line rate (기본 %d)" % RAD_LP_DEFAULT)
+    args = ap.parse_args()
+    tdi_list = [int(x) for x in args.tdi.split(",")]
+    main(args.input_dir, args.prnu_mode, args.out_name, use_delta=not args.no_delta,
+         tdi_list=tdi_list, lp=args.lp, to_reflectance=args.to_reflectance, sza=args.sza)

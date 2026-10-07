@@ -1,0 +1,25 @@
+name: dehaze_gui
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - numpy
+  - scipy
+  - scikit-image
+  - pillow
+  - netcdf4
+  - gdal
+  - pyqt
+  - psutil
+  - pyinstaller
+  # GPU 가속 (선택). NVIDIA GPU + CUDA 드라이버가 있는 경우에만 설치.
+  # 없으면 자동으로 CPU 폴백되므로 이 줄을 제거해도 동작.
+  #
+  # CuPy/CUDA 버전 핀 사유:
+  #  - 타깃 GPU: Quadro M6000 (Maxwell, compute capability 5.2)
+  #  - CuPy 14.x 는 번들 CCCL 헤더가 __nv_fp8_e8m0 (CUDA 12.8+) 를 참조
+  #    하지만 conda-forge 의 cuda_fp8.h 가 12.6 세대라 NVRTC JIT 컴파일이
+  #    "incomplete type" 으로 실패한다. 13.x 는 해당 코드 경로가 없음.
+  #  - CUDA 12.* 는 Maxwell 을 PTX JIT 으로 계속 지원. 13.0+ 는 Maxwell 미지원.
+  - cupy=13.*
+  - cuda-version=12.*

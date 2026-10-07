@@ -1,0 +1,24 @@
+# 대용량 영상/참조 데이터 (git 부적합 — 별도 스토리지/LFS 사용)
+data/
+ref/
+
+# 압축/아카이브
+*.tar.xz
+*.tar.gz
+*.zip
+*.bin
+*.bin[0-9a-f]*
+
+# 대용량 래스터 (혹시 코드 경로에 생기면 제외)
+*.tiff
+*.tif
+
+# 파이썬 캐시
+__pycache__/
+*.pyc
+*.pyo
+
+# 스크래치/임시
+scratchpad/
+*.tmp
+.DS_Store

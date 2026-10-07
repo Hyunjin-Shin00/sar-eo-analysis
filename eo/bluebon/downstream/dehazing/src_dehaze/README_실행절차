@@ -1,0 +1,7 @@
+1. basematch_NEW.py를 열어서 입력 파일(fin='exdata_msi_dir/MSI_10m_rhorc.tif') 설정
+2. python basematch_NEW.py 실행
+=> input directory에 중간 파일, 결과 파일 생성됨
+4. png 이미지로 비교 (예. MSI_res10m_rhorc_RGB210.png (처리전) vs MSI_res10m_dehSpec_RGB210.png(처리후))
+5. nc 파일로 비교 (예. MSI_res10m_rhorc.tif (처리전) vs MSI_res10m_dehSpec.tif(처리후))
+* fin이 nc이면 결과 파일도 nc임
+* drive(exdata_msi, exdata_skysat)에 있는 tif 파일이 최신 버전임

@@ -1,0 +1,88 @@
+제목: Bluebon 적조 탐지용 input(rhorc, mask) 및 line-height(적조 세기) 계산식
+(Sentinel-2 부분은 아래쪽에 있음)
+
+1. input 
+[reflectance data(rhorc) tif]
+250903_023532_stacked_warped_rhorc_bandidx_nn.tif
+nn: 01 ~ 06 (6 bands)
+waves =[483.2, 562.4, 664.6, 704.8, 739.2, 781.9, 836.6]
+
+[육지/구름 마스크, mask tif]
+250903_023532_stacked_warped_mask.tif
+
+2. 적조 세기 계산: python function, rededge_chl_index 사용
+** input tif에서와 다르게 밴드 index는 0부터 시작
+
+def base_subtraction(rhorc, waves,base_bds, o_bd, relband=None):
+    # #bb = (0)483.2, (1)562.4, (2)664.6, (3)704.8, (4)739.2, (5)781.9, (6)836.6]
+    bd1,bd2=base_bds
+    wave1=waves[bd1]
+    wave2=waves[bd2]
+    owave=waves[o_bd]
+
+    baseline=(rhorc[:,:,bd1]-rhorc[:,:,bd2])/(wave1-wave2)*(owave-wave2)+rhorc[:,:,bd2]
+    ret = rhorc[:,:,o_bd] - baseline
+    if relband:
+        ret = ret/rhorc[:,:,relband]
+    return ret
+
+def rededge_chl_index(rhorc, waves):
+    base_bds=[2,4]
+    o_bd1=3;  
+    return base_subtraction(rhorc, waves,base_bds, o_bd1)
+
+3. 결과
+	250903_023532_stacked_warped_hRE.tif
+
+4. 참고용 png
+250903_023532_stacked_warped_rhorc_RGB210.png
+250903_023532_stacked_warped_hRE.png
+
+
+
+(===추가===) Sentinel-2/MSI 적조 탐지용 input(rhorc, mask) 및 line-height(적조 세기) 계산식
+
+1. input: 250821_Namhae_msi_T52SCD
+[reflectance data(rhorc) tif]
+MSI_res20m_bandidx_nn.tif
+nn: 01 ~ 10 bands)
+waves =[492.3,  558.9,  664.9,  703.8,  739.1,  779.7,  832.9,  864. , 1610.4, 2185.7]
+
+[육지/구름 마스크, mask tif]
+MSI_res20m_mask.tif
+
+2. 적조 세기 계산: python function, rededge_chl_index 사용
+** input tif에서와 다르게 밴드 index는 0부터 시작
+** bluebon과 waves가 다르므로 rededge_chl_index에서 사용하는 band도 다
+
+def base_subtraction(rhorc, waves,base_bds, o_bd, relband=None):
+    # waves= #20m
+    #(0)492.3,(1)558.9,(2)664.9,(3)703.8,(4)739.1,(5)779.7,(6)832.9,(7)864., (8)1610.4, (9)2185.7
+    bd1,bd2=base_bds
+    wave1=waves[bd1]
+    wave2=waves[bd2]
+    owave=waves[o_bd]
+
+    baseline=(rhorc[:,:,bd1]-rhorc[:,:,bd2])/(wave1-wave2)*(owave-wave2)+rhorc[:,:,bd2]
+    ret = rhorc[:,:,o_bd] - baseline
+    if relband:
+        ret = ret/rhorc[:,:,relband]
+    return ret
+
+def rededge_chl_index(rhorc, waves, L2A=False):
+    base_bds=[2,5]
+    o_bd1=3; 
+    if L2A:
+        base_bds=[3,6]
+        o_bd1=4; 
+    return base_subtraction(rhorc, waves,base_bds, o_bd1)
+
+3. 결과 
+	MSI_res20m_hRE.tif
+	* Sentinel-2/MSI의 적조 탐지 결과에는 sunglint 영향으로 노이즈가 많으므로 샛챗에서 변화 비교시 주의 필요!
+	* Sentinel-2/MSI (촬영일 8월21일)로 블루본(촬영일: 9월3일)에 비해 적조 분포가 좁고 세기가 낮음
+
+4. 참고용 png
+MSI_res20m_rhorc_RGB210.png (입력 rhorc))
+MSI_res20m_hRE.png (적조 세기)
+

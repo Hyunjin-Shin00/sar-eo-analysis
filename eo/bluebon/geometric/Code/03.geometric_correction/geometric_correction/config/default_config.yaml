@@ -1,0 +1,89 @@
+# ============================================================================
+# 기하보정 파이프라인 기본 설정 파일
+# ============================================================================
+
+# 파일 경로 설정
+paths:
+  reference: ""  # Reference 위성영상 경로 (기준 영상)
+  target: ""     # Target 위성영상 경로 (보정 대상)
+  dem: ""        # DEM (Digital Elevation Model) 경로
+  output: ""     # 출력 디렉토리
+
+# 매칭 설정
+matching:
+  # 1차 매칭 해상도 (숫자가 클수록 빠르지만 정확도 감소)
+  # 권장: 4 (고품질), 8 (대부분의 경우), 16 (매우 큰 영상)
+  initial_resolution: 4
+  
+  # AI 매칭 방법 선택
+  # 옵션: "superpoint" (현재 구현됨), "loftr" (향후 추가 예정)
+  method: "superpoint"
+  
+  # SuperPoint 설정
+  superpoint:
+    max_keypoints: 4096  # 추출할 최대 keypoint 수
+  
+  # 다단계 매칭 해상도 설정
+  stages:
+    stage2_resolution: 4   # Stage 2: 1/4 해상도
+    stage3_resolution: 2   # Stage 3: 1/2 해상도
+    stage4_resolution: 1   # Stage 4: 원본 해상도
+  
+  # Patch 기반 매칭 설정
+  patch_size: 49  # 각 매칭점 주변 patch 크기 (픽셀)
+
+# RANSAC 필터링 설정
+ransac:
+  threshold: 5.0      # 픽셀 단위 임계값
+  max_iterations: 5000  # 최대 반복 횟수
+  confidence: 0.99    # 신뢰도 (0-1)
+
+# GRID 기반 균등 분포 설정
+grid_filtering:
+  enabled: true           # GRID 필터링 활성화
+  grid_size: 5           # N×N 그리드 크기
+  min_points_per_grid: 1  # 그리드당 최소 점 개수
+  max_points_per_grid: 5  # 그리드당 최대 점 개수
+  min_occupied_grids: 16  # 최소 점유 그리드 수
+
+# 영역 추출 설정
+region:
+  buffer_factor: 1.2  # TARGET 영역 주변 버퍼 배율 (1.2 = 20% 버퍼)
+
+# TARGET 영상 정보 (좌표 정보가 없는 경우 사용)
+target_metadata:
+  center_lat: 37.5151   # 중심 위도
+  center_lon: 127.0724  # 중심 경도
+  resolution: 4.8       # 해상도 (미터)
+
+# 초기 기하보정 방법
+correction:
+  initial_method: "RPC"  # "TPS" 또는 "RPC"
+  # TPS: Thin Plate Spline (비선형 변환, 빠름)
+  # RPC: Rational Polynomial Coefficients (위성영상 표준 모델, 정밀)
+
+# RPC 생성 설정
+rpc:
+  min_gcps: 20         # RPC 생성에 필요한 최소 GCP 개수
+  use_ransac: true     # RFM 기반 RANSAC 사용 여부
+
+# GPU/CPU 설정
+device:
+  force_gpu: false          # GPU 사용 강제 (false: 자동 감지)
+  gpu_memory_limit: null    # GPU 메모리 제한 (MB, null: 제한 없음)
+
+# 시각화 설정
+visualization:
+  enabled: true        # 시각화 생성 여부
+  max_points: 100      # 시각화할 최대 매칭점 개수
+
+# 중간 결과 저장 설정
+output:
+  save_intermediate: true  # 중간 결과 저장 여부
+  save_visualizations: true  # 시각화 이미지 저장 여부
+
+# 로깅 설정
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR, CRITICAL
+  save_to_file: true  # 로그 파일 저장 여부
+
