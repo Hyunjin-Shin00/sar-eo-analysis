@@ -1,0 +1,18 @@
+<graph id="S1_sigma0_LIA">
+  <version>1.0</version>
+  <node id="Read"><operator>Read</operator><parameters><file>${input}</file></parameters></node>
+  <node id="Orb"><operator>Apply-Orbit-File</operator><sources><sourceProduct refid="Read"/></sources>
+    <parameters><orbitType>Sentinel Precise (Auto Download)</orbitType><continueOnFail>true</continueOnFail></parameters></node>
+  <node id="TNR"><operator>ThermalNoiseRemoval</operator><sources><sourceProduct refid="Orb"/></sources>
+    <parameters><selectedPolarisations>VH,VV</selectedPolarisations><removeThermalNoise>true</removeThermalNoise></parameters></node>
+  <node id="Cal"><operator>Calibration</operator><sources><sourceProduct refid="TNR"/></sources>
+    <parameters><outputSigmaBand>true</outputSigmaBand><selectedPolarisations>VH,VV</selectedPolarisations></parameters></node>
+  <node id="Sub"><operator>Subset</operator><sources><sourceProduct refid="Cal"/></sources>
+    <parameters><geoRegion>POLYGON((127.44 37.80, 127.56 37.80, 127.56 37.89, 127.44 37.89, 127.44 37.80))</geoRegion><copyMetadata>true</copyMetadata></parameters></node>
+  <node id="TC"><operator>Terrain-Correction</operator><sources><sourceProduct refid="Sub"/></sources>
+    <parameters><demName>SRTM 1Sec HGT</demName><pixelSpacingInMeter>10.0</pixelSpacingInMeter>
+      <mapProjection>WGS84(DD)</mapProjection><nodataValueAtSea>false</nodataValueAtSea>
+      <saveSelectedSourceBand>true</saveSelectedSourceBand><saveLocalIncidenceAngle>true</saveLocalIncidenceAngle></parameters></node>
+  <node id="Write"><operator>Write</operator><sources><sourceProduct refid="TC"/></sources>
+    <parameters><file>${output}</file><formatName>GeoTIFF-BigTIFF</formatName></parameters></node>
+</graph>

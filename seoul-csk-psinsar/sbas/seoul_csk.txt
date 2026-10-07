@@ -1,0 +1,37 @@
+##---------------------------- 로드 ----------------------------##
+mintpy.load.processor        = isce
+mintpy.load.unwFile          = <DATA_ROOT>/CSK_PSInSAR/seoul/sbas/Igrams/*/filt_*_snaphu.unw
+mintpy.load.corFile          = <DATA_ROOT>/CSK_PSInSAR/seoul/sbas/Igrams/*/filt_*.cor
+mintpy.load.connCompFile     = <DATA_ROOT>/CSK_PSInSAR/seoul/sbas/Igrams/*/filt_*_snaphu.unw.conncomp
+mintpy.load.metaFile         = <DATA_ROOT>/CSK_PSInSAR/seoul/sbas/referenceShelve/data.dat
+mintpy.load.baselineDir      = <DATA_ROOT>/CSK_PSInSAR/seoul/sbas/baselines
+mintpy.load.demFile          = <DATA_ROOT>/CSK_PSInSAR/seoul/sbas/geom_reference/hgt.rdr
+mintpy.load.lookupYFile      = <DATA_ROOT>/CSK_PSInSAR/seoul/sbas/geom_reference/lat.rdr
+mintpy.load.lookupXFile      = <DATA_ROOT>/CSK_PSInSAR/seoul/sbas/geom_reference/lon.rdr
+mintpy.load.incAngleFile     = <DATA_ROOT>/CSK_PSInSAR/seoul/sbas/geom_reference/los.rdr
+mintpy.load.azAngleFile      = <DATA_ROOT>/CSK_PSInSAR/seoul/sbas/geom_reference/los.rdr
+mintpy.load.shadowMaskFile   = <DATA_ROOT>/CSK_PSInSAR/seoul/sbas/geom_reference/shadowMask.rdr
+
+##---------------------------- 기준점 ----------------------------##
+# PS 와 동일: 안산(서대문) 화강암체. GNSS YNSE(1.42km)가 장기 −1.74mm/yr 로 검증
+# SBAS 기준점: 성북구 평지. 90개 간섭도 전부 연결성분 유효, 결맞음 0.930(주변 0.77).
+# PS 기준점(안산)은 18m 분포산란에서 유효 62%/결맞음 0.44 -> SBAS 부적합. 비교 시 사후 정렬.
+mintpy.reference.lalo        = 37.60748, 127.06254
+mintpy.reference.maskFile    = no
+
+##---------------------------- 네트워크 ----------------------------##
+mintpy.network.coherenceBased   = yes
+mintpy.network.minCoherence     = 0.25
+mintpy.network.keepMinSpanTree  = yes
+
+##---------------------------- 보정 ----------------------------##
+mintpy.unwrapError.method       = bridging
+mintpy.troposphericDelay.method = height_correlation
+mintpy.topographicResidual      = yes
+mintpy.deramp                   = linear
+mintpy.timeFunc.polynomial      = 1
+
+##---------------------------- 지오코딩 ----------------------------##
+mintpy.geocode               = yes
+mintpy.geocode.laloStep      = 0.00018, 0.00018
+mintpy.save.hdfEos5          = no

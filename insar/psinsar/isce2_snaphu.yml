@@ -277,4 +277,4 @@ dependencies:
   - pip:
       - pulp==3.3.0
       - shapely==2.1.2
-prefix: /home/hyunjin/miniconda3/envs/isce2_snaphu
+prefix: $CONDA_PREFIX

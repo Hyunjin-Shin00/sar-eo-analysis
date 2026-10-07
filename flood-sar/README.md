@@ -21,6 +21,10 @@ SAR 후방산란에서 수체를 자동 분리해 침수역을 지도화한다.
 | `notebooks/otsu_thresholding.ipynb` | Bmax / Edge / Fuzzy 임계값 전략 비교 |
 | `notebooks/flood_auto.ipynb` | 탐지 결과 검토·시각화 |
 
+> **SatCHAT 서비스 모듈판**은 [`satchat/`](satchat/) 에 따로 있다 — SNAP 비의존 입력(전처리된 dB GeoTIFF)으로
+> 수체·GAIN/LOSS 변화 마스크와 면적 통계를 내고, KuroSiwo 벤치마크 평가 스크립트(`eval_kurosiwo.py`)를 포함한다.
+> 67타일 평가 결과 사후 수체 F1 VV 0.905 / VH 0.926.
+
 ## 처리 흐름
 
 ```

@@ -3,10 +3,10 @@ import os, sys, shutil, subprocess, datetime
 from n2_patch import PATCH_CONTENT
 import n2_viz                    
 
-BASE_ROOT = "/home/hyunjin/nas/nationalpark_SAR"
+BASE_ROOT = "<DATA_ROOT>/nationalpark_SAR"
 # output는 해당 경로에 타임스탬프 폴더(N2_INSAR_YYYYMMDD_HHMMSS)로 자동 생성
-XML_FILE_PATH = "/home/hyunjin/nas/nationalpark_SAR/input_n2.xml" 
-STRIPMAP_APP_SUB = "/home/hyunjin/miniconda3/envs/isce2_snaphu/lib/python3.10/site-packages/isce/applications/stripmapApp.py"
+XML_FILE_PATH = "<DATA_ROOT>/nationalpark_SAR/input_n2.xml" 
+STRIPMAP_APP_SUB = "$CONDA_PREFIX/lib/python3.10/site-packages/isce/applications/stripmapApp.py"
 
 def main():
     print("--- [Start] N2 to CSK SPOOFING: Dynamic Multi-File Support ---")

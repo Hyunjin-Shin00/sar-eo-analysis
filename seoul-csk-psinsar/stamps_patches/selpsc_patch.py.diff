@@ -1,0 +1,80 @@
+--- <WORK_ROOT>/StaMPS_Python/timeseries_S1/python/isce2psi/selpsc_patch.py	2026-07-02 14:56:54.950974935 +0900
++++ <DATA_ROOT>/CSK_PSInSAR/code/isce2psi_fixed/selpsc_patch.py	2026-09-15 18:33:26.821696235 +0900
+@@ -213,10 +213,11 @@
+     pix_start = (az_start - 1) * width + (rg_start - 1)
+     pos_start = pix_start * sizeofelement * 2
+ 
+-    if mask_exists == 1:
+-        with open(maskfilename, 'rb') as maskfile:
+-            maskfile.seek(pix_start)
+-            maskfile.readinto(maskline)
++    # FIX: the upstream port read the mask only for the patch's first azimuth
++    # line and never advanced it, so any patch whose first line fell entirely
++    # outside the mask yielded zero candidates. Keep the handle open and read
++    # the correct row inside the line loop instead.
++    maskfh = open(maskfilename, 'rb') if mask_exists == 1 else None
+ 
+     # if masteramp_exists == 1:
+     #     masterampfile = open(masterampfilename, 'rb') 
+@@ -231,21 +232,38 @@
+     #         file.readinto(memoryview(buffer)[i * patch_linebytes: (i + 1) * patch_linebytes])
+ 
+     # while not all(file.closed for file in ampfilenames) and y < patch_lines:
++    # FIX(perf): upstream re-opened all 32 SLCs for every azimuth line
++    # (3570 lines x 32 files of open/close per patch). Keep them open.
++    ampfh = [open(fn, 'rb') for fn in ampfilenames]
++
+     slcset = np.zeros([num_files, patch_width], dtype='complex')
+     ampset = np.zeros([num_files, patch_width], dtype='float')
+     while y < patch_lines:
+         if y >= 0:
+             for i in range(num_files):
+-                with open(ampfilenames[i], 'rb') as file:
+-                    # pos_start = linebytes - patch_linebytes
+-                    file.seek(pos_start*sizeofelement+ y*linebytes)
+-                    if prec[0] == 'f':
+-                        testline = np.fromfile(file, count=patch_width*2, dtype='float32') 
+-                    else:
+-                        testline = np.fromfile(file, count=patch_width*2, dtype='float16')
++                file = ampfh[i]
++                # FIX: pos_start is already a byte offset (pix_start*sizeofelement*2);
++                # the upstream port multiplied by sizeofelement again, seeking 4x too
++                # far. Patches past ~1/4 of the file then read past EOF -> 0 candidates.
++                file.seek(pos_start + y*linebytes)
++                if prec[0] == 'f':
++                    testline = np.fromfile(file, count=patch_width*2, dtype='float32')
++                else:
++                    testline = np.fromfile(file, count=patch_width*2, dtype='float16')
++
++                if testline.size < patch_width*2:      # 파일 끝을 넘으면 0 으로 채움
++                    testline = np.concatenate([testline,
++                                np.zeros(patch_width*2 - testline.size, dtype=testline.dtype)])
++                slcset[i, :] = testline[0::2] + 1j * testline[1::2]
++                ampset[i, :] = np.abs(slcset[i,:])/calib_factors[i]
++            if maskfh is not None:
++                maskfh.seek(((az_start - 1) + y) * width + (rg_start - 1))
++                nread = maskfh.readinto(maskline)
++                if nread is None:
++                    nread = 0
++                for _x in range(nread, patch_width):   # 파일 끝을 넘으면 제외 처리
++                    maskline[_x] = 1
+ 
+-                    slcset[i, :] = testline[0::2] + 1j * testline[1::2]
+-                    ampset[i, :] = np.abs(slcset[i,:])/calib_factors[i]
+             zeroset = np.zeros([num_files, patch_width])
+             zeroset[ampset<=0.00005] = 1
+             zerosumset = np.sum(zeroset, axis=0)
+@@ -356,8 +374,11 @@
+     daoutfile.close()
+     meanoutfile.close()
+ 
+-    if mask_exists == 1:
+-        maskfile.close()
++    for _fh in ampfh:
++        _fh.close()
++
++    if maskfh is not None:
++        maskfh.close()
+ 
+     if masteramp_exists == 1:
+         masterampfile.close()

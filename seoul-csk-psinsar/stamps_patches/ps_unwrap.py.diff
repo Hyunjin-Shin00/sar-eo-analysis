@@ -1,0 +1,34 @@
+--- <WORK_ROOT>/StaMPS_Python/timeseries_S1/python/psi_python/ps_unwrap.py	2026-07-02 14:56:55.023976876 +0900
++++ <DATA_ROOT>/CSK_PSInSAR/code/psipkg/psi_python/ps_unwrap.py	2026-09-16 13:41:45.923820379 +0900
+@@ -70,12 +70,27 @@
+     
+             if 'K_ps' in pm:
+                 if pm['K_ps'] is not None:
+-                    # print(np.shape(np.tile(np.reshape(pm['K_ps'],[-1, 1]), (1, ps['n_ifg']))))
+-                    ph_w = ph_w * np.exp(1j * (np.tile(np.reshape(pm['K_ps'],[-1, 1]), (1, ps['n_ifg'])) * bperp_mat))
++                    # FIX(memory): the one-shot expression built np.tile + the
++                    # product + 1j* + np.exp + the final multiply, i.e. four or
++                    # five 3GB complex128 temporaries live at once (n_ps=6.3M).
++                    # Apply it in row blocks, in place.
++                    _K = np.reshape(np.asarray(pm['K_ps']), (-1, 1))
++                    _BLK = 200000
++                    for _lo in range(0, ph_w.shape[0], _BLK):
++                        _hi = min(_lo + _BLK, ph_w.shape[0])
++                        ph_w[_lo:_hi, :] *= np.exp(
++                            1j * (_K[_lo:_hi, :] * bperp_mat[_lo:_hi, :]))
++                    del _K
+             del pm
+ 
+-    ix = ph_w != 0
+-    ph_w[ix] = ph_w[ix] / np.abs(ph_w[ix])  # normalize, to avoid high freq artifacts being introduced in adaptive filtering
++    # FIX(memory): boolean fancy-indexing copied ~200M complex128 elements three
++    # times over (extract, abs, divide). Normalise block-wise in place instead.
++    _BLK = 200000
++    for _lo in range(0, ph_w.shape[0], _BLK):
++        _hi = min(_lo + _BLK, ph_w.shape[0])
++        _blk = ph_w[_lo:_hi, :]          # view
++        _m = _blk != 0
++        _blk[_m] /= np.abs(_blk[_m])     # normalize, avoids high freq artifacts in adaptive filtering
+ 
+     scla_subtracted_sw = 0
+     ramp_subtracted_sw = 0

@@ -1,0 +1,89 @@
+--- <WORK_ROOT>/StaMPS_Python/timeseries_S1/python/psi_python/ps_scn_filt.py	2026-07-02 14:56:55.020976796 +0900
++++ <DATA_ROOT>/CSK_PSInSAR/code/psipkg/psi_python/ps_scn_filt.py	2026-09-16 14:56:42.368676425 +0900
+@@ -1,6 +1,30 @@
+ import numpy as np
+ import os
+ import pyamg
++
++
++_SCN_SHARED = None
++
++
++def _scn_lowpass_block(bounds):
++    """Gaussian-weighted spatial low-pass over the KD-tree neighbourhood."""
++    lo, hi = bounds
++    pts, ph_hpt, tree, sigma_sq_times_2, patch_dist = _SCN_SHARED
++    q = pts[lo:hi]
++    nbrs = tree.query_ball_point(q, patch_dist, workers=1)
++    out = np.zeros((hi - lo, ph_hpt.shape[1]), dtype=np.float32)
++    for k, idx in enumerate(nbrs):
++        idx = np.asarray(idx, dtype=np.intp)
++        if idx.size == 0:
++            continue
++        d = pts[idx] - q[k]
++        w = np.exp(-(d[:, 0] ** 2 + d[:, 1] ** 2) / sigma_sq_times_2)
++        sw = w.sum()
++        if sw <= 0:
++            continue
++        out[k, :] = (w / sw) @ ph_hpt[idx, :]
++    return lo, hi, out
++
+ import multiprocessing
+ from scipy.sparse import csr_matrix, eye
+ from scipy.spatial import Delaunay
+@@ -118,8 +142,12 @@
+     ATA = A.T @ A
+     ATA += 1e-6 * eye(ATA.shape[0], format='csr', dtype=np.float32)
+     ml = pyamg.ruge_stuben_solver(ATA)
++    # FIX: cap fork-based workers (PSI_MAX_WORKERS, default 8) - cpu_count()
++    # on a 32-core box forked 32 copies of large arrays and OOM'd.
++    import os as _os
+     num_cores = multiprocessing.cpu_count()
+-    num_workers = max(1, round(num_cores * 2 / 3))
++    num_workers = max(1, min(int(_os.environ.get('PSI_MAX_WORKERS', 8)),
++                             round(num_cores * 2 / 3)))
+         
+     with multiprocessing.Pool(processes=num_workers, initializer=init_worker, initargs=(ml, A.T, dph_hpt)) as pool:
+         results = pool.map(solve_one, range(n_ifg))
+@@ -138,16 +166,32 @@
+     patch_dist = scn_wavelength * 4
+     patch_dist_sq = patch_dist ** 2
+     
++    # FIX: the upstream loop measured the distance from every PS to ALL n_ps
++    # points (6.3M x 6.3M = 4e13 distance evaluations, single threaded ->
++    # measured 16.7 PS/s = 4.4 days). Only neighbours inside patch_dist matter,
++    # so index them with a KD-tree and fan the blocks out over workers.
+     print("   low-pass filtering in space...")
+-    for i in range(n_ps):
+-        x, y = xy[i, 1], xy[i, 2]
+-        dist_sq = (xy[:, 1] - x) ** 2 + (xy[:, 2] - y) ** 2
+-        in_range = dist_sq < patch_dist_sq
+-        weights = np.exp(-dist_sq[in_range] / sigma_sq_times_2)
+-        weights /= np.sum(weights)
+-        ph_scn[i, :] = weights @ ph_hpt[in_range, :]
+-        if i % 1000 == 0:
+-            print(f"{i} PS processed")
++    import os as _os
++    from scipy.spatial import cKDTree as _KDTree
++
++    global _SCN_SHARED
++    _pts = np.ascontiguousarray(xy[:, 1:3], dtype=np.float64)
++    _tree = _KDTree(_pts)
++    _SCN_SHARED = (_pts, ph_hpt, _tree, sigma_sq_times_2, patch_dist)
++
++    _nw = max(1, min(int(_os.environ.get('PSI_MAX_WORKERS', 8)),
++                     multiprocessing.cpu_count()))
++    _BLK = 2000
++    _bounds = [(lo, min(lo + _BLK, n_ps)) for lo in range(0, n_ps, _BLK)]
++    print(f"   {n_ps:,} PS in {len(_bounds)} blocks, {_nw} workers", flush=True)
++    _done = 0
++    with multiprocessing.get_context('fork').Pool(processes=_nw) as _pool:
++        for _lo, _hi, _blk in _pool.imap_unordered(_scn_lowpass_block, _bounds):
++            ph_scn[_lo:_hi, :] = _blk
++            _done += 1
++            if _done % 200 == 0 or _done == len(_bounds):
++                print(f"   spatial low-pass {_done}/{len(_bounds)} blocks", flush=True)
++    _SCN_SHARED = None
+     
+     ph_scn -= ph_scn[0, :]
+     ph_scn_slave = np.zeros_like(uw["ph_uw"], dtype=np.float32)

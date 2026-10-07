@@ -61,7 +61,7 @@ def read_h5_data(h5_path):
     return data
 
 # --- 실행 로직 ---
-h5_path = '/home/hyunjin/nas/nationalpark_SAR/SLC/structure_with_tiny_data_n2.h5' # 파일명 확인 필요!
+h5_path = '<DATA_ROOT>/nationalpark_SAR/SLC/structure_with_tiny_data_n2.h5' # 파일명 확인 필요!
 print(f"Reading: {h5_path}")
 
 raw_data = read_h5_data(h5_path)

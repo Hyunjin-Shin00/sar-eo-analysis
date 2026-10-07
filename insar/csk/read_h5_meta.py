@@ -6,8 +6,8 @@ import sys
 # ==========================
 # 입력 CSK HDF5 파일
 # ==========================
-p = "/home/hyunjin/nas/nationalpark_SAR/CSK/20200712/CSKS4_SCS_B_HI_01_HH_RA_SF_20200712212827_20200712212835.h5"
-# p = "/home/hyunjin/nas/nationalpark_SAR/CSK/20200713/CSKS2_SCS_B_HI_01_HH_RA_SF_20200713212826_20200713212834.h5"
+p = "<DATA_ROOT>/nationalpark_SAR/CSK/20200712/CSKS4_SCS_B_HI_01_HH_RA_SF_20200712212827_20200712212835.h5"
+# p = "<DATA_ROOT>/nationalpark_SAR/CSK/20200713/CSKS2_SCS_B_HI_01_HH_RA_SF_20200713212826_20200713212834.h5"
 
 # ==========================
 # 값 출력 보조 함수
@@ -67,5 +67,5 @@ with h5py.File(p, "r") as f:
 print("\n[DONE] CSK metadata dump completed safely.")
 
 # 실행법
-# PYTHONPATH= python /home/hyunjin/nas/nationalpark_SAR/code/read_h5_meta.py \
-# > /home/hyunjin/nas/nationalpark_SAR/CSK/20200713/csk_20200713_metadata.txt
+# PYTHONPATH= python <DATA_ROOT>/nationalpark_SAR/code/read_h5_meta.py \
+# > <DATA_ROOT>/nationalpark_SAR/CSK/20200713/csk_20200713_metadata.txt

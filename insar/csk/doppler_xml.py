@@ -28,7 +28,7 @@ def get_rotation_matrix(yaw_deg, pitch_deg, roll_deg):
     return R_z @ R_y @ R_x
 
 # 2. 데이터 로드 및 파싱
-xml_path = '/home/hyunjin/nas/nationalpark_SAR/SLC/structure_with_tiny_data_n2.h5.aux.xml'
+xml_path = '<DATA_ROOT>/nationalpark_SAR/SLC/structure_with_tiny_data_n2.h5.aux.xml'
 tree = ET.parse(xml_path)
 root = tree.getroot()
 meta = get_all_mdi(root, "//S01/SBI")

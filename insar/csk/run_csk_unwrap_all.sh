@@ -5,7 +5,7 @@ set -o pipefail
 ########################################
 # 0) 작업 디렉토리
 ########################################
-BASE=/home/hyunjin/nas/nationalpark_SAR/CSK/20200712_20200713_interferogram_pyps
+BASE=<DATA_ROOT>/nationalpark_SAR/CSK/20200712_20200713_interferogram_pyps
 mkdir -p "$BASE"
 cd "$BASE"
 
@@ -24,8 +24,8 @@ echo "[ENV] snaphu=$(which snaphu)"
 ########################################
 # 2) 입력 H5 선택
 ########################################
-REF=$(ls -1 /home/hyunjin/nas/nationalpark_SAR/CSK/20200712/CSKS4_*.h5 | head -n 1)
-SEC=$(ls -1 /home/hyunjin/nas/nationalpark_SAR/CSK/20200713/CSKS2_*.h5 | head -n 1)
+REF=$(ls -1 <DATA_ROOT>/nationalpark_SAR/CSK/20200712/CSKS4_*.h5 | head -n 1)
+SEC=$(ls -1 <DATA_ROOT>/nationalpark_SAR/CSK/20200713/CSKS2_*.h5 | head -n 1)
 
 echo "[REF] $REF"
 echo "[SEC] $SEC"

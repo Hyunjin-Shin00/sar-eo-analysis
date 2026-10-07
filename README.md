@@ -24,7 +24,21 @@
 | [`wildfire/`](wildfire/) | dNBR 산불 피해등급 분류 | Sentinel-2 |
 | [`oil-spill/`](oil-spill/) | SAR dark-spot 기름유출 탐지 | Sentinel-1 |
 | [`umbra-sar/`](umbra-sar/) | 초고해상도 SAR — SICD 파싱, σ⁰ 산출 | Umbra (25 cm) |
+| [`insar-ground/`](insar-ground/) | 국내 7지역 PS-InSAR·SBAS, 광역 타일링, 하강궤도 분해 | Sentinel-1 SLC |
+| [`sinkhole-warning/`](sinkhole-warning/) | 지반침하 조기경보 규칙·리드타임 백테스트 | Sentinel-1, GIMS |
+| [`seoul-csk-psinsar/`](seoul-csk-psinsar/) | 서울 X밴드 PS-InSAR·Sentinel-1 교차검증 | COSMO-SkyMed, Sentinel-1 |
+| [`landslide-insar/`](landslide-insar/) | 산사태 SBAS/PS (PyGMTSAR) | Sentinel-1 |
+| [`usoi-dam/`](usoi-dam/) | 자연댐 ASC+DSC SBAS·성분 분해 | Sentinel-1 |
+| [`earthquake-damage/`](earthquake-damage/) | 지진 피해 CCD·DInSAR | Sentinel-1 |
+| [`nepal-flood/`](nepal-flood/) | 빙하붕괴 돌발홍수 탐지 | Sentinel-1 SLC |
+| [`nationalpark-insar/`](nationalpark-insar/) | 국산 SAR ISCE2 런타임 패치 파이프라인 | NEXTSat-2, COSMO-SkyMed |
+| [`isce2-s1d-patch/`](isce2-s1d-patch/) | ISCE2 Sentinel-1D 지원 패치 | Sentinel-1D |
+| [`soil-moisture/`](soil-moisture/) | 토양수분 논문 3편 재현·검증 | Sentinel-1/2, SMAP |
+| [`rail-disaster-sar/`](rail-disaster-sar/) | 철도 재해 SAR 탐지 타당성 조사 | Sentinel-1, ALOS-2 |
+| [`sme-underwriting/`](sme-underwriting/) | 공간정보 기반 인수심사 분석 | 공간정보, 위성 |
 | [`data-download/`](data-download/) | 영상 자동 수집 유틸 | Sentinel-2, Landsat 8/9 |
+
+모듈 대부분은 로컬 PC와 k-water 팀서버 양쪽의 최종본을 합친 것입니다.
 
 **눈여겨볼 곳** — [`n2-sensor-model/`](n2-sensor-model/)은 상용·공개 SAR 소프트웨어가
 전혀 지원하지 않는 국산 위성을 쓰기 위해 거리-도플러 엄밀센서모델을 처음부터 구현한 것입니다.

@@ -1,0 +1,20 @@
+--- <WORK_ROOT>/StaMPS_Python/timeseries_S1/python/isce2psi/mt_extract_cands	2026-07-02 14:56:54.945974802 +0900
++++ <DATA_ROOT>/CSK_PSInSAR/code/isce2psi_fixed/mt_extract_cands	2026-09-15 18:40:37.404347301 +0900
+@@ -1,4 +1,4 @@
+-#!/bin/csh -f
++#!$CONDA_PREFIX/bin/tcsh -f
+ 
+ # Cycle through patches in patch.list and extract data for
+ # candidiate pixels 
+@@ -125,7 +125,10 @@
+         # Retrieve hgt for PS candidates
+         echo ""
+         echo "pscdem $WORKDIR/pscdem.in pscands.1.ij pscands.1.hgt"
+-        python ${ISCE2PSI}/pscphase.py $WORKDIR/pscdem.in pscands.1.ij pscands.1.hgt
++        # FIX: upstream called pscphase.py (8-byte complex pixels) on the float32
++        # DEM, producing an .hgt twice the right size with paired/misaligned
++        # values. pscdem.py reads 4-byte floats, which is what dem.raw holds.
++        python ${ISCE2PSI}/pscdem.py $WORKDIR/pscdem.in pscands.1.ij pscands.1.hgt f
+     endif
+ 
+     if ($dophase == 1) then

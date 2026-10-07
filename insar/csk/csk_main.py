@@ -8,23 +8,23 @@ import xml.etree.ElementTree as ET
 import csk_viz
 
 # ================= USER CONFIG =================
-BASE_ROOT = "/home/hyunjin/nas/nationalpark_SAR/CSK"
+BASE_ROOT = "<DATA_ROOT>/nationalpark_SAR/CSK"
 
 # 출력 저장 경로 (None이면 BASE_ROOT 아래 자동 생성)
-OUTPUT_DIR = "/home/hyunjin/nas/nationalpark_SAR/CSK/20200712_20200713_interferogram_test"
+OUTPUT_DIR = "<DATA_ROOT>/nationalpark_SAR/CSK/20200712_20200713_interferogram_test"
 
 # reference / secondary HDF5 경로 (glob 패턴)
-REF_PATTERN = "/home/hyunjin/nas/nationalpark_SAR/CSK/20200712/CSKS4_*.h5"
-SEC_PATTERN = "/home/hyunjin/nas/nationalpark_SAR/CSK/20200713/CSKS2_*.h5"
+REF_PATTERN = "<DATA_ROOT>/nationalpark_SAR/CSK/20200712/CSKS4_*.h5"
+SEC_PATTERN = "<DATA_ROOT>/nationalpark_SAR/CSK/20200713/CSKS2_*.h5"
 
 # DEM 경로 (None이면 ISCE2가 자동 다운로드)
-DEM_PATH = "/home/hyunjin/nas/nationalpark_SAR/CSK/DEM/output_hh.wgs84.dem"
+DEM_PATH = "<DATA_ROOT>/nationalpark_SAR/CSK/DEM/output_hh.wgs84.dem"
 
 # SNAPHU 경로
-SNAPHU_BIN = "/home/hyunjin/StaMPS_Python/bin/snaphu"
+SNAPHU_BIN = "<WORK_ROOT>/StaMPS_Python/bin/snaphu"
 
 # stripmapApp.py 경로 (which로 못 찾을 때 fallback)
-STRIPMAP_APP_SUB = "/home/hyunjin/miniconda3/envs/isce2_snaphu/lib/python3.10/site-packages/isce/applications/stripmapApp.py"
+STRIPMAP_APP_SUB = "$CONDA_PREFIX/lib/python3.10/site-packages/isce/applications/stripmapApp.py"
 
 # 실행 옵션
 RUN_EXPORT = True    # export(GeoTIFF/PNG) 생성 여부

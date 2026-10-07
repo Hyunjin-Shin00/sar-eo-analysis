@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<stripmapApp>
+  <component name="insar">
+    <component name="reference">
+      <property name="HDF5"><DATA_ROOT>/SLC/N2_date1.h5</property>
+      <property name="OUTPUT">reference</property>
+    </component>
+    <component name="secondary">
+      <property name="HDF5"><DATA_ROOT>/SLC/N2_date2.h5</property>
+      <property name="OUTPUT">secondary</property>
+    </component>
+    <!-- N2 is read through the COSMO-SkyMed SLC reader, patched at runtime by n2_patch.PATCH_CONTENT -->
+    <property name="sensor name">COSMO_SKYMED_SLC</property>
+    <property name="do unwrap">False</property>
+    <!-- optional external DEM: must be INSIDE this insar component -->
+    <!-- <property name="demFilename"><DATA_ROOT>/DEM/custom.wgs84.dem</property> -->
+  </component>
+</stripmapApp>

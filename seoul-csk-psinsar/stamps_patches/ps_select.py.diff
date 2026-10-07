@@ -1,0 +1,47 @@
+--- <WORK_ROOT>/StaMPS_Python/timeseries_S1/python/psi_python/ps_select.py	2026-07-02 14:56:55.020976796 +0900
++++ <DATA_ROOT>/CSK_PSInSAR/code/psipkg/psi_python/ps_select.py	2026-09-15 21:04:40.893216668 +0900
+@@ -11,6 +11,22 @@
+ from psi_python.ps_topofit import ps_topofit
+ from psi_python.stamps_save import stamps_save
+ 
++# FIX: upstream built one task tuple per PS (n_ps can be >1.5M) with `pm`
++# inside it, so Pool.map pickled pm - including the multi-GB ph_grid - once per
++# task. On Linux we fork, so stash the shared args in a module global instead:
++# children inherit them copy-on-write and only integers cross the pipe.
++_SHARED = None
++
++
++def _max_workers():
++    import os as _os, multiprocessing as _mp
++    return max(1, min(int(_os.environ.get('PSI_MAX_WORKERS', 8)), _mp.cpu_count()))
++
++
++def compute_ph_patch_idx(i):
++    return compute_ph_patch((i,) + _SHARED)
++
++
+ def compute_ph_patch(args):
+     i, ix, pm, n_win, n_i, n_j, n_ifg, clap_alpha, clap_beta, slc_osf = args
+     ps_ij = pm['grid_ij'][ix[i], :]
+@@ -277,11 +293,16 @@
+             coh_ps2 = np.zeros(n_ps)
+             ph_filt = np.zeros((n_win, n_win, n_ifg))
+             ph_patch2 = np.zeros((n_ps, n_ifg)).astype(np.complex128)       
+-            num_workers = multiprocessing.cpu_count()
+-            
+-            with multiprocessing.Pool(processes=num_workers) as pool:
+-                args_list = [(i, ix, pm, n_win, n_i, n_j, n_ifg, clap_alpha, clap_beta, slc_osf) for i in range(n_ps)]
+-                results = pool.map(compute_ph_patch, args_list)
++            num_workers = _max_workers()
++
++            global _SHARED
++            _SHARED = (ix, pm, n_win, n_i, n_j, n_ifg, clap_alpha, clap_beta, slc_osf)
++            try:
++                with multiprocessing.get_context('fork').Pool(processes=num_workers) as pool:
++                    results = pool.map(compute_ph_patch_idx, range(n_ps),
++                                       chunksize=max(1, n_ps // (num_workers * 16)))
++            finally:
++                _SHARED = None
+     
+             for i, result in results:
+                 ph_patch2[i, :] = result

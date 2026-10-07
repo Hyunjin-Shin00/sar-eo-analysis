@@ -1,0 +1,17 @@
+# N2(NEXTSat-2) InSAR 처리용 conda 환경 (ISCE2 + snaphu)
+# 재현: conda env create -f environment.yml
+# (원본 노트북 실측: isce2 2.6.4 / python 3.10.19 / numpy 1.26.4 / h5py 3.15.1)
+# 버전 pin은 최소화 — conda-forge가 호환 조합을 풀도록 둔다. 문제 생기면 environment_full.yml 참고.
+name: isce2_snaphu
+channels:
+  - conda-forge
+dependencies:
+  - python=3.10
+  - isce2=2.6
+  - snaphu
+  - numpy=1.26
+  - h5py
+  - matplotlib
+  - rasterio
+  - scipy
+  - gdal

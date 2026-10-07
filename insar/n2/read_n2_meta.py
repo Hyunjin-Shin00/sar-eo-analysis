@@ -31,5 +31,5 @@ with h5py.File(p,"r") as f:
 
 # 실행법
 # conda run -n isce2 python /tmp/read_n2_meta.py \
-# > /home/hyunjin/nas/nationalpark_SAR/SLC/n2_metadata.txt
+# > <DATA_ROOT>/nationalpark_SAR/SLC/n2_metadata.txt
 

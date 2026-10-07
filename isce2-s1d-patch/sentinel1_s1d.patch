@@ -1,0 +1,13 @@
+--- a/components/isceobj/Sensor/TOPS/Sentinel1.py
++++ b/components/isceobj/Sensor/TOPS/Sentinel1.py
+@@ -605,6 +605,10 @@
+                 burst.trackNumber = (orbitnumber-27)%175 + 1
+             elif mission == 'S1C':
+                 burst.trackNumber = (orbitnumber-172)%175 + 1
++            elif mission == 'S1D':
++                # offset 42 derived from CDSE (absolute orbit -> relative orbit)
++                # verified against 7 acquisitions: 3976/4326->85, 4085/4260->19, 4012/4187->121
++                burst.trackNumber = (orbitnumber-42)%175 + 1
+             else:
+                 raise ValueError('Encountered unknown mission id {0}'.format(mission))
+ 

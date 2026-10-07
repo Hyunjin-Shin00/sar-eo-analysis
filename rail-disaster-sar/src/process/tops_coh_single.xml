@@ -1,0 +1,52 @@
+<graph id="TOPS_COH_SINGLE">
+  <version>1.0</version>
+  <!-- 단일 subswath SAFE(ASF BURST 조립본) 전용: TOPSAR-Split 을 뺀다.
+       Split 은 multi-swath 제품만 받으므로 버스트 SAFE 에 걸면 InputProductValidator 에서 막힌다. -->
+  <node id="ReadM"><operator>Read</operator><parameters><file>${master}</file></parameters></node>
+  <node id="ReadS"><operator>Read</operator><parameters><file>${slave}</file></parameters></node>
+
+  <node id="OrbM"><operator>Apply-Orbit-File</operator><sources><sourceProduct refid="ReadM"/></sources>
+    <parameters><orbitType>Sentinel Precise (Auto Download)</orbitType><polyDegree>3</polyDegree><continueOnFail>false</continueOnFail></parameters></node>
+  <node id="OrbS"><operator>Apply-Orbit-File</operator><sources><sourceProduct refid="ReadS"/></sources>
+    <parameters><orbitType>Sentinel Precise (Auto Download)</orbitType><polyDegree>3</polyDegree><continueOnFail>false</continueOnFail></parameters></node>
+
+  <node id="BGC"><operator>Back-Geocoding</operator><sources><sourceProduct refid="OrbM"/><sourceProduct.1 refid="OrbS"/></sources>
+    <parameters><demName>${dem}</demName><demResamplingMethod>BICUBIC_INTERPOLATION</demResamplingMethod>
+      <resamplingType>BISINC_5_POINT_INTERPOLATION</resamplingType><maskOutAreaWithoutElevation>true</maskOutAreaWithoutElevation></parameters></node>
+  <node id="ESD"><operator>Enhanced-Spectral-Diversity</operator><sources><sourceProduct refid="BGC"/></sources><parameters/></node>
+
+  <!-- 코히런스 추정창·멀티룩·격자간격은 대상에 맞춰 외부에서 준다.
+       산지 사면(米坂線): 3/10, 4룩, 20 m   도시 고가교(八戸線): 2/8, 2룩, 10 m -->
+  <node id="Coh"><operator>Coherence</operator><sources><sourceProduct refid="ESD"/></sources>
+    <parameters>
+      <cohWinAz>${cohAz}</cohWinAz><cohWinRg>${cohRg}</cohWinRg>
+      <subtractFlatEarthPhase>true</subtractFlatEarthPhase>
+      <subtractTopographicPhase>true</subtractTopographicPhase>
+      <demName>${dem}</demName>
+      <squarePixel>true</squarePixel>
+      <singleMaster>true</singleMaster>
+    </parameters></node>
+
+  <node id="Deb"><operator>TOPSAR-Deburst</operator><sources><sourceProduct refid="Coh"/></sources>
+    <parameters><selectedPolarisations>VV</selectedPolarisations></parameters></node>
+  <node id="ML"><operator>Multilook</operator><sources><sourceProduct refid="Deb"/></sources>
+    <parameters><nRgLooks>${nRg}</nRgLooks><nAzLooks>1</nAzLooks>
+      <outputIntensity>false</outputIntensity><grSquarePixel>true</grSquarePixel></parameters></node>
+  <!-- 관심영역으로 잘라낸다. Split 을 뺐기 때문에 여기서 줄이지 않으면
+       버스트 4개 전체(약 90x80 km)를 지형보정하게 된다. -->
+  <node id="Sub"><operator>Subset</operator><sources><sourceProduct refid="ML"/></sources>
+    <parameters><geoRegion>${aoi}</geoRegion><copyMetadata>true</copyMetadata></parameters></node>
+  <node id="TC"><operator>Terrain-Correction</operator><sources><sourceProduct refid="Sub"/></sources>
+    <parameters>
+      <demName>${dem}</demName>
+      <imgResamplingMethod>BILINEAR_INTERPOLATION</imgResamplingMethod>
+      <demResamplingMethod>BILINEAR_INTERPOLATION</demResamplingMethod>
+      <pixelSpacingInMeter>${pix}</pixelSpacingInMeter>
+      <mapProjection>EPSG:32654</mapProjection>
+      <nodataValueAtSea>false</nodataValueAtSea>
+      <saveLocalIncidenceAngle>true</saveLocalIncidenceAngle>
+      <saveSelectedSourceBand>true</saveSelectedSourceBand>
+    </parameters></node>
+  <node id="Write"><operator>Write</operator><sources><sourceProduct refid="TC"/></sources>
+    <parameters><file>${output}</file><formatName>GeoTIFF</formatName></parameters></node>
+</graph>

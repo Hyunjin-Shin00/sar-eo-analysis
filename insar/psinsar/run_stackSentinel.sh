@@ -12,15 +12,15 @@ AUX_DIR=$BASE/aux
 DEM=$BASE/DEM/output_hh_WGS84.dem
 OUT_DIR=$BASE/ISCE2_processing
 
-STACK_SCRIPT=/home/hyunjin/miniconda3/envs/isce2_snaphu/share/isce2/topsStack/stackSentinel.py
+STACK_SCRIPT=$CONDA_PREFIX/share/isce2/topsStack/stackSentinel.py
 
 # ── 환경 설정 ──────────────────────────────────────────────────
 CONDA_BASE=$(conda info --base)
 source $CONDA_BASE/etc/profile.d/conda.sh
 conda activate isce2_snaphu
 
-export PYTHONPATH=/home/hyunjin/miniconda3/envs/isce2_snaphu/share/isce2:$PYTHONPATH
-export PATH=/home/hyunjin/miniconda3/envs/isce2_snaphu/share/isce2/topsStack:$PATH
+export PYTHONPATH=$CONDA_PREFIX/share/isce2:$PYTHONPATH
+export PATH=$CONDA_PREFIX/share/isce2/topsStack:$PATH
 
 # ── stackSentinel.py 실행 ──────────────────────────────────────
 mkdir -p $OUT_DIR
