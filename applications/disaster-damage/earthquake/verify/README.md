@@ -1,6 +1,6 @@
 # applications/disaster-damage/earthquake/verify
 
-보고서 수치를 원본에서 재계산해 검증한다.
+보고서 수치를 원본에서 재계산해 검증함.
 
 ## 코드
 

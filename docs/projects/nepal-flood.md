@@ -1,6 +1,6 @@
 # nepal-flood — 2026 네팔 라수와 빙하붕괴 돌발홍수 Sentinel-1 SLC 분석
 
-Sentinel-1D SLC 버스트(ASF)로 ISCE2 topsStack 간섭 스택을 만들고, (1) 결맞음 변화와 (2) 후방산란(dB) 감소로 홍수 피해를 탐지하려 한 코드. 결맞음 방식은 실패했고(고도 교란), 후방산란 강임계 + 대조쌍 방식으로 하류 피해와 붕괴 원점을 탐지했다.
+Sentinel-1D SLC 버스트(ASF)로 ISCE2 topsStack 간섭 스택을 만들고, (1) 결맞음 변화와 (2) 후방산란(dB) 감소로 홍수 피해를 탐지하려 한 코드. 결맞음 방식은 실패했고(고도 교란), 후방산란 강임계 + 대조쌍 방식으로 하류 피해와 붕괴 원점을 탐지함.
 
 ## 구성
 | 폴더 | 파일 | 역할 |
@@ -37,7 +37,7 @@ python render/render_chips.py ASC_085; python render/render_mainmap.py ASC_085; 
 ```
 
 ## 환경 메모
-- ISCE2 2.6.3 은 미션 ID `S1D` 를 거부한다. `isceobj/Sensor/TOPS/Sentinel1.py` 에 다음 분기를 추가해야 한다(42 는 절대궤도→상대궤도 실측 7건으로 역산한 값, 175개 후보 중 유일해):
+- ISCE2 2.6.3 은 미션 ID `S1D` 를 거부함. `isceobj/Sensor/TOPS/Sentinel1.py` 에 다음 분기를 추가해야 한다(42 는 절대궤도→상대궤도 실측 7건으로 역산한 값, 175개 후보 중 유일해):
   ```python
   elif mission == 'S1D':
       burst.trackNumber = (orbitnumber-42)%175 + 1
@@ -45,4 +45,4 @@ python render/render_chips.py ASC_085; python render/render_mainmap.py ASC_085; 
 - 결맞음 분석은 27룩 필수. 4룩(`-z 1 -r 4`)은 결맞음 편향이 커서 결론 불가.
 - topsStack run_file 각 줄 끝의 `&` 를 그대로 eval 하면 다음 run 과 경합한다 → `run_stack.sh` 사용.
 - merged SLC 는 VRT 만 만들어지므로 `reference/`·`secondarys/` 버스트를 지우면 진폭 분석 불가.
-- 진폭은 SLC DN 기반이라 절대 σ⁰ 보정이 안 되어 있다. 날짜 간 차이에는 상수가 상쇄되지만 절대 dB 임계에는 쓰면 안 된다.
+- 진폭은 SLC DN 기반이라 절대 σ⁰ 보정이 안 되어 있음. 날짜 간 차이에는 상수가 상쇄되지만 절대 dB 임계에는 쓰면 안 됨.

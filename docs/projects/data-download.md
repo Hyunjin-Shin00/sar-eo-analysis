@@ -23,5 +23,5 @@ export EARTHDATA_USER=... EARTHDATA_PASS=...
 
 ## 공통 인자
 
-대부분 AOI(bbox 또는 shapefile), 날짜 범위, 구름량 상한을 받는다.
-Sentinel-1 다운로드는 `flood-sar/s1_download_preprocess.py` 가 검색·수집·전처리를 한 번에 처리한다.
+대부분 AOI(bbox 또는 shapefile), 날짜 범위, 구름량 상한을 받음.
+Sentinel-1 다운로드는 `flood-sar/s1_download_preprocess.py` 가 검색·수집·전처리를 한 번에 처리함.

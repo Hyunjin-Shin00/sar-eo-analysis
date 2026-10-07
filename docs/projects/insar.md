@@ -3,7 +3,7 @@
 위상차로 밀리미터 단위 지표 변위를 재는 코드들.
 
 > 국산 위성(NEXTSat-2) 전용 처리는 [`../n2-sensor-model/`](../../sar/nextsat-2/sensor-model/) 과
-> [`../taean-sar/`](../../sar/nextsat-2/) 에 따로 있다.
+> [`../taean-sar/`](../../sar/nextsat-2/) 에 따로 있음.
 
 ## 구성
 
@@ -33,15 +33,15 @@ SLC (ref/sec) → 궤도·기하 계산 → 정합 및 오프셋 추정(coreg)
 
 ## n2/ — N2 → CSK 변환 (초기 접근)
 
-N2는 ISCE2가 직접 읽지 못한다. `n2_to_csk_final.py` 가 N2 메타데이터를
-CSK가 기대하는 궤도·기하 파라미터 구조로 매핑해 ISCE2 센서 리더를 재사용한다.
+N2는 ISCE2가 직접 읽지 못함. `n2_to_csk_final.py` 가 N2 메타데이터를
+CSK가 기대하는 궤도·기하 파라미터 구조로 매핑해 ISCE2 센서 리더를 재사용함.
 
-> 이 우회 방식은 이후 **자체 엄밀센서모델**([`../n2-sensor-model/`](../../sar/nextsat-2/sensor-model/))로 대체되었다.
-> 변환 코드 자체는 동작하지만, 산출된 간섭도의 품질은 보증하지 않는다.
+> 이 우회 방식은 이후 **자체 엄밀센서모델**([`../n2-sensor-model/`](../../sar/nextsat-2/sensor-model/))로 대체되었음.
+> 변환 코드 자체는 동작하지만, 산출된 간섭도의 품질은 보증하지 않음.
 
 ## psinsar/ — PS-InSAR
 
-ISCE2 `stackSentinel.py` 로 코레지스트레이션된 SLC 스택을 만든 뒤 PS를 추출한다.
+ISCE2 `stackSentinel.py` 로 코레지스트레이션된 SLC 스택을 만든 뒤 PS를 추출함.
 처리 파라미터는 `stackSentinel_README.md` 참고.
 
 | 파일 | 역할 |
@@ -52,12 +52,12 @@ ISCE2 `stackSentinel.py` 로 코레지스트레이션된 SLC 스택을 만든 �
 | `ps_extract.py` | PS 후보 추출 · LOS 속도 · 시계열 산출 |
 | `isce2_snaphu.yml` | conda 환경 정의 |
 
-> StaMPS 파이썬 포팅본과 snaphu 바이너리는 제3자 저작물이라 포함하지 않았다.
+> StaMPS 파이썬 포팅본과 snaphu 바이너리는 제3자 저작물이라 포함하지 않았음.
 > [StaMPS](https://github.com/dbekaert/StaMPS) 와 snaphu 는 각 업스트림에서 받을 것.
 
 ## sbas/ — SBAS 산사태
 
-`landslide_sbas.py` — PyGMTSAR로 SBAS 시계열을 돌려 사면 변위 속도를 뽑는다.
+`landslide_sbas.py` — PyGMTSAR로 SBAS 시계열을 돌려 사면 변위 속도를 뽑음.
 파키스탄 · 네팔 · 경주 사례에 적용.
 
 ## 환경

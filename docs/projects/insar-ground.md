@@ -1,7 +1,7 @@
 # insar-ground — Sentinel-1 PS-InSAR + SBAS 처리 스크립트
 
 ISCE2 topsStack 코레지 → StaMPS(Python 포팅) PS → 자체 SBAS → 하강궤도 분해 → PS/SBAS 비교까지의 최종본 스크립트.
-경로는 `${DATA_ROOT}`/`<DATA_ROOT>`(결과·워크스페이스), `${WORK_ROOT}`/`<WORK_ROOT>`(하강궤도·광역 작업), `$CONDA_PREFIX` 로 일반화했다.
+경로는 `${DATA_ROOT}`/`<DATA_ROOT>`(결과·워크스페이스), `${WORK_ROOT}`/`<WORK_ROOT>`(하강궤도·광역 작업), `$CONDA_PREFIX` 로 일반화함.
 
 ## 구성
 
@@ -36,25 +36,25 @@ python dsc/decomp_build.py 강동
 python compare/ps_sbas_analysis.py
 ```
 
-대형 작업은 `systemd-run --user --unit=NAME --service-type=exec` 트랜지언트 서비스로 띄운다.
-**메모리 상한(MemoryMax/High/SwapMax)은 걸지 않는다** — systemd-oomd 가 상한 근처의 cgroup 압박(PSI)을 보고 그 unit 을 먼저 죽인다. 메모리는 원인 쪽(GDAL_CACHEMAX, mp_patch)에서 줄인다.
+대형 작업은 `systemd-run --user --unit=NAME --service-type=exec` 트랜지언트 서비스로 띄움.
+**메모리 상한(MemoryMax/High/SwapMax)은 걸지 않는다** — systemd-oomd 가 상한 근처의 cgroup 압박(PSI)을 보고 그 unit 을 먼저 죽임. 메모리는 원인 쪽(GDAL_CACHEMAX, mp_patch)에서 줄임.
 
 ## 배치 주의
-원본은 모든 스크립트가 한 폴더(`$BIN`)에 평탄하게 있었다. 실행할 때는 하위폴더의 파일을 `$BIN` 하나에 모아야 한다.
+원본은 모든 스크립트가 한 폴더(`$BIN`)에 평탄하게 있었음. 실행할 때는 하위폴더의 파일을 `$BIN` 하나에 모아야 함.
 `process_region.sh` 는 번들에서 제외한 `select_reference.py`·`ps_output_raw.py` 를, `run_sbas_dsc.sh` 는 경보 지도 생성기 `make_dsc_map.py` 를 호출한다(없으면 해당 단계만 WARN 후 계속).
-구버전 `run_sbas.py`(9×3 geom 전제)는 `run_sbas_autoscale.py` 와 9×3 스택에서 결과가 같아 최종본만 넣었다.
+구버전 `run_sbas.py`(9×3 geom 전제)는 `run_sbas_autoscale.py` 와 9×3 스택에서 결과가 같아 최종본만 넣었음.
 
 ## 주요 함정
 
 - 소영역 PS 언랩 에러 `grid(17) < prefilt_win(32)` → `setparm unwrap_grid_size=100, unwrap_gold_n_win=16`.
-- bbox 를 바꿀 때 `stamps_dev3` 를 지우지 않으면 `run_SLCcropStack` 이 옛 크롭을 재사용한다.
+- bbox 를 바꿀 때 `stamps_dev3` 를 지우지 않으면 `run_SLCcropStack` 이 옛 크롭을 재사용함.
 - `-r1 -z1` 로 만든 스택은 geom 이 full-res 라 구버전 SBAS 창 계산이 raster 밖으로 나간다 → `run_sbas_autoscale.py`(배율 자동감지) 사용.
-- 원본 SLC zip 을 지운 뒤에는 reference 날짜의 `.slc.full.vrt` 가 열리지 않는다 → `.slc.full` 평면 바이너리를 `np.memmap(complex64)` 로 직접 읽도록 바꿔야 한다.
+- 원본 SLC zip 을 지운 뒤에는 reference 날짜의 `.slc.full.vrt` 가 열리지 않는다 → `.slc.full` 평면 바이너리를 `np.memmap(complex64)` 로 직접 읽도록 바꿔야 함.
 - `pkill -f`/`pgrep -f` 패턴이 점검 셸 자신과 매칭된다 → `/proc/PID/comm` 으로 거르기.
 - 부호: SBAS csv 의 `velocity`·`Dyyyymmdd` 는 **음수 = 침하**(위성에서 멀어짐).
 
 ## 의존 / 제외
 - 의존: ISCE2 2.6.x topsStack, psi_python(StaMPS Python 포팅, 사내 공유 패키지), snaphu 2.0.7, numpy/pandas/geopandas/gdal.
-- `decomp_build.py` 는 csv 로더(`swept_loader`, 별도 경보 프로젝트 코드)를 import 한다.
+- `decomp_build.py` 는 csv 로더(`swept_loader`, 별도 경보 프로젝트 코드)를 import 함.
 - 제외: PS 기준영역 자동선정 스크립트(사내 매뉴얼 원문 그대로라 미포함 — 알고리즘: 반경 150m 내 |속도|·추세잔차 z-score 합 최소 클러스터, PS≥15),
   `ps_output_raw.py`(포팅 패키지 `ps_output.py` 에서 기준 차감 한 줄만 0으로 바꾼 파생본), 경보 평가 스크립트(decomp_eval, dsc_full_analysis).

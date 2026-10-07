@@ -7,8 +7,8 @@
 ## 0. 개요
 
 v5 파이프라인의 **상대 보정 DN**에 **절대 복사 계수(gain)**를 적용해 **TOA 분광복사휘도(radiance)**로,
-다시 **TOA 반사율(reflectance)**로 변환한다. 절대 계수는 FM1 실험실 특성표에서 얻고, 결과는
-RadCalNet La Crau(LCFR01) 자료로 독립 검증한다.
+다시 **TOA 반사율(reflectance)**로 변환함. 절대 계수는 FM1 실험실 특성표에서 얻고, 결과는
+RadCalNet La Crau(LCFR01) 자료로 독립 검증함.
 
 변환 사슬:
 ```

@@ -2,6 +2,59 @@
 
 돌발홍수 피해 — 탐지 결과를 노출·경로 분석으로 확장.
 
+## 처리 흐름
+
+```mermaid
+flowchart TD
+    classDef data stroke-width:1.5px
+    classDef proc stroke-width:1.5px
+    classDef dec stroke-width:2px
+    classDef out stroke-width:2.5px
+    s1[("Sentinel-1 GRD 사전·사후")]
+    dem[("Copernicus DEM 30 m")]
+    jrc[("JRC 영구수체")]
+    pre["SNAP 전처리: 궤도 · 열잡음 · σ⁰ · Lee-sigma · 지형보정 10 m · dB"]
+    cand["−20 dB 초기 수체 후보"]
+    edge["경계 팽창−침식 + 5화소 버퍼"]
+    otsu{"버퍼 내 화소만으로 Otsu 임계"}
+    slope{"경사 ≥ 5° 는 육지로 강제"}
+    chg["사후 ∧ ¬사전 = GAIN / 사전 ∧ ¬사후 = LOSS"]
+    perm["영구수체 차분 → 신규 침수"]
+    depth["DEM 결합 침수심 추정 · 등급화"]
+    area(["침수 면적 km² · 침수심 등급도"])
+    val(["KuroSiwo 67타일 P/R/F1/IoU 검증"])
+    s1 --> pre
+    pre --> cand
+    cand --> edge
+    edge --> otsu
+    dem --> slope
+    otsu --> slope
+    slope --> chg
+    jrc --> perm
+    chg --> perm
+    perm --> depth
+    depth --> area
+    perm --> val
+    class s1 data
+    class dem data
+    class jrc data
+    class pre proc
+    class cand proc
+    class edge proc
+    class otsu dec
+    class slope dec
+    class chg proc
+    class perm proc
+    class depth proc
+    class area out
+    class val out
+```
+
+> - 원통: 입력 자료 · 사각형: 처리 단계 · 마름모: 판정·검증 · 양끝 둥근 사각형: 산출물
+> - GitHub 에서 자동 렌더링됨
+
+---
+
 ## 하위
 
 | 디렉터리 | 내용 |

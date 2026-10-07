@@ -33,7 +33,7 @@ docker run --rm --gpus all nvidia/cuda:12.4.1-base-ubuntu22.04 nvidia-smi
 
 ## 2. 이미지 빌드 (공급사)
 
-> **납품처에 소스코드 없이 이미지만 전달할 경우 이 단계를 수행합니다.**
+> **납품처에 소스코드 없이 이미지만 전달할 경우 이 단계를 수행함.**
 
 ### 빌드 전 준비
 ```bash
@@ -182,8 +182,8 @@ sudo systemctl restart docker
 ```
 
 ### 첫 실행이 느린 경우 (정상)
-- RoMaV2, DINOv3 모델을 처음 실행 시 Hugging Face에서 다운로드합니다
-- 이후 실행부터는 캐시를 사용하여 빠릅니다
+- RoMaV2, DINOv3 모델을 처음 실행 시 Hugging Face에서 다운로드함
+- 이후 실행부터는 캐시를 사용하여 빠름
 - 인터넷이 없는 환경에서는 모델 캐시를 별도 볼륨으로 마운트하세요:
   ```bash
   docker run ... -v /모델캐시경로:/app/.cache ...

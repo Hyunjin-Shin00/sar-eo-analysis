@@ -1,6 +1,6 @@
 # sar/sentinel-1/water/soil-moisture/verify
 
-원본 산출물에서 핵심 수치를 다시 계산해 문서와 대조한다.
+원본 산출물에서 핵심 수치를 다시 계산해 문서와 대조함.
 
 ## 코드
 

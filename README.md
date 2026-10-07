@@ -2,21 +2,21 @@
 
 **SAR 중심** 위성영상 분석 코드 모음 — 간섭측량(InSAR)으로 지반변위를 재고, 변화탐지로 재난 피해를
 가려내고, 지원 소프트웨어가 없는 위성을 쓰려고 센서모델을 직접 세운 작업들의 최종본.
-광학·수동 마이크로파 작업도 함께 들어 있습니다.
+광학·수동 마이크로파 작업도 함께 들어 있음.
 
 > SAR-first Earth observation code — InSAR ground deformation, SAR change detection,
 > and sensor models written from scratch for satellites no software supports.
 > Optical and passive-microwave work included. Final versions only.
 
-분석 결과와 프로젝트 설명은 **[hyunjin-shin00.github.io](https://hyunjin-shin00.github.io)** 에 정리되어 있습니다.
-이 저장소에는 코드만 둡니다.
+분석 결과와 프로젝트 설명은 **[hyunjin-shin00.github.io](https://hyunjin-shin00.github.io)** 에 정리되어 있음.
+이 저장소에는 코드만 둠.
 
 ---
 
 ## 구조 — 센서 → 위성 → 분석 기법
 
-프로젝트가 아니라 **무엇으로 무엇을 했는가**로 나눴습니다.
-같은 기법을 여러 사업에서 썼으면 한곳에 모았고, 쓴 영상이 다르면 분리했습니다.
+프로젝트가 아니라 **무엇으로 무엇을 했는가**로 나눴음.
+같은 기법을 여러 사업에서 썼으면 한곳에 모았고, 쓴 영상이 다르면 분리했음.
 
 ```
 sar/                        능동 마이크로파
@@ -66,12 +66,12 @@ docs/projects/              인수인계·방법론 문서
 docs/reports/               연구개발계획서·결과보고서 (원문 PDF 대신 내용을 md 로)
 ```
 
-각 프로젝트의 **배경 · 방법 · 결과 · 한계**는 홈페이지의 프로젝트별 설명에 있습니다.
-반대로 홈페이지 각 프로젝트 페이지에는 **관련 코드** 항목이 있어 이 저장소의 해당 폴더로 바로 연결됩니다.
+각 프로젝트의 **배경 · 방법 · 결과 · 한계**는 홈페이지의 프로젝트별 설명에 있음.
+반대로 홈페이지 각 프로젝트 페이지에는 **관련 코드** 항목이 있어 이 저장소의 해당 폴더로 바로 연결됨.
 
-**각 디렉터리에 `README.md` 가 있고, 그 안에 파일별 역할 · 입력 · 출력 표**가 있습니다.
+**각 디렉터리에 `README.md` 가 있고, 그 안에 파일별 역할 · 입력 · 출력 표**가 있음.
 주요 디렉터리에는 **그 코드로 만든 결과 그림**을 `figures/` 에 몇 장씩 넣었습니다 —
-코드만 봐서는 산출물이 어떻게 생겼는지 알 수 없으니까요. 데이터는 없고 그림만 참고용입니다.
+코드만 봐서는 산출물이 어떻게 생겼는지 알 수 없으니까요. 데이터는 없고 그림만 참고용임.
 
 ---
 
@@ -97,8 +97,8 @@ docs/reports/               연구개발계획서·결과보고서 (원문 PDF �
 | **변위 감도** | mm/yr | mm/yr | 정성 | m 급 |
 | **탈상관 시** | 불가 | 불가 | **동작** | **동작** |
 
-X-band는 식생·사구에서 수 일 내 탈상관합니다. 그때는 위상 기반(SBAS·PS)이 아니라
-오른쪽 두 칸으로 가야 합니다 — 그 근거는 [`docs/projects/taean-sar-methodology.md`](docs/projects/taean-sar-methodology.md) 에 있습니다.
+X-band는 식생·사구에서 수 일 내 탈상관함. 그때는 위상 기반(SBAS·PS)이 아니라
+오른쪽 두 칸으로 가야 합니다 — 그 근거는 [`docs/projects/taean-sar-methodology.md`](docs/projects/taean-sar-methodology.md) 에 있음.
 
 ---
 
@@ -114,44 +114,44 @@ pip install -r requirements.txt
 cp .env.example .env     # 자격증명을 채운다 (.env 는 커밋되지 않는다)
 ```
 
-ISCE2, snaphu, ESA SNAP, StaMPS, MintPy, PyGMTSAR 는 pip 로 설치되지 않습니다.
+ISCE2, snaphu, ESA SNAP, StaMPS, MintPy, PyGMTSAR 는 pip 로 설치되지 않음.
 `requirements.txt` 하단과 [`environment/`](environment/) 를 참고하세요.
 
 ### 자격증명
 
-모든 자격증명은 **환경변수**로만 읽습니다. 코드에 값을 직접 적지 마세요.
+모든 자격증명은 **환경변수**로만 읽음. 코드에 값을 직접 적지 마세요.
 
 ```python
 EDL_USER = os.environ.get("EARTHDATA_USER", "")
 ```
 
-필요한 키 목록은 [`.env.example`](.env.example) 에 있습니다.
+필요한 키 목록은 [`.env.example`](.env.example) 에 있음.
 
 ---
 
 ## 이 저장소의 규칙
 
-- **최종본만 둔다.** 중간본은 올리지 않습니다. 목적이 다른 두 버전(운영용 vs 벤치마크 평가용)은 이름을 달리해 둘 다 둡니다.
-- **데이터는 올리지 않는다.** GeoTIFF·NetCDF·HDF5·SAFE 는 `.gitignore` 로 제외합니다.
+- **최종본만 둠.** 중간본은 올리지 않음. 목적이 다른 두 버전(운영용 vs 벤치마크 평가용)은 이름을 달리해 둘 다 둠.
+- **데이터는 올리지 않음.** GeoTIFF·NetCDF·HDF5·SAFE 는 `.gitignore` 로 제외함.
   예외는 `figures/` 안의 참고용 webp 뿐입니다 (각 1 MB 미만, 전체 3.5 MB).
-- **자격증명은 올리지 않는다.** 환경변수로만 읽습니다.
-- **노트북은 출력을 지우고 올린다.**
-- **고객사 정보는 올리지 않는다.** 기관명·계약 정보·사내 서버 경로가 코드와 문서에 들어가지 않게 합니다.
+- **자격증명은 올리지 않음.** 환경변수로만 읽음.
+- **노트북은 출력을 지우고 올림.**
+- **고객사 정보는 올리지 않음.** 기관명·계약 정보·사내 서버 경로가 코드와 문서에 들어가지 않게 함.
 
-경로는 `<DATA_ROOT>`(데이터), `<WORK_ROOT>`(작업), `$CONDA_PREFIX`(conda 환경)로 일반화돼 있습니다.
+경로는 `<DATA_ROOT>`(데이터), `<WORK_ROOT>`(작업), `$CONDA_PREFIX`(conda 환경)로 일반화돼 있음.
 
 ---
 
 ## 외부 도구
 
-- **StaMPS** 파이썬 포팅본과 **snaphu** 바이너리는 제3자 저작물이라 포함하지 않았습니다.
+- **StaMPS** 파이썬 포팅본과 **snaphu** 바이너리는 제3자 저작물이라 포함하지 않았음.
   [`sar/sentinel-1/insar/psinsar/stamps_patches/`](sar/sentinel-1/insar/psinsar/stamps_patches/) 에는
-  제가 적용한 패치만 있습니다. 원본은 [StaMPS](https://github.com/dbekaert/StaMPS) 에서 받으세요.
-- **ISCE2**, **MintPy**, **PyGMTSAR**, **SNAP** 은 별도 설치가 필요합니다.
-- `sar/nextsat-2/isce2-spoofing/` 은 ISCE2 설치본을 **고치지 않고** 런타임에 패치합니다.
+  제가 적용한 패치만 있음. 원본은 [StaMPS](https://github.com/dbekaert/StaMPS) 에서 받으세요.
+- **ISCE2**, **MintPy**, **PyGMTSAR**, **SNAP** 은 별도 설치가 필요함.
+- `sar/nextsat-2/isce2-spoofing/` 은 ISCE2 설치본을 **고치지 않고** 런타임에 패치함.
 - BlueBON 쪽에서 제외한 제3자 라이브러리(RoMa · LightGlue · rpcfit · ResShift · Swin2-MoSE ·
-  deblur-l0 · spdlog)는 [`eo/bluebon/THIRD_PARTY.md`](eo/bluebon/THIRD_PARTY.md) 에 정리했습니다.
+  deblur-l0 · spdlog)는 [`eo/bluebon/THIRD_PARTY.md`](eo/bluebon/THIRD_PARTY.md) 에 정리했음.
 
 ## 라이선스
 
-[MIT](LICENSE) — 단, 위 외부 도구들은 각자의 라이선스를 따릅니다.
+[MIT](LICENSE) — 단, 위 외부 도구들은 각자의 라이선스를 따름.

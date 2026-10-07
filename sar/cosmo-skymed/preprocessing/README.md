@@ -1,6 +1,6 @@
 # sar/cosmo-skymed/preprocessing
 
-CSG 산출물 언팩과 센서 어댑터 — StaMPS 입력 형식으로 맞춘다.
+CSG 산출물 언팩과 센서 어댑터 — StaMPS 입력 형식으로 맞춤.
 
 ## 코드
 

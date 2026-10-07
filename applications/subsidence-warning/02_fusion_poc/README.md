@@ -1,6 +1,6 @@
 # applications/subsidence-warning/02_fusion_poc
 
-InSAR 변위 + 지반 등급 + 지하수를 융합해 지표를 만든다.
+InSAR 변위 + 지반 등급 + 지하수를 융합해 지표를 만듦.
 
 ## 코드
 

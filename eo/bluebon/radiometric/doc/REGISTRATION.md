@@ -7,10 +7,10 @@
 
 ## 0. 요약 (한 문단)
 BlueBON 영상은 밴드마다 초점면 위치가 달라 **같은 지상점을 다른 시각에** 촬영하므로
-밴드 간 공간 어긋남이 생긴다. 이를 (1) **phase correlation**으로 밴드별 shift를 추정하고,
+밴드 간 공간 어긋남이 생김. 이를 (1) **phase correlation**으로 밴드별 shift를 추정하고,
 (2) **촬영순서 인접쌍 체인**으로 누적한 뒤 (3) **RGBN 중심 최적 anchor**를 자동 선택하여 평행이동 정합하고,
 (4) 평행이동 후 남는 **자세 지터(along-track) + 회전(yaw)/keystone(across-track)** 잔차를
-**row·column 저차 모델(collin)**로 추정해 (5) **단일 remap**으로 한 번에 워프한다.
+**row·column 저차 모델(collin)**로 추정해 (5) **단일 remap**으로 한 번에 워프함.
 마지막에 공통영역 crop + 좌우 flip.
 
 ---
@@ -101,14 +101,14 @@ regT[b] = nd_shift(img[b], apply_shift[b], order=1, cval=0)[top:bot+1, left:righ
 ```
 - `nd_shift`(scipy, bilinear order=1)로 subpixel 평행이동 → **regT** (translation-정합 세트).
 - `valid_bounds`: 각 밴드 shift로 인해 실데이터가 없는 가장자리를 배제한 **공통 사각영역** 계산.
-- regT는 **잔차 필드(지터·회전) 추정의 입력**으로만 쓰이고, 최종 출력은 §7의 단일 remap이 만든다.
+- regT는 **잔차 필드(지터·회전) 추정의 입력**으로만 쓰이고, 최종 출력은 §7의 단일 remap이 만듦.
 
 ---
 
 ## 6. 잔차 필드: 지터 + 회전 (collin 모델) — 핵심
 
 `residual_field(anchor_img, band_img, H, W)` (L82–112). regT의 anchor와 각 밴드 사이
-**남은 오정합을 (row, column)의 저차 함수로 추정**한다.
+**남은 오정합을 (row, column)의 저차 함수로 추정**함.
 
 ### 6.1 모델
 ```
@@ -197,7 +197,7 @@ for b: reg[b] = fliplr( crop( field_warp(img[b], apply_shift[b], ay,ax,by,bx) ) 
 ## 10. 왜 "일관적"인가 (사용자 원칙 부합)
 
 - 정합은 **장면마다 shift 값이 다르지만**, 그 값을 **장면 자신의 데이터에서 동일 알고리즘**으로
-  추정한다. 고정 상수를 억지로 강요하지 않음 → 밴드 오프셋/지터가 장면마다 달라도 각각 올바르게 정렬.
+  추정함. 고정 상수를 억지로 강요하지 않음 → 밴드 오프셋/지터가 장면마다 달라도 각각 올바르게 정렬.
 - warping은 **단일 anchor 격자 + 전역 저차(row 함수 + 컬럼 1차) + 강한 스무딩**만 사용 →
   국소 elastic warp로 인한 밴드간 공간일치 저하가 원천적으로 없음.
 

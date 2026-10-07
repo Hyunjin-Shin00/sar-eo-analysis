@@ -1,7 +1,7 @@
 # earthquake-damage — Sentinel-1 DInSAR + CCD 지진 피해 분석 (2026 베네수엘라 M7.5)
 
 SNAP(GUI)으로 만든 간섭도·코히런스를 받아 ① 코히런스 변화탐지(CCD)로 건물·도로 피해 의심구역을 등급화하고,
-② DInSAR 언랩 위상을 LOS 변위로 바꿔 지표 이동을 보고, ③ Copernicus EMS(EMSR884) 피해판독·지반변위 제품과 교차검증한다.
+② DInSAR 언랩 위상을 LOS 변위로 바꿔 지표 이동을 보고, ③ Copernicus EMS(EMSR884) 피해판독·지반변위 제품과 교차검증함.
 
 ## 구성
 | 폴더 | 파일 | 내용 |
@@ -18,9 +18,9 @@ SNAP(GUI)으로 만든 간섭도·코히런스를 받아 ① 코히런스 변화
 | 05_verify | fig_validation.py, fig_left_dinsar.py | 검증 그림, 1일 페어 변위 지도 |
 
 ## 실행 메모
-- 원 스크립트는 Windows 워크스테이션에서 작성됨. 경로 상수의 `<DATA_ROOT>` 를 데이터 루트로 바꿔야 한다.
-  05_verify 스크립트는 환경변수 `DATA_ROOT` 를 읽는다.
+- 원 스크립트는 Windows 워크스테이션에서 작성됨. 경로 상수의 `<DATA_ROOT>` 를 데이터 루트로 바꿔야 함.
+  05_verify 스크립트는 환경변수 `DATA_ROOT` 를 읽음.
 - `slc_to_amp_geotiff.py` 는 `$CONDA_PREFIX/share/proj` 를 PROJ_DATA 로 지정한다 (안 하면 GDAL 이 EPSG 를 못 읽는 env 가 있음).
-- 광학 건물 피해 분류 v7(로지스틱 회귀 + Gradient Boosting) 의 **학습·생성 코드는 포함돼 있지 않다** (원 작업 PC에만 존재). 산출물(gpkg/joblib/json)만 있고, `cv_check.py` 로 학습셋 구성(15,028/86/14,942)과 CV AUC(≈0.83)만 근사 재현했다.
+- 광학 건물 피해 분류 v7(로지스틱 회귀 + Gradient Boosting) 의 **학습·생성 코드는 포함돼 있지 않다** (원 작업 PC에만 존재). 산출물(gpkg/joblib/json)만 있고, `cv_check.py` 로 학습셋 구성(15,028/86/14,942)과 CV AUC(≈0.83)만 근사 재현함.
 - 등급 임계치가 두 벌(3등급 0.2/0.4/0.6, 2등급 0.1/0.4) 있으니 결과 인용 시 구분할 것.
-- 모든 결과는 현장 미검증 예비분석이다.
+- 모든 결과는 현장 미검증 예비분석임.

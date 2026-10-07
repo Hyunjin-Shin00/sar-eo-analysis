@@ -1,6 +1,6 @@
 # GUI 앱을 독립 실행 파일로 만들기
 
-GUI 앱을 PyInstaller를 사용하여 독립 실행 파일(executable)로 만들 수 있습니다.
+GUI 앱을 PyInstaller를 사용하여 독립 실행 파일(executable)로 만들 수 있음.
 
 ## ⚠️ 주의사항
 

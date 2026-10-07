@@ -1,6 +1,55 @@
 # sar/sentinel-1/insar/dinsar
 
-**DInSAR** — 두 시기 간섭쌍 하나로 변위를 본다. 지진처럼 단발 큰 변위에 쓴다.
+**DInSAR** — 두 시기 간섭쌍 하나로 변위를 봄. 지진처럼 단발 큰 변위에 씀.
+
+## 처리 흐름
+
+```mermaid
+flowchart TD
+    classDef data stroke-width:1.5px
+    classDef proc stroke-width:1.5px
+    classDef dec stroke-width:2px
+    classDef out stroke-width:2.5px
+    slc[("Sentinel-1A/1C/1D IW SLC 7장 51 GB")]
+    opt[("SkySat 0.5 m 전·후 광학")]
+    gis[("EMSR884 · OSM 건물 30,558동 · GEM 단층")]
+    chain["SNAP: Split → 궤도 → Back-Geocoding → 간섭도 → Deburst → Goldstein → TC"]
+    unw["SNAPHU 2.0.4 DEFO · MCF · 10×10 타일 언랩"]
+    los["d_LOS = −φλ / 4π"]
+    ccd["ΔCoh = γ_pre − γ_co"]
+    mask{"γ_pre 저코히런스 마스크 · ΔCoh 0 미만 제외"}
+    grade{"EMS 탐지율 보며 2등급 재설정 (RISK 0.1~0.4 / HIGH ≥ 0.4)"}
+    clf["건물 피해 분류기 LR + GB (v7)"]
+    out(["변위장 · 피해 위험도 등급도 · 건물 단위 판정"])
+    slc --> chain
+    chain --> unw
+    unw --> los
+    chain --> ccd
+    ccd --> mask
+    mask --> grade
+    opt --> clf
+    gis --> grade
+    gis --> clf
+    los --> out
+    grade --> out
+    clf --> out
+    class slc data
+    class opt data
+    class gis data
+    class chain proc
+    class unw proc
+    class los proc
+    class ccd proc
+    class mask dec
+    class grade dec
+    class clf proc
+    class out out
+```
+
+> - 원통: 입력 자료 · 사각형: 처리 단계 · 마름모: 판정·검증 · 양끝 둥근 사각형: 산출물
+> - GitHub 에서 자동 렌더링됨
+
+---
 
 ## 코드
 

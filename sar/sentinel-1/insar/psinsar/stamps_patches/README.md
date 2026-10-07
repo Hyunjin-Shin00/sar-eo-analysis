@@ -1,6 +1,6 @@
 # sar/sentinel-1/insar/psinsar/stamps_patches
 
-StaMPS 파이썬 포팅본에 적용한 패치 — 업스트림 원본은 포함하지 않는다.
+StaMPS 파이썬 포팅본에 적용한 패치 — 업스트림 원본은 포함하지 않음.
 
 ## 코드
 

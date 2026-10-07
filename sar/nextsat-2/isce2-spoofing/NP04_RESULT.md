@@ -41,7 +41,7 @@ work_dir를 `/mnt/c`(Windows DrvFs 마운트)에 두면 `misreg/misreg.dat` 쓰�
 permitted`(EPERM)로 실패하고, 위장 패치가 이를 "유효 오프셋 없음"으로 **오인해 refine을 조용히
 skip**한다(→ 코레지가 궤도+DEM 기하만으로 대체, CLAUDE.md 경고 함정). 그래서 이 결과는 work_dir를
 **리눅스 네이티브 FS(`<WORK_ROOT>/n2_np04_work`)**에서 실행해 refine을 실제로 수행한 뒤 산출물만
-여기로 복사한 것이다. (입력 h5는 /mnt/c에서 읽기만 하므로 무관.)
+여기로 복사한 것임. (입력 h5는 /mnt/c에서 읽기만 하므로 무관.)
 
 검증: `/mnt/c` 실행(refine skip)과 Linux 실행(refine 적용)의 코히런스가 **동일(0.281)** →
 저코히런스는 코레지 오차가 아니라 시간적 탈상관 때문임이 입증됨.

@@ -6,7 +6,7 @@ SLC·GRD 전처리와 스택 코레지스트레이션. 모든 기법의 공통 �
 
 | 디렉터리 | 내용 |
 |---|---|
-| [`descending/`](descending/) | 하강궤도 전용 수집·코레지. 상승궤도와 설정이 달라 분리했다. |
+| [`descending/`](descending/) | 하강궤도 전용 수집·코레지. 상승궤도와 설정이 달라 분리함. |
 | [`stack/`](stack/) | ISCE2 `stackSentinel` 기반 코레지 SLC 스택 생성 — PS/SBAS 공통 입력. |
 
 ## 코드

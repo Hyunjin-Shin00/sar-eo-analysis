@@ -1,8 +1,8 @@
 # soil-moisture — Sentinel-1 표층 토양수분 산출·논문 재현·검증
 
-무료 위성자료(Sentinel-1, Sentinel-2, SMAP)와 공개 현장관측으로 표층 토양수분을 산출하고, 공개 논문의 방법을 그대로 적용해 수치를 재현·검증한 코드. 성공(영국)·실패(미국·국내 관측소·PINN·SMAP) 모두 기록용으로 포함한다.
+무료 위성자료(Sentinel-1, Sentinel-2, SMAP)와 공개 현장관측으로 표층 토양수분을 산출하고, 공개 논문의 방법을 그대로 적용해 수치를 재현·검증한 코드. 성공(영국)·실패(미국·국내 관측소·PINN·SMAP) 모두 기록용으로 포함함.
 
-경로 표기: `<WORK_ROOT>` = 작업 루트(원본 폴더 구조: `case_UK_Maslanka2022/`, `case_US_Ma2020/`, `code/`, `data/`, `outputs/`, `satchat/`, `ref_Cho2026_PINN/`). 셸 스크립트는 `${WORK_ROOT}` 환경변수를 사용한다.
+경로 표기: `<WORK_ROOT>` = 작업 루트(원본 폴더 구조: `case_UK_Maslanka2022/`, `case_US_Ma2020/`, `code/`, `data/`, `outputs/`, `satchat/`, `ref_Cho2026_PINN/`). 셸 스크립트는 `${WORK_ROOT}` 환경변수를 사용함.
 
 ## 폴더
 | 폴더 | 내용 | 결과 |
@@ -58,6 +58,6 @@ python verify/fig_us_scan.py <retrievals.csv> <out.png>
 - 논문 미기재 항목(셀 정렬, 선형/dB 평균, 이동평균 창 위치)은 임의 선택
 
 ## 주의
-- 산출물은 상대값(0–100%)이다. 체적 함수량이 필요하면 현장값으로 별도 보정해야 한다.
-- 원본 데이터(npz, GeoTIFF, xlsx)와 논문 PDF는 포함하지 않는다. Cho 2026 Zenodo 자료는 해당 레코드에서 직접 받아야 한다.
-- `satchat_viz/make_satchat.py`는 SatCHAT UI 스크린샷(`satchat.png`)과 Esri World Imagery 타일이 필요하다. 결과 이미지는 실제 서비스 화면이 아닌 시연용 합성이다.
+- 산출물은 상대값(0–100%)임. 체적 함수량이 필요하면 현장값으로 별도 보정해야 함.
+- 원본 데이터(npz, GeoTIFF, xlsx)와 논문 PDF는 포함하지 않음. Cho 2026 Zenodo 자료는 해당 레코드에서 직접 받아야 함.
+- `satchat_viz/make_satchat.py`는 SatCHAT UI 스크린샷(`satchat.png`)과 Esri World Imagery 타일이 필요함. 결과 이미지는 실제 서비스 화면이 아닌 시연용 합성임.

@@ -1,6 +1,47 @@
 # eo/sentinel-2/thermal-anomaly
 
-**TAI** 열이상지수 — SWIR이 고온체에 반응하는 성질로 제련소 가동을 판정한다.
+**TAI** 열이상지수 — SWIR이 고온체에 반응하는 성질로 제련소 가동을 판정함.
+
+## 처리 흐름
+
+```mermaid
+flowchart LR
+    classDef data stroke-width:1.5px
+    classDef proc stroke-width:1.5px
+    classDef dec stroke-width:2px
+    classDef out stroke-width:2.5px
+    s2[("Sentinel-2 SWIR B11 · B12")]
+    aoi[("제련소 AOI 폴리곤 — 용광로 · 슬래그장 · 원료야적장 수동 구분")]
+    gt[("실제 가동 기록 (독일 · 호주)")]
+    no2[("Sentinel-5P NO₂ 대류권 칼럼")]
+    tai["TAI 설계 — SWIR 고온물체 감도 이용"]
+    gee["GEE 전체 관측일 누적 TAI 맵"]
+    ts["TAIsum 2018–2025 시계열"]
+    corr{"가동 기록 상관분석 · NO₂ 교차 비교"}
+    out(["제련소별 가동 활동성 지수 · 장기 패턴"])
+    s2 --> tai
+    aoi --> tai
+    tai --> gee
+    gee --> ts
+    gt --> corr
+    no2 --> corr
+    ts --> corr
+    corr --> out
+    class s2 data
+    class aoi data
+    class gt data
+    class no2 data
+    class tai proc
+    class gee proc
+    class ts proc
+    class corr dec
+    class out out
+```
+
+> - 원통: 입력 자료 · 사각형: 처리 단계 · 마름모: 판정·검증 · 양끝 둥근 사각형: 산출물
+> - GitHub 에서 자동 렌더링됨
+
+---
 
 ## 하위
 

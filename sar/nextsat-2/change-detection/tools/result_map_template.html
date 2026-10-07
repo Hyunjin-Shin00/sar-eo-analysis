@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>태안 사구 - N2 / Sentinel-1 SAR 변화 분석</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+ :root{--bg:#0f1216;--panel:#171c22;--line:#2a323c;--txt:#e6ebf0;--mut:#9fb0c0;--acc:#4da3ff;}
+ *{box-sizing:border-box}
+ body{margin:0;font-family:"Malgun Gothic","Segoe UI",sans-serif;background:var(--bg);color:var(--txt)}
+ header{padding:12px 18px;border-bottom:1px solid var(--line)}
+ header h1{margin:0;font-size:18px}
+ header p{margin:4px 0 0;color:var(--mut);font-size:12px}
+ #main{display:flex;height:72vh;min-height:520px}
+ #side{width:360px;overflow-y:auto;background:var(--panel);border-right:1px solid var(--line);padding:8px 10px}
+ #map{flex:1}
+ .grp{margin:8px 0 2px;font-size:12px;font-weight:700;color:var(--acc);border-bottom:1px solid var(--line);padding-bottom:3px}
+ .grpdate{font-size:10px;font-weight:400;color:var(--mut);margin-top:2px}
+ .lyr{padding:6px 4px;border-bottom:1px solid #202832}
+ .lyr .top{display:flex;align-items:center;gap:6px}
+ .lyr .nm{font-size:12.5px;flex:1}
+ .ctl{display:none;margin-top:6px;font-size:11px;color:var(--mut)}
+ .lyr.on .ctl{display:block}
+ .ctl .row{display:flex;align-items:center;gap:5px;margin:3px 0}
+ .ctl input[type=number]{width:64px;background:#0d1116;color:var(--txt);border:1px solid var(--line);border-radius:4px;padding:2px 4px}
+ .ctl select{background:#0d1116;color:var(--txt);border:1px solid var(--line);border-radius:4px;padding:2px}
+ .ctl input[type=range]{width:100px}
+ .cbar{height:12px;border-radius:3px;margin:4px 0;border:1px solid var(--line)}
+ .cbarlab{display:flex;justify-content:space-between;font-size:10px;color:var(--mut)}
+ #side .hint{font-size:11px;color:var(--mut);margin:4px 0 8px}
+ section{padding:14px 18px;border-top:1px solid var(--line)}
+ section h2{font-size:15px;margin:0 0 8px}
+ .tbl{border-collapse:collapse;width:100%;font-size:12px}
+ .tbl th,.tbl td{border:1px solid var(--line);padding:5px 8px;text-align:center}
+ .tbl th{background:#1c232b;color:var(--acc)}
+ .tbl .gcell{font-weight:700;background:#141a20;vertical-align:middle}
+ .note{color:var(--mut);font-size:11.5px;margin-top:8px}
+ .gal{display:grid;grid-template-columns:repeat(auto-fit,minmax(420px,1fr));gap:12px}
+ .gal figure{margin:0;background:#0d1116;border:1px solid var(--line);border-radius:6px;padding:6px}
+ .gal img{width:100%;height:auto;border-radius:4px;cursor:zoom-in}
+ .gal figcaption{font-size:11px;color:var(--mut);margin-top:4px;text-align:center}
+ .btnrow{margin:6px 0}
+ button.mini{background:#1c232b;color:var(--txt);border:1px solid var(--line);border-radius:4px;padding:3px 8px;font-size:11px;cursor:pointer}
+ #modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:9999;justify-content:center;align-items:center}
+ #modal img{max-width:96%;max-height:96%}
+ .compassbox{background:rgba(15,18,22,.88);border:1px solid var(--line);border-radius:6px;padding:6px 8px;color:var(--txt);font-size:10px}
+ .compassbox .lg{margin-top:3px;line-height:1.5}
+ .defs{margin-top:14px}
+ .defs p{font-size:12px;color:var(--txt);line-height:1.55;margin:6px 0}
+ .defs ul.tech{margin:6px 0 10px 2px;padding-left:18px}
+ .defs ul.tech li{margin:6px 0;line-height:1.5;font-size:12px}
+ .defs .dt{font-weight:700;background:#141a20;text-align:left}
+ .defs .tbl td{text-align:left}
+</style>
+</head>
+<body>
+<header>
+ <h1>태안 사구 - NEXTSat-2 / Sentinel-1 SAR 변화 분석</h1>
+ <p>ESRI 위성영상 위 레이어 ON/OFF · 레이어별 컬러바 MIN/MAX 직접 입력 · 관심영역 폴리곤(Taean.shp) 오버레이. AOI SNWE 36.3899 / 36.4350 / 126.3548 / 126.4107</p>
+</header>
+<div id="main">
+ <div id="side">
+  <div class="hint">체크박스로 레이어 표시. 각 레이어의 MIN/MAX·컬러맵·투명도를 직접 조정할 수 있습니다.</div>
+  <div class="btnrow"><button class="mini" id="alloff">전체 끄기</button> <button class="mini" id="polytoggle">폴리곤 표시/숨김</button></div>
+  <div id="layers"></div>
+ </div>
+ <div id="map"></div>
+</div>
+<section>
+ <h2>분석 기법</h2>
+ __TECHNIQUES__
+</section>
+<section>
+ <h2>분석 결과</h2>
+ __RESULTS__
+</section>
+<script>
+const MANIFEST=__MANIFEST__, POLY=__POLYGON__, BOUNDS=__BOUNDS__, DIRS=__DIRS__, GDATES=__GDATES__, VECTORS=__VECTORS__;
+const STOPS={
+ viridis:[[0,68,1,84],[0.25,59,82,139],[0.5,33,145,140],[0.75,94,201,98],[1,253,231,37]],
+ rdbu:[[0,33,102,172],[0.25,146,197,222],[0.5,247,247,247],[0.75,244,165,130],[1,178,24,43]],
+ rainbow:[[0,0,0,131],[0.2,0,120,255],[0.45,0,255,180],[0.6,180,255,0],[0.8,255,120,0],[1,150,0,0]]};
+function interp(s,t){for(let i=1;i<s.length;i++){if(t<=s[i][0]){const a=s[i-1],b=s[i],f=(t-a[0])/((b[0]-a[0])||1);return[a[1]+(b[1]-a[1])*f,a[2]+(b[2]-a[2])*f,a[3]+(b[3]-a[3])*f];}}const l=s[s.length-1];return[l[1],l[2],l[3]];}
+function hsvc(t){const h=t*6,c=1,x=1-Math.abs(h%2-1);let r,g,b;if(h<1){r=c;g=x;b=0}else if(h<2){r=x;g=c;b=0}else if(h<3){r=0;g=c;b=x}else if(h<4){r=0;g=x;b=c}else if(h<5){r=x;g=0;b=c}else{r=c;g=0;b=x}return[r*255,g*255,b*255];}
+const CMAPS={viridis:t=>interp(STOPS.viridis,t),rdbu:t=>interp(STOPS.rdbu,t),rainbow:t=>interp(STOPS.rainbow,t),hsv:t=>hsvc(t),gray:t=>[t*255,t*255,t*255]};
+function b64f32(b){const s=atob(b),n=s.length,u=new Uint8Array(n);for(let i=0;i<n;i++)u[i]=s.charCodeAt(i);return new Float32Array(u.buffer);}
+
+const map=L.map("map",{preferCanvas:true});
+L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+ {attribution:"Esri World Imagery",maxZoom:19}).addTo(map);
+map.fitBounds(BOUNDS);
+const polyLayer=L.polygon(POLY.map(c=>[c[1],c[0]]),{color:"#ff3b3b",weight:2,fill:false}).addTo(map);
+let polyOn=true;
+
+// 방향 나침반 (N2/S1 방위·거리, 북 기준 시계방향)
+const compass=L.control({position:"topright"});
+compass.onAdd=function(){
+ const wrap=L.DomUtil.create("div","compassbox");
+ const cx=62,cy=60,Rr=40,N2="#ffd24d",S1="#4da3ff",NC="#9fb0c0";
+ const ep=(th,r)=>[cx+r*Math.sin(th*Math.PI/180), cy-r*Math.cos(th*Math.PI/180)];
+ const line=(th,col,dash)=>{const[x,y]=ep(th,Rr);return `<line x1="${cx}" y1="${cy}" x2="${x.toFixed(1)}" y2="${y.toFixed(1)}" stroke="${col}" stroke-width="2.4" ${dash?'stroke-dasharray="4,3"':''} marker-end="url(#m_${col.slice(1)})"/>`;};
+ const lab=(th,col,t)=>{const[x,y]=ep(th,Rr+12);return `<text x="${x.toFixed(1)}" y="${y.toFixed(1)}" fill="${col}" font-size="8.5" text-anchor="middle" dominant-baseline="middle">${t}</text>`;};
+ const mk=c=>`<marker id="m_${c.slice(1)}" markerWidth="7" markerHeight="7" refX="5.5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="${c}"/></marker>`;
+ wrap.innerHTML=`<div style="font-weight:700;margin-bottom:2px">Direction (° from N)</div><svg width="126" height="126">
+  <defs>${mk(N2)}${mk(S1)}${mk(NC)}</defs>
+  <circle cx="${cx}" cy="${cy}" r="${Rr}" fill="none" stroke="#2a323c"/>
+  ${line(0,NC,false)}${lab(0,NC,"N")}
+  ${line(DIRS.n2.az,N2,false)}${lab(DIRS.n2.az,N2,DIRS.n2.az+"°")}
+  ${line(DIRS.n2.rg,N2,true)}${lab(DIRS.n2.rg,N2,DIRS.n2.rg+"°")}
+  ${line(DIRS.s1.az,S1,false)}${lab(DIRS.s1.az,S1,DIRS.s1.az+"°")}
+  ${line(DIRS.s1.rg,S1,true)}${lab(DIRS.s1.rg,S1,DIRS.s1.rg+"°")}
+ </svg><div class="lg">
+  <span style="color:${N2}">━</span> N2 Azimuth ${DIRS.n2.az}° <span style="color:${N2}">┅</span> Range ${DIRS.n2.rg}°<br>
+  <span style="color:${S1}">━</span> S1 Azimuth ${DIRS.s1.az}° <span style="color:${S1}">┅</span> Range ${DIRS.s1.rg}°<br>
+  solid=Azimuth(flight) · dashed=Range(LOS)</div>`;
+ L.DomEvent.disableClickPropagation(wrap);
+ return wrap;
+};
+compass.addTo(map);
+
+// OT 이동벡터 (Azimuth+Range 합성) - 폴리곤 내부, 편집본, 각 OT 그룹 아래에 삽입
+function makeVectorBox(key){
+ const v=VECTORS[key]; if(!v||!v.arrows||!v.arrows.length) return null;
+ const grp=L.layerGroup();
+ v.arrows.forEach(a=>{
+   const opt={color:v.color,weight:1.8,opacity:0.92,interactive:false};
+   grp.addLayer(L.polyline([[a[0],a[1]],[a[2],a[3]]],opt));
+   grp.addLayer(L.polyline([[a[2],a[3]],[a[4],a[5]]],opt));
+   grp.addLayer(L.polyline([[a[2],a[3]],[a[6],a[7]]],opt));
+ });
+ const box=document.createElement("div"); box.className="lyr";
+ box.innerHTML=`<div class="top"><input type="checkbox"><span class="nm" style="color:${v.color}">▶ 이동벡터 (Azimuth+Range 합성)</span></div>
+   <div class="ctl"><div class="row">화살표 ${v.n}개 · 중앙값 |변위| ${v.med} m · 폴리곤 내부 · 길이=상대 크기(과장)</div></div>`;
+ const cb=box.querySelector("input");
+ cb.addEventListener("change",()=>{ if(cb.checked){box.classList.add("on");grp.addTo(map);} else {box.classList.remove("on");map.removeLayer(grp);} });
+ return box;
+}
+
+function render(ly){
+ if(!ly.canvas){ly.canvas=document.createElement("canvas");ly.canvas.width=ly.w;ly.canvas.height=ly.h;ly.ctx=ly.canvas.getContext("2d");ly.img=ly.ctx.createImageData(ly.w,ly.h);}
+ const d=ly.values,o=ly.img.data,mn=ly.vmin,mx=ly.vmax,f=CMAPS[ly.cmap],rng=(mx-mn)||1;
+ for(let i=0;i<d.length;i++){const v=d[i],k=i*4;if(!isFinite(v)){o[k+3]=0;continue;}let t=(v-mn)/rng;if(t<0)t=0;if(t>1)t=1;const c=f(t);o[k]=c[0];o[k+1]=c[1];o[k+2]=c[2];o[k+3]=255;}
+ ly.ctx.putImageData(ly.img,0,0);const url=ly.canvas.toDataURL();
+ if(ly.overlay)ly.overlay.setUrl(url);else ly.overlay=L.imageOverlay(url,ly.bounds||BOUNDS,{opacity:ly.opacity,interactive:false});
+}
+function cbarCss(cmap){let s="linear-gradient(to right";for(let i=0;i<=10;i++){const c=CMAPS[cmap](i/10);s+=`,rgb(${c[0]|0},${c[1]|0},${c[2]|0})`;}return s+")";}
+
+const groups={};
+MANIFEST.forEach(m=>{m.values=b64f32(m.data);m.data=null;m.opacity=0.85;(groups[m.group]=groups[m.group]||[]).push(m);});
+const cont=document.getElementById("layers");
+Object.keys(groups).forEach(g=>{
+ const h=document.createElement("div");h.className="grp";h.innerHTML=g+(GDATES[g]?`<div class="grpdate">${GDATES[g]}</div>`:"");cont.appendChild(h);
+ groups[g].forEach(m=>{
+  const box=document.createElement("div");box.className="lyr";
+  box.innerHTML=`<div class="top"><input type="checkbox"><span class="nm">${m.name}</span></div>
+   <div class="ctl">
+    <div class="row">MIN<input type="number" step="any" class="mn" value="${m.vmin}">MAX<input type="number" step="any" class="mx" value="${m.vmax}">
+     <select class="cm"><option value="viridis">viridis</option><option value="rdbu">RdBu</option><option value="rainbow">rainbow</option><option value="hsv">hsv(위상)</option><option value="gray">gray</option></select></div>
+    <div class="cbar"></div><div class="cbarlab"><span class="lmn"></span><span class="lu">${m.unit}</span><span class="lmx"></span></div>
+    <div class="row">투명도<input type="range" class="op" min="0" max="1" step="0.05" value="0.85"></div>
+   </div>`;
+  cont.appendChild(box);
+  const cb=box.querySelector("input[type=checkbox]"),mn=box.querySelector(".mn"),mx=box.querySelector(".mx"),
+        cm=box.querySelector(".cm"),op=box.querySelector(".op"),cbar=box.querySelector(".cbar"),
+        lmn=box.querySelector(".lmn"),lmx=box.querySelector(".lmx");
+  cm.value=m.cmap;
+  function refreshBar(){cbar.style.background=cbarCss(m.cmap);lmn.textContent=m.vmin;lmx.textContent=m.vmax;}
+  refreshBar();
+  cb.addEventListener("change",()=>{if(cb.checked){box.classList.add("on");render(m);m.overlay.addTo(map);m.overlay.setOpacity(m.opacity);}else{box.classList.remove("on");if(m.overlay)map.removeLayer(m.overlay);}});
+  function upd(){m.vmin=parseFloat(mn.value);m.vmax=parseFloat(mx.value);m.cmap=cm.value;refreshBar();if(cb.checked)render(m);}
+  mn.addEventListener("change",upd);mx.addEventListener("change",upd);cm.addEventListener("change",upd);
+  op.addEventListener("input",()=>{m.opacity=parseFloat(op.value);if(m.overlay)m.overlay.setOpacity(m.opacity);});
+ });
+ if(g.startsWith("N2 OT")){const vb=makeVectorBox("n2ot"); if(vb)cont.appendChild(vb);}
+ if(g.startsWith("S1 OT")){const vb=makeVectorBox("s1ot"); if(vb)cont.appendChild(vb);}
+});
+document.getElementById("alloff").onclick=()=>{document.querySelectorAll(".lyr input[type=checkbox]:checked").forEach(c=>{c.checked=false;c.dispatchEvent(new Event("change"));});};
+document.getElementById("polytoggle").onclick=()=>{polyOn=!polyOn;if(polyOn)polyLayer.addTo(map);else map.removeLayer(polyLayer);};
+
+</script>
+</body>
+</html>

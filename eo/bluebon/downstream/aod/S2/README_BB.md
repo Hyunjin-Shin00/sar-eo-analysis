@@ -3,7 +3,7 @@
 BlueBON 위성 L1C TOA radiance 영상에서 **AOD(550 nm)** 를 산출하고 MODIS MAIAC 로
 background 보정하는 end-to-end 파이프라인. 최상위 실행 파일은
 `bb_aod_pipeline.py` 이며, 내부적으로 `bb_aod_calval.retrieve_aod` (v8 설정) +
-후처리 Gaussian 스무딩 + MAIAC 자동 다운로드를 묶어 한 번에 처리한다.
+후처리 Gaussian 스무딩 + MAIAC 자동 다운로드를 묶어 한 번에 처리함.
 
 ---
 

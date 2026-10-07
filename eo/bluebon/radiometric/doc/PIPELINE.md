@@ -6,8 +6,8 @@
 
 ## 0. 목표
 BlueBON 위성 8밴드 raw 영상(16000×4096, uint16)을 **복사보정(dark/PRNU)** 하고
-**밴드 간 공간 정합(registration)** 하여, 밴드순서 0~7로 정렬된 산출물을 생성한다.
-이후 **FM1 절대 gain**을 적용해 **TOA radiance(기본)** / **TOA reflectance(옵션)** 로 변환한다.
+**밴드 간 공간 정합(registration)** 하여, 밴드순서 0~7로 정렬된 산출물을 생성함.
+이후 **FM1 절대 gain**을 적용해 **TOA radiance(기본)** / **TOA reflectance(옵션)** 로 변환함.
 (절대복사보정 변환식·gain·RadCalNet 검증 상세는 **`doc/RADIANCE_TOAR.md`**.)
 
 밴드 index → 이름 : `0=PAN, 1=Blue, 2=Green, 3=Red, 4=RE1, 5=RE2, 6=RE3, 7=NIR`
@@ -26,8 +26,8 @@ corrected = (raw − dark_ref[col]) × flat_prnu[col] − δ_persistent[col]    
 - **dark_ref** (가산, 열별): 야간 원양 dark 평균. 오프셋/암전류(DSNU) 제거.
 - **flat_prnu** (곱셈, 열별, mean=1): Libya-4 full-width flat. 검출기 PRNU + across-track vignetting 제거.
 - **δ_persistent** (가산, 열별, 고주파): flat 후에도 남는 **지속적 미세 세로줄무늬** 제거.
-- 이 세 항은 **모든 영상에 동일하게 적용되는 고정 캘리브레이션**이다.
-- 정합은 장면마다 값이 다르지만 **동일 알고리즘**을 일관 적용한다.
+- 이 세 항은 **모든 영상에 동일하게 적용되는 고정 캘리브레이션**임.
+- 정합은 장면마다 값이 다르지만 **동일 알고리즘**을 일관 적용함.
 
 ---
 

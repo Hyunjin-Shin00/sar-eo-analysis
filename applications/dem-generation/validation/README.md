@@ -1,6 +1,6 @@
 # applications/dem-generation/validation
 
-제작 DTM 과 참값의 오차 산출. 멕시코 LiDAR 지역이 유일한 정량 검증지였다.
+제작 DTM 과 참값의 오차 산출. 멕시코 LiDAR 지역이 유일한 정량 검증지였음.
 
 ## 코드
 
