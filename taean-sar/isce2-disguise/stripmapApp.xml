@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- NP04 InSAR pair (nextsat2_pairs.xlsx: class=INSAR, insar_ok=o)
+     master  20260515 A/L  SSC  (Bperp -1419 m, dInc 0.09 deg, overlap 91%, T=30 d)
+     slave   20260614 A/L  SSC
+-->
+<stripmapApp>
+  <component name="insar">
+    <component name="reference">
+      <property name="HDF5">/mnt/c/N2_InSAR/N2/Taean_recent/20260515/N2_SAR_20260515_063509K_16360_A_ST_B5_L00_RAW_B.NP04/Distribution/N2_SAR_20260515_063509_ST_BB_VV_A_L_SSC_B_NP04.h5</property>
+      <property name="OUTPUT">reference</property>
+    </component>
+
+    <component name="secondary">
+      <property name="HDF5">/mnt/c/N2_InSAR/N2/Taean_recent/20260614/N2_SAR_20260614_063801K_16812_A_ST_B5_L00_RAW_B.NP04/Distribution/N2_SAR_20260614_063801_ST_BB_VV_A_L_SSC_B_NP04.h5</property>
+      <property name="OUTPUT">secondary</property>
+    </component>
+
+    <property name="sensor name">COSMO_SKYMED_SLC</property>
+    <property name="do unwrap">False</property>
+  </component>
+</stripmapApp>
