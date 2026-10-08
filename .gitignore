@@ -24,9 +24,30 @@
 *.prj
 *.cpg
 *.geojson
-data/
-outputs/
-results/
+# data/ · outputs/ · results/ 는 이름만 보고 폴더를 통째로 뺐었다. 그 바람에
+# eo/bluebon/downstream/aod/BlueBON/data/ 안의 코드가 조용히 빠졌다(2026-10-08 발견).
+# 폴더가 아니라 **안의 자료 파일**을 빼고, 코드·문서는 어디 있든 담는다.
+data/**
+outputs/**
+results/**
+!**/data/
+!**/outputs/
+!**/results/
+!**/data/**/
+!**/outputs/**/
+!**/results/**/
+!**/data/**/*.py
+!**/data/**/*.md
+!**/data/**/*.sh
+!**/data/**/*.csv
+!**/data/**/*.json
+!**/outputs/**/*.py
+!**/outputs/**/*.md
+!**/results/**/*.py
+!**/results/**/*.md
+!**/results/**/*.json
+!**/results/**/*.geojson
+!**/results/**/*.csv
 
 # 산출 그림 — 단, figures/ 안의 참고용 webp 는 올린다
 *.png
