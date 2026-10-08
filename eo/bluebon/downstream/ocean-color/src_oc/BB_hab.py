@@ -33,8 +33,8 @@ def rededge_chl_index(rhorc, waves):
 
 
 if 0:#__name__=="__main__":
-    # frhorc='/home/yp/Downloads/bluebon/250903_Namhae/myout/250903_023532_stacked_warped_rhorc.tif'
-    frhorc='/home/yp/Downloads/bluebon/250821_Busan/myout/250821_023741_stacked_warped_rhorc.tif'
+    # frhorc='<WORK_ROOT>/Downloads/bluebon/250903_Namhae/myout/250903_023532_stacked_warped_rhorc.tif'
+    frhorc='<WORK_ROOT>/Downloads/bluebon/250821_Busan/myout/250821_023741_stacked_warped_rhorc.tif'
     ofbase=frhorc.replace('_rhorc.tif','')
     
     rhorc = tiffutils.getraster(frhorc, None)
@@ -57,7 +57,7 @@ if 0:#__name__=="__main__":
 
 import landpolygon
 if 0:#__name__=="__main__":
-    frhorc='/home/yp/Downloads/bluebon/250903_Namhae/myout/250903_023532_stacked_warped_rhorc.tif'
+    frhorc='<WORK_ROOT>/Downloads/bluebon/250903_Namhae/myout/250903_023532_stacked_warped_rhorc.tif'
     ofbase=frhorc.replace('_rhorc.tif','')
     
     fshp='../../coastline/land-polygons-complete-4326/land_polygons.shp'
@@ -74,7 +74,7 @@ if 0:#__name__=="__main__":
     
 if 0:#__name__=="__main__":
     import rasterio as rio
-    frhorc='/home/yp/Downloads/bluebon/250903_Namhae/myout/250903_023532_stacked_warped_rhorc.tif'
+    frhorc='<WORK_ROOT>/Downloads/bluebon/250903_Namhae/myout/250903_023532_stacked_warped_rhorc.tif'
     arr = tiffutils.getraster(frhorc, None)
     ofbase=frhorc.replace('_rhorc.tif','_rhorc')
     with rio.open(frhorc) as ref:

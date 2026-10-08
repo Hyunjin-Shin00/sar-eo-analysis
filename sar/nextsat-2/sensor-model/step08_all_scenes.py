@@ -14,7 +14,7 @@ import sys, os, glob, json, time, traceback
 import numpy as np
 import step07_lsq as S7
 
-HALA = "/mnt/c/N2_InSAR/N2/LV1A/HALA"
+HALA = "<DATA_ROOT>/N2_InSAR/N2/LV1A/HALA"
 OUT = S7.OUT
 
 

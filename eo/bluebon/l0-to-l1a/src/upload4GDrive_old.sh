@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ddir=/mnt/e/bkchoi/prep/data
+ddir=<WORK_ROOT>/prep/data
 cdir=${ddir}/upload/complete
 
 find ${cdir} -maxdepth 1 -type d -name "??????_??????" | while read dir

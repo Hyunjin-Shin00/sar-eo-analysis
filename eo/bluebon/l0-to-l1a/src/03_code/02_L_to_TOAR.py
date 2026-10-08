@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 import datetime
 
 
-sys.path.append(r'/mnt/e/bkchoi/prep/src/03_code/sub')
+sys.path.append(r'<WORK_ROOT>/prep/src/03_code/sub')
 sys.path.append('./../../tools')
 import read_Thuillier
 

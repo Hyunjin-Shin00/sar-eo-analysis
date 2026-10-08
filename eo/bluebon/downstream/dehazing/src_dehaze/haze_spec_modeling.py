@@ -87,7 +87,7 @@ if __name__ == "__main__":
     a,b,xmin, xmax = haze_model(rho_haze)
     rho_haze=np.array(rho_haze)
     rho_haze_fit = [[ai*x+bi for ai, bi  in zip(a,b)]  for x in rho_haze[:,0]]
-    fnc='/home/yp/Downloads/bluebon/260209_Suwon/myout/260209_025928_stacked_rhot.nc'
+    fnc='<WORK_ROOT>/Downloads/bluebon/260209_Suwon/myout/260209_025928_stacked_rhot.nc'
     plot_haze_specs(fnc, rho_haze, rho_haze_fit)
 
 

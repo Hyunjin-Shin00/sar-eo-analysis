@@ -12,7 +12,7 @@ import rasterio
 from rasterio.enums import Resampling
 from PIL import Image
 
-ROOT = "/mnt/e/bkchoi/working/debulr"
+ROOT = "<WORK_ROOT>/working/debulr"
 tag = sys.argv[1] if len(sys.argv) > 1 else "orig"
 full = "--full" in sys.argv
 step = 1 if full else 4

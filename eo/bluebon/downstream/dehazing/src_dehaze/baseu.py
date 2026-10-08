@@ -238,7 +238,7 @@ def basis_u_rgb_rhot():
      u_prm={'a':np.array([0.,0.,0.]), 'b':u, 'xmin':0., 'xmax':1}
      # u=np.array([1. for _ in range(3)]) #flat aerosol
 
-     #/home/yp/Downloads/bluebon/251022_TakhliAP/myout/251022_042629_stacked_rhot_RGB210.png
+     #<WORK_ROOT>/Downloads/bluebon/251022_TakhliAP/myout/251022_042629_stacked_rhot_RGB210.png
      _b=[[  2,   2,   2],
       [ 24,   1,   2],
       [196, 185, 187],
@@ -293,7 +293,7 @@ def basis_u_bb4b_rhorc():
     u=u3
     
     #from poly2medoid.py
-    #/home/yp/Downloads/bluebon/251123_Thai/myout/251123_041547_stacked_rhorc.nc
+    #<WORK_ROOT>/Downloads/bluebon/251123_Thai/myout/251123_041547_stacked_rhorc.nc
     _b=  [[0.08093385, 0.12951858, 0.14572366, 0.38777754],
          [0.0715343 , 0.1232929 , 0.10576028, 0.47719538],
          [0.1210193 , 0.18165866, 0.24742503, 0.41364157],
@@ -313,7 +313,7 @@ def basis_u_bb4b_rhorc():
     _aer = 0.02
     bs=np.array(_b)-_aer*u
 
-    # /home/yp/Downloads/bluebon/251127_Thai/myout_rhorc/251127_041230_stacked_rhorc.nc
+    # <WORK_ROOT>/Downloads/bluebon/251127_Thai/myout_rhorc/251127_041230_stacked_rhorc.nc
     _b=  [[0.15335317, 0.17000076, 0.17650111, 0.25752652],
          [0.14039826, 0.15664911, 0.15606928, 0.39066148]]
     _aer = 0.06
@@ -360,7 +360,7 @@ def basis_u_bb4b_rhot():
     u=u3
     
     #from poly2medoid.py
-    #/home/yp/Downloads/bluebon/251123_Thai/myout/251123_041547_stacked_rhot.nc
+    #<WORK_ROOT>/Downloads/bluebon/251123_Thai/myout/251123_041547_stacked_rhot.nc
     _b=  [[0.14769207, 0.16453803, 0.17036697, 0.39308766],
          [0.14381628, 0.16595712, 0.14308386, 0.489601  ],
          [0.14921798, 0.15973145, 0.16038758, 0.2512398 ],
@@ -380,7 +380,7 @@ def basis_u_bb4b_rhot():
     _aer=0.02
     bs=np.vstack((bs,np.array(_b)-_aer*u))
     
-    #/home/yp/Downloads/bluebon/251127_Thai/myout/251127_041230_stacked_rhot.nc
+    #<WORK_ROOT>/Downloads/bluebon/251127_Thai/myout/251127_041230_stacked_rhot.nc
     _b=[[0.20537117, 0.18899825, 0.1729305 , 0.39766538],
          [0.21832609, 0.20234989, 0.19334707, 0.26451513]]
     _aer=0.06
@@ -410,7 +410,7 @@ def basis_u_bb4b_rhot():
     _aer=0.13
     bs=np.vstack((bs,np.array(_b)-_aer*u))
 
-    #/home/yp/Downloads/bluebon/251022_TakhliAP/myout/251022_042629_stacked_rhot.nc
+    #<WORK_ROOT>/Downloads/bluebon/251022_TakhliAP/myout/251022_042629_stacked_rhot.nc
     _b=[[0.24690624, 0.23186083, 0.20831616, 0.29915312],
          [0.24150454, 0.22201876, 0.19618525, 0.29388875],
          [0.24246585, 0.22565041, 0.2021973 , 0.3172961 ]]

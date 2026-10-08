@@ -32,15 +32,15 @@ import tifffile
 # ----------------------------------------------------------------------------
 # 설정
 # ----------------------------------------------------------------------------
-DATA_ROOT = "/mnt/e/bkchoi/prep/data"
+DATA_ROOT = "<WORK_ROOT>/prep/data"
 # 야간 바다 dark 세션(운영 TDI 동일). 여러 개면 세션별 sigma-clip 평균 후 세션 평균 -> robust master dark.
 DARK_SESSIONS = ["260606_190315", "260424_114919"]   # +Auckland 야간 바다 dark
 # (하위호환) 단일 참조가 필요한 곳을 위해 첫 세션 노출
 DARK_DIR  = f"{DATA_ROOT}/{DARK_SESSIONS[0]}"
 DARK_STEM = DARK_SESSIONS[0]
-LIB_DIR   = "/mnt/e/bkchoi/prep/data/260607_094318"
+LIB_DIR   = "<WORK_ROOT>/prep/data/260607_094318"
 LIB_STEM  = "260607_094318"
-OUT_DIR   = "/mnt/e/bkchoi/prep/data/correction_ref_260606"
+OUT_DIR   = "<WORK_ROOT>/prep/data/correction_ref_260606"
 
 BANDS      = [1, 2, 3, 4, 5, 6, 7]                 # PAN(0) 제외
 BAND_NAME  = {1: "Blue", 2: "Green", 3: "Red", 4: "RE1", 5: "RE2", 6: "RE3", 7: "NIR"}

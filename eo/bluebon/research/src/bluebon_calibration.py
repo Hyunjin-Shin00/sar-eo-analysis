@@ -319,10 +319,10 @@ import bluebon_rayleigh
 import pandas as pd
 import ncutils
 if __name__=="__main__":
-    # indir = '/home/yp/Downloads/bluebon/250523_Ukraine'
+    # indir = '<WORK_ROOT>/Downloads/bluebon/250523_Ukraine'
     # keystr='250523_090154'
     
-    # indir='/home/yp/Downloads/bluebon/250626_Chesapeake/rawDN'
+    # indir='<WORK_ROOT>/Downloads/bluebon/250626_Chesapeake/rawDN'
     # timestr = '2025-06-26T16:16:48Z'; time=pd.Timestamp(timestr)
     # keystr='250626_161648'
     # cen_lon, cen_lat = -76., 37.; roll = -5.8006
@@ -333,13 +333,13 @@ if __name__=="__main__":
     
     # intercal=True; RayleighCorr=True; 
     
-    # indir='/home/yp/Downloads/bluebon/250629_Andong'; keystr = '250629_023708'
+    # indir='<WORK_ROOT>/Downloads/bluebon/250629_Andong'; keystr = '250629_023708'
     # timestr = '2025-06-29T02:37:12Z'
     # time=pd.Timestamp(timestr)
     # cen_lon, cen_lat = [128.8, 36.58]; roll=-5.648 #from mission
     # tdi_arr=[2,4,8,16,8,8,8,8] 
     
-    # indir='/home/yp/Downloads/bluebon/250712_Seoul/rawDN'
+    # indir='<WORK_ROOT>/Downloads/bluebon/250712_Seoul/rawDN'
     # keystr = '250712_024621'
     # timestr = '2025-07-12T02:46:21Z'; time=pd.Timestamp(timestr)
     # cen_lon, cen_lat = 127.0724, 37.5151; roll = -1.6705
@@ -347,7 +347,7 @@ if __name__=="__main__":
     # linear_cal=False #False=quadratic fitting for DN-rad conversion
     
     
-    # indir='/home/yp/Downloads/bluebon/250716_Bahrain/rawDN'
+    # indir='<WORK_ROOT>/Downloads/bluebon/250716_Bahrain/rawDN'
     # #fr mission table
     # timestr = '2025-07-16T07:42:59Z'; time=pd.Timestamp(timestr)
     # # keystr = timestr[2:19].replace('-','').replace('T','_').replace(':','')
@@ -355,21 +355,21 @@ if __name__=="__main__":
     # cen_lon, cen_lat = 50.6181, 25.8272; roll = -4.6357 
     # tdi_arr=[1,4,8,8,16,16,16,4]
     
-    # indir='/home/yp/Downloads/bluebon/250806_SoffSydney/rawDN'
+    # indir='<WORK_ROOT>/Downloads/bluebon/250806_SoffSydney/rawDN'
     # #fr mission table 2025-08-06T00:28:59.654(1754440139654)
     # timestr = '2025-08-06T00:28:59.654Z'; time=pd.Timestamp(timestr)
     # keystr = '250806_002855'
     # cen_lon, cen_lat = 151.162414, -34.465546; roll = 2.4948 
     # tdi_arr=[1,4,8,8,16,16,16,4]
 
-    # indir='/home/yp/Downloads/bluebon/250821_Busan/rawDN'
+    # indir='<WORK_ROOT>/Downloads/bluebon/250821_Busan/rawDN'
     # #fr mission table 2025-08-21T02:37:45.145(1755743865145)
     # timestr = '2025-08-21T02:37:45.145Z'; time=pd.Timestamp(timestr)
     # keystr = '250821_023741'
     # cen_lon, cen_lat = 129.047, 35.1032; roll = -0.4647
     # tdi_arr=[1,4,8,8,16,16,16,4]
     
-    # indir='/home/yp/Downloads/bluebon/250903_Namhae/rawDN'
+    # indir='<WORK_ROOT>/Downloads/bluebon/250903_Namhae/rawDN'
     # #fr mission table 2025-09-03T02:35:36.098(1756866936098)
     # timestr = '2025-09-03T02:35:36.098Z'; time=pd.Timestamp(timestr)
     # keystr = '250903_023532'
@@ -386,61 +386,61 @@ if __name__=="__main__":
     #     [0.,0.5]
     #     ] #order: PAN,MS1..7
     
-    # indir='/home/yp/Downloads/bluebon/250928_Thai_KKairport/rawDN'
+    # indir='<WORK_ROOT>/Downloads/bluebon/250928_Thai_KKairport/rawDN'
     # timestr = '2025-09-28T04:19:01.105Z'; time=pd.Timestamp(timestr)
     # keystr = '250928_041857'
     # cen_lon, cen_lat = 100.663, 14.875; roll = -0.0739 
     # tdi_arr=[0,4,8,8,0,0,0,4]
     
-    # indir='/home/yp/Downloads/bluebon/250926_GBR6/rawDN'
+    # indir='<WORK_ROOT>/Downloads/bluebon/250926_GBR6/rawDN'
     # timestr='2025-09-26T00:30:52.681Z'; time=pd.Timestamp(timestr)
     # keystr = '250926_003048'
     # cen_lon, cen_lat = 152.0095, -21.416; roll = -10.5786
     # tdi_arr=[2,4,8,8,16,16,16,4]
     
-    # indir='/home/yp/Downloads/bluebon/250926_Khuvsgul/rawDN'
+    # indir='<WORK_ROOT>/Downloads/bluebon/250926_Khuvsgul/rawDN'
     # timestr='2025-09-26T04:55:03.607Z'; time=pd.Timestamp(timestr)
     # keystr = '250926_045459'
     # cen_lon, cen_lat = 100.5084, 51.0867; roll = 13.0299
     # tdi_arr=[2,4,8,8,16,16,16,4]
     
-    # indir='/home/yp/Downloads/bluebon/251022_TakhliAP/rawDN'
+    # indir='<WORK_ROOT>/Downloads/bluebon/251022_TakhliAP/rawDN'
     # timestr='2025-10-22T04:26:33.588Z'; time=pd.Timestamp(timestr)
     # keystr = '251022_042629'
     # cen_lon, cen_lat = 100.296, 15.277; roll = 16.493
     # tdi_arr=[0,4,8,8,0,0,0,4]
     
-    # indir='/home/yp/Downloads/bluebon/251030_Seorak/rawDN'
+    # indir='<WORK_ROOT>/Downloads/bluebon/251030_Seorak/rawDN'
     # timestr='2025-10-30T02:45:39.226Z'; time=pd.Timestamp(timestr)
     # keystr='251030_024535'
     # cen_lon, cen_lat = 128.4656, 38.1194; roll = 3.7502
     # tdi_arr=[2,4,8,8,16,16,16,4]
 
     #next 4 lines for rho_rc    
-    # indir='/home/yp/Downloads/bluebon/..'
+    # indir='<WORK_ROOT>/Downloads/bluebon/..'
     # timestr='2025-09-24T07:22:10.355Z'; time=pd.Timestamp(timestr)
     # keystr='..'
     # cen_lon, cen_lat = 55.103137, 24.946894; roll = -15.1464
     
-    # indir='/home/yp/Downloads/bluebon/251109_BanNongYaKaew/rawDN'
+    # indir='<WORK_ROOT>/Downloads/bluebon/251109_BanNongYaKaew/rawDN'
     # timestr='2025-11-19T04:18:38.194'; time=pd.Timestamp(timestr)
     # keystr = '251119_041834'
     # cen_lon, cen_lat = 102.7363, 13.8189; roll = 22.274
     # tdi_arr=[0,4,8,8,0,0,0,4]
     
-    # indir='/home/yp/Downloads/bluebon/251123_Thai/rawDN'
+    # indir='<WORK_ROOT>/Downloads/bluebon/251123_Thai/rawDN'
     # timestr='2025-11-23T04:15:51.668'; time=pd.Timestamp(timestr)
     # keystr='251123_041547'
     # cen_lon, cen_lat = 102.7, 13.8; roll = 12.8818
     # tdi_arr=[0,4,8,8,0,0,0,4]
     
-    # indir='/home/yp/Downloads/bluebon/251127_Thai/rawDN'
+    # indir='<WORK_ROOT>/Downloads/bluebon/251127_Thai/rawDN'
     # timestr='2025-11-27T04:12:34.136'; time=pd.Timestamp(timestr)
     # keystr='251127_041230'
     # cen_lon, cen_lat = 103.6992, 14.4364; roll = 13.5946
     # tdi_arr=[0,4,8,8,0,0,0,4]
     
-    # indir='/home/yp/Downloads/bluebon/260122_025059_Ongjin/rawDN'
+    # indir='<WORK_ROOT>/Downloads/bluebon/260122_025059_Ongjin/rawDN'
     # timestr='2026-01-22T02:51:03.084'; time=pd.Timestamp(timestr)
     # keystr='260122_025059'
     # cen_lon, cen_lat = 126.5591, 37.9785; roll =-8.5362
@@ -456,41 +456,41 @@ if __name__=="__main__":
         [0.,0.5]
         ] #order: PAN,MS1..7
     
-    # indir='/home/yp/Downloads/bluebon/260209_Suwon/rawDN'
+    # indir='<WORK_ROOT>/Downloads/bluebon/260209_Suwon/rawDN'
     # timestr='2026-02-09T02:59:28.200'; time=pd.Timestamp(timestr)
     # keystr='260209_025928'
     # cen_lon, cen_lat = 127.0534, 37.289; roll =17.4467
     # tdi_arr=[2,4,8,8,16,16,16,4]
     
-    indir='/home/yp/Downloads/bluebon/260220_Suwon/rawDN'
+    indir='<WORK_ROOT>/Downloads/bluebon/260220_Suwon/rawDN'
     timestr='2026-02-20T02:56:32.979'; time=pd.Timestamp(timestr)
     keystr='260220_025632'
     cen_lon, cen_lat = 127.0534, 37.289; roll =9.402
     tdi_arr=[2,4,8,8,16,16,16,4]
     roi=None#[12500, 15250, 100, 3700] #same for all bands, no improvment even in the roi area
     
-    # indir='/home/yp/Downloads/bluebon/260221_Oman/rawDN'
+    # indir='<WORK_ROOT>/Downloads/bluebon/260221_Oman/rawDN'
     # timestr='2026-02-21T07:16:53.743'; time=pd.Timestamp(timestr)
     # keystr='260221_071653'
     # cen_lon, cen_lat = 58.0905, 23.7096; roll =-6.8836
     # tdi_arr=[2,4,8,8,16,16,16,4]
     # roi=None
     
-    # indir="/home/yp/Downloads/bluebon/251029_Teheran/rawDN"
+    # indir="<WORK_ROOT>/Downloads/bluebon/251029_Teheran/rawDN"
     # timestr="2025-10-29T07:53:16.263"; time=pd.Timestamp(timestr)
     # keystr="251029_075312"
     # cen_lon, cen_lat = 51.3305, 35.7176; roll=6.8168
     # tdi_arr=[2,4,8,8,16,16,16,4]
     # roi=[9850, 10960, 2010, 3075] #y0, y1, x0, x1 image coordinates
     
-    # indir="/home/yp/Downloads/bluebon/260306_Teheran/rawDN"
+    # indir="<WORK_ROOT>/Downloads/bluebon/260306_Teheran/rawDN"
     # timestr="2026-03-06T07:49:44.365"; time=pd.Timestamp(timestr)
     # keystr="260306_074940"
     # cen_lon, cen_lat = 51.3305, 35.7176; roll=-13.7419
     # tdi_arr=[2,4,8,8,16,16,16,4]
     # roi=None # [y0, y1, x0, x1] same for all bands
     
-    # indir='/home/yp/Downloads/bluebon/260413_Kuwait/rawDN'
+    # indir='<WORK_ROOT>/Downloads/bluebon/260413_Kuwait/rawDN'
     # timestr='2026-04-13T08:11:47.482'; time=pd.Timestamp(timestr)
     # keystr='260413_081143'
     # cen_lon, cen_lat = 47.5214, 29.3477; roll =13.3781; pitch=0.2414

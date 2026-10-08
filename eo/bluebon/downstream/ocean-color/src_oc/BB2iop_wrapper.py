@@ -219,15 +219,15 @@ def blkproc(frhorc, ofbase):
 
 import re
 if __name__=="__main__":
-    # frhorc='/home/yp/Downloads/bluebon/250716_Bahrain/myout/250716_074255_stacked_warped_rhorc.tif'
+    # frhorc='<WORK_ROOT>/Downloads/bluebon/250716_Bahrain/myout/250716_074255_stacked_warped_rhorc.tif'
     # subset=[2117,7643, 4440,9911]
     # subset=[1967.2,7562.5, 3550.1,10007.2]
     # sj, si, ej, ei = [int(_) for _ in subset]
-    # ofbase='/home/yp/Downloads/bluebon/250716_Bahrain/myout/250716_074255_test'
+    # ofbase='<WORK_ROOT>/Downloads/bluebon/250716_Bahrain/myout/250716_074255_test'
     
-    # frhorc='/home/yp/Downloads/bluebon/250626_Chesapeake/myout/250626_161648_stacked_warped_rhorc.tif'
-    # ofbase='/home/yp/Downloads/bluebon/250626_Chesapeake/myout/250626_161648_stacked_warped_test'
-    frhorc='/home/yp/Downloads/bluebon/250926_Khuvsgul/myout/250926_045459_stacked_warped_rhorc.tif'
+    # frhorc='<WORK_ROOT>/Downloads/bluebon/250626_Chesapeake/myout/250626_161648_stacked_warped_rhorc.tif'
+    # ofbase='<WORK_ROOT>/Downloads/bluebon/250626_Chesapeake/myout/250626_161648_stacked_warped_test'
+    frhorc='<WORK_ROOT>/Downloads/bluebon/250926_Khuvsgul/myout/250926_045459_stacked_warped_rhorc.tif'
     ofbase=re.sub(r'_[^_]*$','',frhorc, count=1)
     
     blkproc(frhorc, ofbase)

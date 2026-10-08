@@ -2,7 +2,7 @@
 # 실행 중인 단일프로세스 deconv 가 끝나기를 기다린 뒤,
 # 타일 방식으로 MS1 alpha=1000 을 다시 계산해 전체이미지 결과와 비교한다.
 set -u
-cd /mnt/e/bkchoi/working/debulr
+cd <WORK_ROOT>/working/debulr
 
 echo "== 기존 작업 대기 =="
 while pgrep -f "deblur-l0/deconv " > /dev/null; do sleep 15; done
@@ -10,7 +10,7 @@ echo "완료 $(date +%T)"
 ls -la output/*.tiff
 
 echo "== 타일 방식 실행 (검증용) =="
-TILE_TMP=/mnt/e/bkchoi/working/debulr/.tiletmp \
+TILE_TMP=<WORK_ROOT>/working/debulr/.tiletmp \
 python3 tile_deconv.py input/MS1_DN_dark_rc_p.tiff output/k31_ms1_i5.tif \
     output/_val_ms1_a1000_tiled.tiff --alpha=1000 2>&1 | grep -v Warning
 

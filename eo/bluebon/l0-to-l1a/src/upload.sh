@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-datdir=/mnt/e/bkchoi/prep/data
+datdir=<WORK_ROOT>/prep/data
 outdir=${datdir}/upload
 
 find ${datdir} -maxdepth 2 -type d -name "radiometric" | while read dir

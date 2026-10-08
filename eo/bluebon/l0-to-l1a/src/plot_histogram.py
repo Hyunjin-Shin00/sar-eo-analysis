@@ -3,7 +3,7 @@ data 폴더의 tiff 파일들을 타임스탬프별로 그룹화하여 히스토
 각 파일(밴드)은 다른 색으로 표시, x축은 0~4095로 고정.
 
 실행방법
-conda run -n prep python /mnt/e/bkchoi/prep/src/plot_histogram.py
+conda run -n prep python <WORK_ROOT>/prep/src/plot_histogram.py
 
 """
 
@@ -19,7 +19,7 @@ import matplotlib.pyplot as plt
 warnings.filterwarnings('ignore', category=NotGeoreferencedWarning)
 from collections import defaultdict
 
-DATA_DIR = '/mnt/e/bkchoi/prep/data'
+DATA_DIR = '<WORK_ROOT>/prep/data'
 BINS = 256
 X_MIN, X_MAX = 0, 4095
 

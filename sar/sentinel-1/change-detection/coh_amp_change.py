@@ -9,9 +9,9 @@ from scipy.interpolate import griddata
 import matplotlib; matplotlib.use("Agg"); import matplotlib.pyplot as plt
 import rasterio; from rasterio.transform import from_origin; from rasterio.warp import reproject, Resampling
 import n2insar as N
-t0=time.time(); OUT="/mnt/c/N2_InSAR/N2/taean_CCD/"
+t0=time.time(); OUT="<DATA_ROOT>/N2_InSAR/N2/taean_CCD/"
 def log(*a): print("[%6.1fs]"%(time.time()-t0),*a,flush=True)
-R="/mnt/c/N2_InSAR/N2/Taean_recent/"; DEM="/mnt/c/N2_InSAR/DEM/cop_dem_N36E126.tif"
+R="<DATA_ROOT>/N2_InSAR/N2/Taean_recent/"; DEM="<DATA_ROOT>/N2_InSAR/DEM/cop_dem_N36E126.tif"
 S,Nn,W,E=36.3899,36.4350,126.3548,126.4107; AY,AX=10,12; dem=N.DemInterp(DEM)
 P={"0511":R+"20260511/N2_SAR_20260511_064011K_16300_A_ST_B0_L00_RAW_B.NP04/Distribution/N2_SAR_20260511_064011_ST_BB_VV_A_L_SSC_B_NP04.h5",
    "0515":R+"20260515/N2_SAR_20260515_063509K_16360_A_ST_B5_L00_RAW_B.NP04/Distribution/N2_SAR_20260515_063509_ST_BB_VV_A_L_SSC_B_NP04.h5",

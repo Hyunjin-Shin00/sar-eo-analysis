@@ -17,7 +17,7 @@ def basis_u_bb4b_rhot():
     u=u3
     
     #from poly2medoid.py
-    #/home/yp/Downloads/bluebon/251022_TakhliAP/myout/251022_042629_stacked_rhot.nc
+    #<WORK_ROOT>/Downloads/bluebon/251022_TakhliAP/myout/251022_042629_stacked_rhot.nc
     _b=[[0.29317158, 0.31860837, 0.33720914, 0.4662852 ],
            [0.17669947, 0.1816434 , 0.14486915, 0.4400244 ],
            [0.21087968, 0.21918058, 0.20944533, 0.4265507 ],

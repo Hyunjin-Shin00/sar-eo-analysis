@@ -311,7 +311,7 @@ def radiometric_calibration(bluebon_path, band, tdi, direction, lp, band_width) 
     
 
     # Radiometric Calibration
-    correction_file_path = '/mnt/e/bkchoi/prep/src/03_code/sub/FM1_mean_output_PRNU_check.csv' # Correction data path
+    correction_file_path = '<WORK_ROOT>/prep/src/03_code/sub/FM1_mean_output_PRNU_check.csv' # Correction data path
     dark_list, coefficients_ms, intercepts_ms = radiometric_cal_par(correction_file_path, band, tdi, lp)
 
     ms_dark_img = dark_correction(ms_img, dark_list) # dark correction
@@ -413,7 +413,7 @@ def radiometric_calibration_night(bluebon_path, band, tdi, direction, lp, band_w
     
 
     # Radiometric Calibration
-    correction_file_path = '/mnt/e/bkchoi/prep/src/03_code/sub/FM1_mean_output_PRNU_check.csv' # Correction data path
+    correction_file_path = '<WORK_ROOT>/prep/src/03_code/sub/FM1_mean_output_PRNU_check.csv' # Correction data path
     dark_list, coefficients_ms, intercepts_ms = radiometric_cal_par(correction_file_path, band, tdi, lp)
 
     ms_dark_img = dark_correction(ms_img, dark_list) # dark correction
@@ -556,7 +556,7 @@ if __name__ == '__main__':
 
     
 # if __name__ == "__main__":
-#     csv_path = '/mnt/e/bkchoi/prep/src/03_code/sub/FM1_mean_output_PRNU_check.csv'
+#     csv_path = '<WORK_ROOT>/prep/src/03_code/sub/FM1_mean_output_PRNU_check.csv'
 #     bands = [0, 1, 2, 3, 4, 5, 6, 7]    # 0 = PAN, 1~7 = MS1~MS7
 #     tdis  = [1, 2, 4, 8, 16]            # PAN 만 TDI=1 까지 사용
 #     pan_only_tdis = {1}                  # 비-PAN 에서는 제외할 TDI 집합
@@ -599,7 +599,7 @@ if __name__ == '__main__':
 #     df_bias   = pd.DataFrame(bias_mat,   index=tdis, columns=col_names)
 #     df_gain.index.name = df_offset.index.name = df_bias.index.name = 'TDI'
 
-#     out_dir   = '/mnt/e/bkchoi/prep/src/03_code/sub'
+#     out_dir   = '<WORK_ROOT>/prep/src/03_code/sub'
 #     xlsx_path = f'{out_dir}/BlueBON_metadata.xlsx'
 #     npz_path  = f'{out_dir}/BlueBON_metadata_per_pixel.npz'
 #     with pd.ExcelWriter(xlsx_path) as writer:

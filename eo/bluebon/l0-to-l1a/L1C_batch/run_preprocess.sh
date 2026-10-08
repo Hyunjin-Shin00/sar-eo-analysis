@@ -1,11 +1,11 @@
 #!/bin/bash
 
-hdir=/mnt/e/bkchoi/working
+hdir=<WORK_ROOT>/working
 sdir=${hdir}/preprocess_script
 rdir=${hdir}/radiometric_correction/src
 gdir=${hdir}/BlueBON_Geometric_Correction_V3/Code
 
-ddir=/mnt/e/bkchoi/data
+ddir=<WORK_ROOT>/data
 
 cat ${sdir}/BlueBON_reprocess_matched_latlon2.txt | while read name otime dtime lat lon
 do

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-rootdir=/mnt/e/bkchoi/prep
+rootdir=<WORK_ROOT>/prep
 srcdir=${rootdir}/src/03_code
 
 datdir=$1

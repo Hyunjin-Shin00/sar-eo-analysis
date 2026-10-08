@@ -117,10 +117,10 @@ Step 11: 백록담 수체 탐지 — 미세정합 스택(step10) 기반. python 
 
 | 파일 | 고칠 상수 | 현재값 |
 |---|---|---|
-| `step03_bias_dem.py` | `DEM_PATH` | `/mnt/c/N2_InSAR/DEM/cop_dem_N33E126.tif` |
+| `step03_bias_dem.py` | `DEM_PATH` | `<DATA_ROOT>/N2_InSAR/DEM/cop_dem_N33E126.tif` |
 |  | `H_LAND_MIN` | `30.0` |
 |  | `AZ_M_PER_LINE` | `1.112` |
-| `step04_geocode.py` | `DEM_PATH` | `/mnt/c/N2_InSAR/DEM/cop_dem_N33E126.tif` |
+| `step04_geocode.py` | `DEM_PATH` | `<DATA_ROOT>/N2_InSAR/DEM/cop_dem_N33E126.tif` |
 |  | `EPSG_OUT` | `32652` |
 | `step05_clip_rect.py` | `EPSG_OUT` | `32652` |
 | `step06_s1_reference.py` | `EPSG_OUT` | `32652` |

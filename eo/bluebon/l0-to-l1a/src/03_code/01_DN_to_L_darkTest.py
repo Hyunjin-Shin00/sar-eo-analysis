@@ -306,11 +306,11 @@ def radiometric_calibration(bluebon_path, band, tdi, direction, lp, band_width) 
     
 
     # Radiometric Calibration
-    correction_file_path = '/mnt/e/bkchoi/prep/src/03_code/sub/FM1_mean_output_PRNU_check.csv' # Correction data path
+    correction_file_path = '<WORK_ROOT>/prep/src/03_code/sub/FM1_mean_output_PRNU_check.csv' # Correction data path
     dark_list, coefficients_ms, intercepts_ms = radiometric_cal_par(correction_file_path, band, tdi, lp)
 
     # ms_dark_img = dark_correction(ms_img, dark_list) # dark correction
-    with rasterio.open(f'/mnt/e/bkchoi/prep/test/sub/dark.tiff') as src :
+    with rasterio.open(f'<WORK_ROOT>/prep/test/sub/dark.tiff') as src :
             dark_tiff = src.read(1).astype(np.float32)
     ms_dark_img = [ms_img[0] - dark_tiff]
     print(np.shape(ms_dark_img))

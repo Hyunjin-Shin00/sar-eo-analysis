@@ -79,7 +79,7 @@ skip**한다(→ 코레지가 궤도+DEM 기하만으로 대체, CLAUDE.md 경�
 ```bash
 conda activate isce2_snaphu
 export N2_ROOT="<WORK_ROOT>/n2_np04_work"          # 반드시 Linux 네이티브 FS (DrvFs 금지)
-export N2_XML="/mnt/c/N2_InSAR/국립공원 code/result/input_np04.xml"
+export N2_XML="<DATA_ROOT>/N2_InSAR/국립공원 code/result/input_np04.xml"
 python /path/to/run_np04.py                      # = n2_main_portable.py, 단 shutil.copyfile 사용
 ```
 `input_np04.xml`은 이 result 폴더에 함께 있음. (표준 `n2_main_portable.py`는 /mnt/c에서

@@ -13,8 +13,8 @@ import os
 import numpy as np
 import tifffile
 
-REF = "/mnt/e/bkchoi/prep/data/correction_ref_260606"
-DATA = "/mnt/e/bkchoi/prep/data"
+REF = "<WORK_ROOT>/prep/data/correction_ref_260606"
+DATA = "<WORK_ROOT>/prep/data"
 SCENES = [
     ("Hormuz",  "20260712_Strait_of_Hormuz_or_UAE_border", "260712_072621"),
     ("GBR",     "20260713_GBR_5_Australia",                "260713_005349"),

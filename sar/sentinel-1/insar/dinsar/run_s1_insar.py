@@ -8,12 +8,12 @@ import matplotlib; matplotlib.use("Agg"); import matplotlib.pyplot as plt
 import rasterio; from rasterio.transform import from_origin
 import pyproj
 import s1insar as S1, n2insar as N
-t0=time.time(); OUT="/mnt/c/N2_InSAR/N2/taean_Insar/"
+t0=time.time(); OUT="<DATA_ROOT>/N2_InSAR/N2/taean_Insar/"
 def log(*a): print("[%6.1fs]"%(time.time()-t0),*a,flush=True)
-Z="/mnt/c/N2_InSAR/sentinel1/"
+Z="<DATA_ROOT>/N2_InSAR/sentinel1/"
 MAS=Z+"S1C_IW_SLC__1SDV_20260531T214004_20260531T214029_007903_010126_2310.zip"
 SLV=Z+"S1D_IW_SLC__1SDV_20260613T214015_20260613T214042_003223_0059FE_D74F.zip"
-DEM="/mnt/c/N2_InSAR/DEM/cop_dem_N36E126.tif"
+DEM="<DATA_ROOT>/N2_InSAR/DEM/cop_dem_N36E126.tif"
 S,Nn,W,E=36.3899,36.4350,126.3548,126.4107
 AY,AX=3,12   # 멀티룩 ~ az42m, rg ground~50m
 

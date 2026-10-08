@@ -33,9 +33,9 @@ roll_step_deg=0.02
 minutes=0.5; step_s=0.05
 
 #--[bluebon DN]
-fnc = '/home/yp/Downloads/bluebon/250806_SoffSydney/myout/250806_002855_stacked_DN.nc'
+fnc = '<WORK_ROOT>/Downloads/bluebon/250806_SoffSydney/myout/250806_002855_stacked_DN.nc'
 #--[msi rad(radiance)]
-ftif = '/home/yp/Downloads/bluebon/250806_SoffSydney_msi/myout/MSI_res20m_merged_rad.tif'
+ftif = '<WORK_ROOT>/Downloads/bluebon/250806_SoffSydney_msi/myout/MSI_res20m_merged_rad.tif'
 
 #--- first attempt
 irange_int_1=[200, 2500+2000, 3] #si, ei, iint

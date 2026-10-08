@@ -25,8 +25,8 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from band_integrate import load_srf, SRF_BAND_COLS, BAND_NAMES  # noqa: E402
 
 # ---- 상수 -------------------------------------------------------------------
-FM1_CSV = "/mnt/e/bkchoi/prep/src/03_code/sub/FM1_mean_output_PRNU_check.csv"
-THUILLIER = "/mnt/e/bkchoi/prep/src/03_code/sub/Thuillier_F0.dat"
+FM1_CSV = "<WORK_ROOT>/prep/src/03_code/sub/FM1_mean_output_PRNU_check.csv"
+THUILLIER = "<WORK_ROOT>/prep/src/03_code/sub/Thuillier_F0.dat"
 BAND_WIDTH = {0: 250, 1: 65, 2: 35, 3: 30, 4: 15, 5: 15, 6: 20, 7: 115}  # nm (01_DN_to_L.py)
 # La Crau 촬영 실제 설정: band 0..7 순 TDI, line rate (사용자 확인).
 # 두 La Crau 장면(20260704, 20260528) 동일. line rate 667 ≈ FM1표의 666 (동일 nominal).
@@ -164,7 +164,7 @@ def convert_scene(tiff_8band, out_path_radiance, sza_deg, doy, srf_path,
 if __name__ == "__main__":
     import argparse
     ap = argparse.ArgumentParser(description="v5 DN → 분광복사휘도/TOAR (또는 gain/F0 점검)")
-    ap.add_argument("--srf", default="/mnt/e/bkchoi/working/radiometric_correction/ref/SpectralResponseFunction.xlsx")
+    ap.add_argument("--srf", default="<WORK_ROOT>/working/radiometric_correction/ref/SpectralResponseFunction.xlsx")
     ap.add_argument("--lp", type=int, default=DEFAULT_LP)
     ap.add_argument("--convert", help="v5 8밴드 DN TIFF 경로 (지정 시 8밴드 radiance/TOAR 산출)")
     ap.add_argument("--out-radiance", help="8밴드 radiance float32 출력 경로")

@@ -18,7 +18,7 @@ def pair(m,s,lam,Bw,tag):
     Bcrit=lam*Rm*Bw*np.tan(np.radians(incm))/C0
     print("%-22s Bperp=%8.0f m | inc %.1f/%.1f° dinc=%.2f° | h_amb=%.2f m | Bcrit≈%.0f m | Bperp/Bcrit=%.1f"%(
         tag,Bperp,incm,incs,abs(incm-incs),hamb,Bcrit,Bperp/Bcrit))
-R="/mnt/c/N2_InSAR/N2/Taean_recent/"; Z="/mnt/c/N2_InSAR/sentinel1/"
+R="<DATA_ROOT>/N2_InSAR/N2/Taean_recent/"; Z="<DATA_ROOT>/N2_InSAR/sentinel1/"
 def n2(d,dd):
     import glob; return N.Scene(glob.glob(R+"2026%s/*/Distribution/*_SSC_*.h5"%d)[0])
 mA={ "0515":"0515","0614":"0614","0511":"0511" }

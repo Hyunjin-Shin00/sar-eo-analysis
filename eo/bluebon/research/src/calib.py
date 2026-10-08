@@ -122,7 +122,7 @@ def bb_DN2rad_NEW(image_band, coeff_band):
 
 import pandas as pd
 def load_cal_df():
-    fcsv ='/home/yp/myPy/bluebon/calib/FM1_mean_output_PRNU_check.csv'
+    fcsv ='<WORK_ROOT>/myPy/bluebon/calib/FM1_mean_output_PRNU_check.csv'
     #read csv
     df = pd.read_csv(fcsv)
     return df
@@ -134,7 +134,7 @@ def read_raster_tif(ftif):
     return data, profile   
 
 def get_df_inband_mean():
-    finband = '/home/yp/myPy/bluebon/calib/in-band_radiance.csv'
+    finband = '<WORK_ROOT>/myPy/bluebon/calib/in-band_radiance.csv'
     df = pd.read_csv(finband, index_col=0)
     # len(df)/20=55 repeated measurements
     df.columns.to_list() #['PAN', 'MS1', 'MS2', 'MS3', 'MS4', 'MS5', 'MS6', 'MS7']
@@ -158,7 +158,7 @@ import sys
 sys.path.append('./../../tools')
 from genrgb import gen_rgb
 if __name__=='__main__':
-    indir='/home/yp/Downloads/bluebon/250626_Chesapeake'; nb=8
+    indir='<WORK_ROOT>/Downloads/bluebon/250626_Chesapeake'; nb=8
     keystr='250626_161648'
     ib=0
     fband_array=[indir+f'/{keystr}_{ib}_gray.tiff' for ib in range(0,nb)]

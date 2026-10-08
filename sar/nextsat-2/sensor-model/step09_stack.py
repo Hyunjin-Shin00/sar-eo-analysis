@@ -18,7 +18,7 @@ from scipy.ndimage import gaussian_filter
 import step04_geocode as G4
 from simulate import _peak2d
 
-HALA = "/mnt/c/N2_InSAR/N2/LV1A/HALA"
+HALA = "<DATA_ROOT>/N2_InSAR/N2/LV1A/HALA"
 CENTER = (126.5292, 33.3617)          # 백록담
 GROUP = {"AR": "AR", "AL": "ALDR", "DR": "ALDR", "DL": "ALDR"}
 

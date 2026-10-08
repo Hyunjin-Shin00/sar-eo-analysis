@@ -41,12 +41,12 @@ from scipy.ndimage import gaussian_filter, gaussian_filter1d, map_coordinates, m
 
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "radcal"))
 
-REF_DIR = "/mnt/e/bkchoi/working/radiometric_correction/ref/master"   # dark/PRNU 참조
+REF_DIR = "<WORK_ROOT>/working/radiometric_correction/ref/master"   # dark/PRNU 참조
 
 # 절대복사(radiance) 변환 기본 설정 — La Crau 촬영(사용자 확인): band0..7 TDI, line rate 667(≈666)
 RAD_TDI_DEFAULT = "2,4,8,8,16,16,16,4"
 RAD_LP_DEFAULT = 666
-SRF_PATH = "/mnt/e/bkchoi/working/radiometric_correction/ref/SpectralResponseFunction.xlsx"
+SRF_PATH = "<WORK_ROOT>/working/radiometric_correction/ref/SpectralResponseFunction.xlsx"
 
 CAP_ORDER = [1, 2, 3, 0, 7, 4, 5, 6]                         # 촬영 순서
 BAND_NAME = {0: "PAN", 1: "Blue", 2: "Green", 3: "Red", 4: "RE1", 5: "RE2", 6: "RE3", 7: "NIR"}

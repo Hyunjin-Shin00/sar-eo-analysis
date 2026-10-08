@@ -6,7 +6,7 @@ import os
 import numpy as np
 import tifffile
 
-TEST = "/mnt/e/bkchoi/prep/data/correction_ref_260606/test_260616"
+TEST = "<WORK_ROOT>/prep/data/correction_ref_260606/test_260616"
 SRCS = [
     ("obs260616_reg_rgbn_rot_8band.tiff",    "reg(T, 평행이동)"),
     ("obs260616_regjit_rgbn_rot_8band.tiff", "regjit(J, 지터+회전)"),

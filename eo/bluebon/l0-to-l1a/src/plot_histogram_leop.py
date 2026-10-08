@@ -3,7 +3,7 @@ GDrive LEOP 폴더의 2026년 1~3월 영상 히스토그램 생성.
 각 날짜 폴더의 level-0/*.tiff 파일들을 밴드별 다른 색으로 하나의 히스토그램 PNG로 저장.
 
 실행방법
-conda run -n prep python /mnt/e/bkchoi/prep/src/plot_histogram_leop.py
+conda run -n prep python <WORK_ROOT>/prep/src/plot_histogram_leop.py
 """
 
 import os
@@ -18,7 +18,7 @@ import matplotlib.pyplot as plt
 warnings.filterwarnings('ignore', category=NotGeoreferencedWarning)
 
 LEOP_DIR  = os.path.expanduser('~/gdrive/LEOP')
-OUT_DIR   = '/mnt/e/bkchoi/prep/data/cloud/histogram'
+OUT_DIR   = '<WORK_ROOT>/prep/data/cloud/histogram'
 BINS      = 256
 X_MIN, X_MAX = 0, 4095
 

@@ -8,13 +8,13 @@ Created on Wed Jul  2 18:09:11 2025
 
 from osgeo import gdal
 
-# png_path='/home/yp/Downloads/bluebon/250626_Chesapeake/registered_band7_RGB0.png'
-# tif_path='/home/yp/Downloads/bluebon/250626_Chesapeake/temp.tif'
-# warpedtif='/home/yp/Downloads/bluebon/250626_Chesapeake/registered_band7_RGB0.tif'
+# png_path='<WORK_ROOT>/Downloads/bluebon/250626_Chesapeake/registered_band7_RGB0.png'
+# tif_path='<WORK_ROOT>/Downloads/bluebon/250626_Chesapeake/temp.tif'
+# warpedtif='<WORK_ROOT>/Downloads/bluebon/250626_Chesapeake/registered_band7_RGB0.tif'
 
 # Input/output
-png_path = '/home/yp/Downloads/bluebon/250629_AndongDam/250629_023708_stacked_DN_RGB310.png'
-warped_tif = '/home/yp/Downloads/bluebon/250629_AndongDam/250629_023708_stacked_DN_RGB310.tif'
+png_path = '<WORK_ROOT>/Downloads/bluebon/250629_AndongDam/250629_023708_stacked_DN_RGB310.png'
+warped_tif = '<WORK_ROOT>/Downloads/bluebon/250629_AndongDam/250629_023708_stacked_DN_RGB310.tif'
 
 
 # Step 1: Open the PNG

@@ -1,6 +1,6 @@
 """모든 오프셋 트래킹 쌍의 NCC 중앙값 vs 시간차 — 탈상관 진단 종합 그래프."""
 import json, numpy as np, matplotlib; matplotlib.use("Agg"); import matplotlib.pyplot as plt
-OT="/mnt/c/N2_InSAR/N2/taean_OT/"
+OT="<DATA_ROOT>/N2_InSAR/N2/taean_OT/"
 AL=["n2off_0511x0515","n2off_0614x0706","n2off_0515x0614","n2off_0511x0706"]
 AR=["n2off_0402x0406","n2off_0518x0529","n2off_0402x0613"]
 S1=["s1off_0519x0613"]

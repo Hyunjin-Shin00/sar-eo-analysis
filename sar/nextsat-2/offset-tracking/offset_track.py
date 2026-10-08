@@ -10,12 +10,12 @@ from scipy.interpolate import griddata
 import matplotlib; matplotlib.use("Agg"); import matplotlib.pyplot as plt
 import rasterio; from rasterio.transform import from_origin; from rasterio.warp import reproject, Resampling
 import n2insar as N, s1insar as S1
-t0=time.time(); OUT="/mnt/c/N2_InSAR/N2/taean_OT/"
+t0=time.time(); OUT="<DATA_ROOT>/N2_InSAR/N2/taean_OT/"
 def log(*a): print("[%6.1fs]"%(time.time()-t0),*a,flush=True)
-DEM="/mnt/c/N2_InSAR/DEM/cop_dem_N36E126.tif"; S,Nn,W,E=36.3899,36.4350,126.3548,126.4107
+DEM="<DATA_ROOT>/N2_InSAR/DEM/cop_dem_N36E126.tif"; S,Nn,W,E=36.3899,36.4350,126.3548,126.4107
 TMPL_M=100.0; STEP_M=50.0; SRCH_M=20.0        # 지상 템플릿/간격/최대잔차탐색 (m)
 mode=sys.argv[1] if len(sys.argv)>1 else "n2_0515x0614"
-R="/mnt/c/N2_InSAR/N2/Taean_recent/"; Z="/mnt/c/N2_InSAR/sentinel1/"
+R="<DATA_ROOT>/N2_InSAR/N2/Taean_recent/"; Z="<DATA_ROOT>/N2_InSAR/sentinel1/"
 CFG={
  "n2_0515x0614":dict(sensor="n2",days=30,pref="n2off_0515x0614",ML=2,
    mz=R+"20260515/N2_SAR_20260515_063509K_16360_A_ST_B5_L00_RAW_B.NP04/Distribution/N2_SAR_20260515_063509_ST_BB_VV_A_L_SSC_B_NP04.h5",

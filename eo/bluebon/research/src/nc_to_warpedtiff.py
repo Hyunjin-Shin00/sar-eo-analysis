@@ -133,7 +133,7 @@ def lonlat_to_utm_epsg(lon, lat):
 
 import os
 if __name__=='__main__':
-    # indir='/home/yp/Downloads/bluebon/250629_Andong/myout'; keystr = '250629_023708'
+    # indir='<WORK_ROOT>/Downloads/bluebon/250629_Andong/myout'; keystr = '250629_023708'
     # gcps_ll = [
     #     [128.940136, 36.905860, 0, 3682.6, 41.7],
     #     [128.745926, 36.921330, 0, 207.8, 244.3],
@@ -146,7 +146,7 @@ if __name__=='__main__':
     # epsg_no = lonlat_to_utm_epsg(128.8, 36.58)[0]
     
     # # Chesapeake 250626_161648
-    # indir='/home/yp/Downloads/bluebon/250626_Chesapeake/myout'; keystr='250626_161648'
+    # indir='<WORK_ROOT>/Downloads/bluebon/250626_Chesapeake/myout'; keystr='250626_161648'
     # gcps_ll =[ #gcps for lonlat - Chesapeake bay
     #     [-75.984604, 37.376722, 0, 2725.7,594.7],
     #     [-75.922833, 37.364066, 0, 3857.6,690.1],
@@ -165,7 +165,7 @@ if __name__=='__main__':
     #     ]
     # epsg_no = lonlat_to_utm_epsg(-75.9, 37.2)[0]
     
-    # indir='/home/yp/Downloads/bluebon/250712_Seoul/myout'; keystr = '250712_024621'
+    # indir='<WORK_ROOT>/Downloads/bluebon/250712_Seoul/myout'; keystr = '250712_024621'
     # gcps_ll = [
     #     [127.05305907,37.70527911, 0, 117.6,3955.7],
     #     [127.01118086,37.52975063, 0, 247.2,8147.9],
@@ -178,7 +178,7 @@ if __name__=='__main__':
     # ]
     # epsg_no = lonlat_to_utm_epsg(127.07,37.52)[0]
     
-    # indir='/home/yp/Downloads/bluebon/250716_Bahrain/myout'; keystr = '250716_074255'
+    # indir='<WORK_ROOT>/Downloads/bluebon/250716_Bahrain/myout'; keystr = '250716_074255'
     # _gcps_ll = [
     #     [26.1698286,50.5977895,0, 80.7,72.1],
     #     [26.1598851,50.6712761,0, 1582.9,133.0],
@@ -198,7 +198,7 @@ if __name__=='__main__':
     # epsg_no = lonlat_to_utm_epsg(50.6, 25.8)[0]
     
     
-    # indir='/home/yp/Downloads/bluebon/250806_SoffSydney/myout'; keystr = '250806_002855'
+    # indir='<WORK_ROOT>/Downloads/bluebon/250806_SoffSydney/myout'; keystr = '250806_002855'
     # _gcps_ll = [
     #     # [-34.1023407,151.0979848, 0, 468.2,100.0],
     #     # [-34.1119556,151.1392172, 0, 1256.9,228.0],
@@ -224,7 +224,7 @@ if __name__=='__main__':
     # gcps_ll = [[r[1],r[0]]+r[2:] for r in _gcps_ll]
     # epsg_no = lonlat_to_utm_epsg(151.162414, -34.465546)[0]
     
-    # indir='/home/yp/Downloads/bluebon/250821_Busan/myout'; keystr='250821_023741'
+    # indir='<WORK_ROOT>/Downloads/bluebon/250821_Busan/myout'; keystr='250821_023741'
     # _gcps_ll = [
     #     [35.4159114,129.0342659, 0, 216.4,173.0],
     #     [35.3290811,129.2156822, 0, 3903.5,1616.1],
@@ -234,7 +234,7 @@ if __name__=='__main__':
     # gcps_ll = [[r[1],r[0]]+r[2:] for r in _gcps_ll]
     # epsg_no = lonlat_to_utm_epsg(129.047, 35.1032)[0]
     
-    # indir='/home/yp/Downloads/bluebon/250903_Namhae/myout'; keystr='250903_023532'
+    # indir='<WORK_ROOT>/Downloads/bluebon/250903_Namhae/myout'; keystr='250903_023532'
     # _gcps_ll = [
     #     [34.9306829,127.7951508, 0 , 230.6,2437.2],
     #     [34.9423535,128.0311940, 0 , 4056.0,1544.8],
@@ -243,7 +243,7 @@ if __name__=='__main__':
     # gcps_ll = [[r[1],r[0]]+r[2:] for r in _gcps_ll]
     # epsg_no = lonlat_to_utm_epsg(128.0133, 34.7098)[0]
     
-    # indir='/home/yp/Downloads/bluebon/250926_Khuvsgul/myout'; keystr='250926_045459'
+    # indir='<WORK_ROOT>/Downloads/bluebon/250926_Khuvsgul/myout'; keystr='250926_045459'
     # _gcps_ll = [
     #     # [50.96998512,100.52621456, 0 , 2496.2,10573.6], #x-2, y-1
     #     # [51.1620244,100.7321171, 0 , 4079.5,5475.7], #x-2
@@ -261,7 +261,7 @@ if __name__=='__main__':
     # gcps_ll = [[r[1],r[0]]+r[2:] for r in _gcps_ll]
     # epsg_no = lonlat_to_utm_epsg(100.5084, 51.0867)[0]
     
-    # indir='/home/yp/Downloads/bluebon/260122_025059_Ongjin/myout_affine_2refs_sobelF'; keystr='260122_025059'
+    # indir='<WORK_ROOT>/Downloads/bluebon/260122_025059_Ongjin/myout_affine_2refs_sobelF'; keystr='260122_025059'
     # _gcps_ll = [
     #     [37.48481244,126.43578039, 0 , 399.8,336.3], 
     #     [37.4095943,126.5742523, 0 , 3194.9,1667.8],
@@ -271,7 +271,7 @@ if __name__=='__main__':
     # gcps_ll = [[r[1],r[0]]+r[2:] for r in _gcps_ll]
     # epsg_no = lonlat_to_utm_epsg(126.5591, 37.9785)[0] 
     
-    # indir='/home/yp/Downloads/bluebon/260209_Suwon/myout'; keystr='260209_025928'
+    # indir='<WORK_ROOT>/Downloads/bluebon/260209_Suwon/myout'; keystr='260209_025928'
     # _gcps_ll = [
     #     # [37.75802978,127.02903915, 0 , 228.2,753.8], 
     #     # [37.7231155,127.2084585, 0 , 3315.0,910.8],
@@ -290,7 +290,7 @@ if __name__=='__main__':
     # gcps_ll = [[r[1],r[0]]+r[2:] for r in _gcps_ll]
     # epsg_no = lonlat_to_utm_epsg(126.95, 37.31)[0] 
     
-    indir='/home/yp/Downloads/bluebon/251029_Teheran/myout'; keystr='251029_075312'
+    indir='<WORK_ROOT>/Downloads/bluebon/251029_Teheran/myout'; keystr='251029_075312'
     _gcps_ll = [
         
         [, 0, ],

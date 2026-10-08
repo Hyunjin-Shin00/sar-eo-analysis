@@ -2,8 +2,8 @@
 # 피하려고 shutil.copy -> shutil.copyfile 로 교체. 번들 원본은 건드리지 않음.
 import os, sys, shutil, subprocess, datetime
 
-HANDOFF = "/mnt/c/N2_InSAR/N2_USB_BUNDLE/handoff"
-CODE    = "/mnt/c/N2_InSAR/N2_USB_BUNDLE/code"
+HANDOFF = "<DATA_ROOT>/N2_InSAR/N2_USB_BUNDLE/handoff"
+CODE    = "<DATA_ROOT>/N2_InSAR/N2_USB_BUNDLE/code"
 for cand in (HANDOFF, CODE):
     if os.path.isfile(os.path.join(cand, "n2_patch.py")) and cand not in sys.path:
         sys.path.insert(0, cand)

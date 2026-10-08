@@ -33,7 +33,7 @@ def gen_bluebon_LUT():
     wave_band = np.sum(wave0*rsr, axis=1)/np.sum(rsr, axis=1) #Numpy broadcasting
 #     for i=0, nb-1 do wave_band[i]=total(wave0[*]*rsr[i,*])/total(rsr[i,*])
 
-    inDir='/home/yp/6SV-1.1/batch_LUT_TOA_M70/' #14 columns (old) 
+    inDir='<WORK_ROOT>/6SV-1.1/batch_LUT_TOA_M70/' #14 columns (old) 
 
     st_aer    = ['1','2']
     naer = len(st_aer)
@@ -121,7 +121,7 @@ def gen_bluebon_LUT():
                     # endif
 
 
-    odir = '/home/yp/myPy/bluebon/LUT/'
+    odir = '<WORK_ROOT>/myPy/bluebon/LUT/'
     str='wave_band='
     for i in range(nb):  
         str += ("%6.1f" % wave_band[i]).strip()+' '

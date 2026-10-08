@@ -168,17 +168,17 @@ def main(gcp_weight: int = None, current_set: str = "t1"):
     EXPERIMENT_SETS = {
         "t1": {
             "name": "bb_l1a_20260208_190833_8band Center",
-            "dem":          '/home/steve/Desktop/KHJ_Geometric/BlueBON_Geometric_Correction_260317_Linux/Dataset/bb_l1a_20251227_073223_8band/Center/01_Download_open_data/Copernicus_DEM_center.tif',
-            "geoid":        '/home/steve/Desktop/KHJ_Geometric/BlueBON_Geometric_Correction_260317_Linux/Dataset/bb_l1a_20251227_073223_8band/Center/01_Download_open_data/Geoid_center.tif',
-            "reference":    '/home/steve/Desktop/KHJ_Geometric/BlueBON_Geometric_Correction_260317_Linux/Dataset/bb_l1a_20251227_073223_8band/Center/01_Download_open_data/S2_mosaic_2025-12-23.tif',
-            "output":       '/home/steve/Desktop/KHJ_Geometric/BlueBON_Geometric_Correction_260317_Linux/Dataset/bb_l1a_20251227_073223_8band/Center/output_GCP',
-            "target":       '/home/steve/Desktop/KHJ_Geometric/BlueBON_Geometric_Correction_260317_Linux/Dataset/bb_l1a_20251227_073223_8band/Center/00_Divided_image/merged_center.tif',
+            "dem":          '<WORK_ROOT>/Desktop/KHJ_Geometric/BlueBON_Geometric_Correction_260317_Linux/Dataset/bb_l1a_20251227_073223_8band/Center/01_Download_open_data/Copernicus_DEM_center.tif',
+            "geoid":        '<WORK_ROOT>/Desktop/KHJ_Geometric/BlueBON_Geometric_Correction_260317_Linux/Dataset/bb_l1a_20251227_073223_8band/Center/01_Download_open_data/Geoid_center.tif',
+            "reference":    '<WORK_ROOT>/Desktop/KHJ_Geometric/BlueBON_Geometric_Correction_260317_Linux/Dataset/bb_l1a_20251227_073223_8band/Center/01_Download_open_data/S2_mosaic_2025-12-23.tif',
+            "output":       '<WORK_ROOT>/Desktop/KHJ_Geometric/BlueBON_Geometric_Correction_260317_Linux/Dataset/bb_l1a_20251227_073223_8band/Center/output_GCP',
+            "target":       '<WORK_ROOT>/Desktop/KHJ_Geometric/BlueBON_Geometric_Correction_260317_Linux/Dataset/bb_l1a_20251227_073223_8band/Center/00_Divided_image/merged_center.tif',
             "target_center_lat":  24.89618, 
             "target_center_lon":  54.94587,
             "target_resolution": 4.8,
             "target_bands": [4,3,2],
             "normalized_paths":
-            '/home/steve/Desktop/KHJ_Geometric/BlueBON_Geometric_Correction_260317_Linux/Dataset/bb_l1a_20251227_073223_8band/Center/step11_recropped/step04_normalized/reference_normalized.tif',
+            '<WORK_ROOT>/Desktop/KHJ_Geometric/BlueBON_Geometric_Correction_260317_Linux/Dataset/bb_l1a_20251227_073223_8band/Center/step11_recropped/step04_normalized/reference_normalized.tif',
             "gcp_weight": 90000,  # 직접 지정 시 주석 해제
         },
     }
@@ -222,8 +222,8 @@ def main(gcp_weight: int = None, current_set: str = "t1"):
     # JSON GCP 파일 경로
     # ========================================================================
 
-    vis_dir_1=os.path.dirname(OUTPUT_DIR) #/home/steve/Downloads/bb_l1a_20260208_190833_8band/Center/ 
-    vis_dir=os.path.join(vis_dir_1, '05_SuperPoint_result', 'step14_visualizations') #/home/steve/Downloads/bb_l1a_20260208_190833_8band/Center/05_SuperPoint_result/step14_visualizations/
+    vis_dir_1=os.path.dirname(OUTPUT_DIR) #<WORK_ROOT>/Downloads/bb_l1a_20260208_190833_8band/Center/ 
+    vis_dir=os.path.join(vis_dir_1, '05_SuperPoint_result', 'step14_visualizations') #<WORK_ROOT>/Downloads/bb_l1a_20260208_190833_8band/Center/05_SuperPoint_result/step14_visualizations/
 
     orig_gcp_json = os.path.join(vis_dir,
                                  'step14_final_gcps_original_target.json')

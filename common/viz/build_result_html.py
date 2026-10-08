@@ -5,13 +5,13 @@ import rasterio
 from rasterio.transform import from_origin
 from rasterio.warp import reproject, Resampling
 from osgeo import ogr
-R="/mnt/c/N2_InSAR/Result/"; INS=R+"taean_InSAR/"; CCD=R+"taean_CCD/"; OT=R+"taean_OT/"
+R="<DATA_ROOT>/N2_InSAR/Result/"; INS=R+"taean_InSAR/"; CCD=R+"taean_CCD/"; OT=R+"taean_OT/"
 W,E,S,Nn=126.3548,126.4107,36.3899,36.4350; res=0.00027778
 nx=int(round((E-W)/res)); ny=int(round((Nn-S)/res)); dst_tr=from_origin(W,Nn,res,res)
 south=Nn-ny*res; east=W+nx*res; BOUNDS=[[south,W],[Nn,east]]
-DEMf="/mnt/c/N2_InSAR/DEM/cop_dem_N36E126.tif"
+DEMf="<DATA_ROOT>/N2_InSAR/DEM/cop_dem_N36E126.tif"
 # 폴리곤
-ds=ogr.Open("/mnt/c/N2_InSAR/shp/Taean.shp"); ly=ds.GetLayer(); f=ly.GetNextFeature()
+ds=ogr.Open("<DATA_ROOT>/N2_InSAR/shp/Taean.shp"); ly=ds.GetLayer(); f=ly.GetNextFeature()
 gj=json.loads(f.GetGeometryRef().ExportToJson()); PCOORDS=gj["coordinates"][0]
 from rasterio.features import rasterize
 POLY=rasterize([(gj,1)],out_shape=(ny,nx),transform=dst_tr,fill=0,all_touched=True).astype(bool)

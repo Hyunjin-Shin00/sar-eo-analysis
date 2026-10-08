@@ -100,7 +100,7 @@ def main():
     ap.add_argument("--ref", required=True, help="TOA reflectance 8밴드 f32")
     ap.add_argument("--rad", required=True, help="TOA radiance 8밴드 f32")
     ap.add_argument("--radcal", required=True)
-    ap.add_argument("--srf", default="/mnt/e/bkchoi/working/radiometric_correction/ref/SpectralResponseFunction.xlsx")
+    ap.add_argument("--srf", default="<WORK_ROOT>/working/radiometric_correction/ref/SpectralResponseFunction.xlsx")
     ap.add_argument("--utc", required=True)
     ap.add_argument("--roi", nargs=4, type=int, required=True, metavar=("R0", "R1", "C0", "C1"))
     ap.add_argument("--out", required=True)

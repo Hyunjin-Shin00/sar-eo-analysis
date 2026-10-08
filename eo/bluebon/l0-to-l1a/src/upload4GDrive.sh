@@ -1,8 +1,8 @@
 #!/bin/bash
 
-ddir=/mnt/e/bkchoi/prep/data
+ddir=<WORK_ROOT>/prep/data
 cdir=${ddir}/upload
-gdir=/home/bkchoi/gdrive/LEOP
+gdir=<WORK_ROOT>/gdrive/LEOP
 
 find ${cdir} -maxdepth 1 -type d -name "??????_??????" | while read dir
 do

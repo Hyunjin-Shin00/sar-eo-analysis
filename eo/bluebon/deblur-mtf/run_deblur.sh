@@ -11,7 +11,7 @@
 # 전체이미지 1회 처리 대비 6.5배 빠르고 결과 차이는 max 0.43 DN (0.01%).
 set -u
 
-ROOT=/mnt/e/bkchoi/working/debulr
+ROOT=<WORK_ROOT>/working/debulr
 BIN=$ROOT/deblur-l0
 IN=$ROOT/input
 OUT=$ROOT/output

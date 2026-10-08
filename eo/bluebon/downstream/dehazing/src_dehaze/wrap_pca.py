@@ -15,18 +15,18 @@ import ncutils
 from genrgb import gen_rgb
 import gen_png_simple as GPS
 if __name__ == "__main__":
-    # fnc = '/home/yp/Downloads/bluebon/251022_TakhliAP/myout/251022_042629_stacked_rhot.nc'; sensor='bb'
-    # fnc = '/home/yp/Downloads/bluebon/250928_Thai_KKairport/myout/250928_041857_stacked_rhot.nc'
-    # fnc = '/home/yp/Downloads/bluebon/250903_Namhae/myout/250903_023532_stacked_rhorc.nc'
-    # fnc='/home/yp/Downloads/bluebon/250629_Andong/myout/250629_023708_stacked_rhot.nc'
-    # fnc = '/home/yp/Downloads/bluebon/251030_Seorak/myout/251030_024535_stacked_rhot.nc'; sensor='bb'
-    # fnc = '/home/yp/Downloads/bluebon/250712_Seoul/myout/250712_024621_stacked_rhot.nc' #tdi[bd8]
-    # fnc = '/home/yp/Downloads/bluebon/250903_Namhae/myout/250903_023532_stacked_npz_rhot.nc'
-    # fnc = '/home/yp/Downloads/bluebon/250821_Busan/myout/250821_023741_stacked0_rhot.nc'
-    # fnc='/home/yp/Downloads/bluebon/250806_SoffSydney/myout/250806_002855_stacked0_rhot.nc'; sensor='bb'
-    fnc='/home/yp/Downloads/bluebon/251022_TakhliAP_msi/myout/MSI_res20m_rhorc.nc'; sensor='msi_20m';
+    # fnc = '<WORK_ROOT>/Downloads/bluebon/251022_TakhliAP/myout/251022_042629_stacked_rhot.nc'; sensor='bb'
+    # fnc = '<WORK_ROOT>/Downloads/bluebon/250928_Thai_KKairport/myout/250928_041857_stacked_rhot.nc'
+    # fnc = '<WORK_ROOT>/Downloads/bluebon/250903_Namhae/myout/250903_023532_stacked_rhorc.nc'
+    # fnc='<WORK_ROOT>/Downloads/bluebon/250629_Andong/myout/250629_023708_stacked_rhot.nc'
+    # fnc = '<WORK_ROOT>/Downloads/bluebon/251030_Seorak/myout/251030_024535_stacked_rhot.nc'; sensor='bb'
+    # fnc = '<WORK_ROOT>/Downloads/bluebon/250712_Seoul/myout/250712_024621_stacked_rhot.nc' #tdi[bd8]
+    # fnc = '<WORK_ROOT>/Downloads/bluebon/250903_Namhae/myout/250903_023532_stacked_npz_rhot.nc'
+    # fnc = '<WORK_ROOT>/Downloads/bluebon/250821_Busan/myout/250821_023741_stacked0_rhot.nc'
+    # fnc='<WORK_ROOT>/Downloads/bluebon/250806_SoffSydney/myout/250806_002855_stacked0_rhot.nc'; sensor='bb'
+    fnc='<WORK_ROOT>/Downloads/bluebon/251022_TakhliAP_msi/myout/MSI_res20m_rhorc.nc'; sensor='msi_20m';
     
-    # fnc='/home/yp/Downloads/bluebon/250926_Khovsgol/myout/250926_045459_stacked_rhot.nc'; sensor='bb'
+    # fnc='<WORK_ROOT>/Downloads/bluebon/250926_Khovsgol/myout/250926_045459_stacked_rhot.nc'; sensor='bb'
     
     img0 = ncutils.getimage(fnc, bip=False)
     nb,nrows,ncols = img0.shape

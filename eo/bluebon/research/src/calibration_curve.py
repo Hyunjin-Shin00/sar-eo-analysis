@@ -10,8 +10,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 
-fxlsx = '/home/yp/myPy/bluebon/calib/FM1_mean_output_PRNU_check.xlsx'
-fcsv ='/home/yp/myPy/bluebon/calib/FM1_mean_output_PRNU_check.csv'
+fxlsx = '<WORK_ROOT>/myPy/bluebon/calib/FM1_mean_output_PRNU_check.xlsx'
+fcsv ='<WORK_ROOT>/myPy/bluebon/calib/FM1_mean_output_PRNU_check.csv'
 
 if 0: #to save as csv - slow
     wb = load_workbook(fxlsx, read_only=True)

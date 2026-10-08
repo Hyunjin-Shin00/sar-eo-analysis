@@ -29,9 +29,9 @@ from orbit import Orbit
 from geometry import RangeDoppler, geodetic_to_ecef, ecef_to_geodetic, _unit
 from dem import DEM
 
-DEFAULT = ("/mnt/c/N2_InSAR/N2/LV1A/HALA/"
+DEFAULT = ("<DATA_ROOT>/N2_InSAR/N2/LV1A/HALA/"
            "N2_SAR_20250611_063619_ST_BB_VV_A_R_SSC_B_NP01.h5")
-DEM_PATH = "/mnt/c/N2_InSAR/DEM/cop_dem_N33E126.tif"
+DEM_PATH = "<DATA_ROOT>/N2_InSAR/DEM/cop_dem_N33E126.tif"
 OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "Output")
 EPSG_OUT = 32652
 ML_BL, ML_BS = 9, 5          # step03 이 만든 fine 멀티룩 캐시 (10 m x 9 m)

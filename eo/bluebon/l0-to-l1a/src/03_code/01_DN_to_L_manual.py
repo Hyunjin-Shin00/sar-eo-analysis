@@ -302,7 +302,7 @@ def radiometric_calibration(bluebon_path, band, tdi, direction, lp, band_width) 
     
 
     # Radiometric Calibration
-    correction_file_path = '/mnt/e/bkchoi/prep/src/03_code/sub/FM1_mean_output_PRNU_check.csv' # Correction data path
+    correction_file_path = '<WORK_ROOT>/prep/src/03_code/sub/FM1_mean_output_PRNU_check.csv' # Correction data path
     dark_list, coefficients_ms, intercepts_ms = radiometric_cal_par(correction_file_path, band, tdi, lp)
 
     ms_dark_img = dark_correction(ms_img, dark_list) # dark correction
@@ -404,7 +404,7 @@ def radiometric_calibration_night(bluebon_path, band, tdi, direction, lp, band_w
     
 
     # Radiometric Calibration
-    correction_file_path = '/mnt/e/bkchoi/prep/src/03_code/sub/FM1_mean_output_PRNU_check.csv' # Correction data path
+    correction_file_path = '<WORK_ROOT>/prep/src/03_code/sub/FM1_mean_output_PRNU_check.csv' # Correction data path
     dark_list, coefficients_ms, intercepts_ms = radiometric_cal_par(correction_file_path, band, tdi, lp)
 
     ms_dark_img = dark_correction(ms_img, dark_list) # dark correction

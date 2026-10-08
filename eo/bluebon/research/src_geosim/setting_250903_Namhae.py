@@ -33,9 +33,9 @@ roll_step_deg=0.02
 minutes=0.5; step_s=0.05
 
 #--[bluebon DN]
-fnc = '/home/yp/Downloads/bluebon/250903_Namhae/myout_intercal_nogood/250903_023532_stacked_DN.nc'
+fnc = '<WORK_ROOT>/Downloads/bluebon/250903_Namhae/myout_intercal_nogood/250903_023532_stacked_DN.nc'
 #--[msi rad(radiance)]
-ftif = '/home/yp/Downloads/bluebon/250903_Namhae_msi_T52SCD/myout/MSI_res20m_merged_rad.tif'
+ftif = '<WORK_ROOT>/Downloads/bluebon/250903_Namhae_msi_T52SCD/myout/MSI_res20m_merged_rad.tif'
 
 # [..?]
 irange_int_1=[200,900,2]

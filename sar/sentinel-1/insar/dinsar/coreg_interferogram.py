@@ -13,7 +13,7 @@ from scipy.ndimage import zoom, map_coordinates
 import matplotlib; matplotlib.use("Agg"); import matplotlib.pyplot as plt
 import n2insar as N
 
-WK = "/mnt/c/N2_InSAR/N2/taean_Insar/work/"
+WK = "<DATA_ROOT>/N2_InSAR/N2/taean_Insar/work/"
 t_start = time.time()
 def log(*a): print("[%6.1fs]"%(time.time()-t_start), *a, flush=True)
 

@@ -7,8 +7,8 @@ from rasterio.warp import reproject, Resampling
 import matplotlib; matplotlib.use("Agg"); import matplotlib.pyplot as plt
 import s1insar as S1
 t0=time.time()
-M="/mnt/c/N2_InSAR/N2/taean_Insar/isce2/merged/"
-Z="/mnt/c/N2_InSAR/sentinel1/S1C_IW_SLC__1SDV_20260519T214004_20260519T214028_007728_00FB4A_A82C.zip"
+M="<DATA_ROOT>/N2_InSAR/N2/taean_Insar/isce2/merged/"
+Z="<DATA_ROOT>/N2_InSAR/sentinel1/S1C_IW_SLC__1SDV_20260519T214004_20260519T214028_007728_00FB4A_A82C.zip"
 WATER_H=1.0                                                    # 이 고도(m) 이하 = 바다/물로 간주해 마스킹
 lam=S1.S1Scene(Z,"iw1","vv",0).wavelength                       # S1 C-band 파장(정확값)
 print("[%.1fs] wavelength = %.6f m (%.4f cm)"%(time.time()-t0,lam,lam*100))
@@ -18,7 +18,7 @@ cor=rasterio.open(M+"topophase.cor.geo").read(2).astype(np.float64)
 tr=unw.transform; crs=unw.crs; H,W=phase.shape
 
 # 물 마스크: Copernicus DEM 을 ISCE 격자로 리샘플 후 저고도 = 바다
-dem=rasterio.open("/mnt/c/N2_InSAR/DEM/cop_dem_N36E126.tif")
+dem=rasterio.open("<DATA_ROOT>/N2_InSAR/DEM/cop_dem_N36E126.tif")
 demg=np.full((H,W),np.nan,np.float32)
 reproject(dem.read(1).astype('float32'),demg,src_transform=dem.transform,src_crs=dem.crs,
           dst_transform=tr,dst_crs='EPSG:4326',resampling=Resampling.bilinear)

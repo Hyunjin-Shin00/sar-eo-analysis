@@ -103,7 +103,7 @@ def make_rgb_png(bluebon_path, cs_min, cs_max, gamma, r_scale, g_scale, b_scale,
     if not upload:
         return
     # gray tiff 파일명(예: 260318_071833_0_gray.tiff)에서 YYMMDD_HHMMSS 추출
-    upload_base = '/mnt/e/bkchoi/prep/data/upload'
+    upload_base = '<WORK_ROOT>/prep/data/upload'
     gray_files = [f for f in os.listdir(bluebon_path) if re.match(r'\d{6}_\d{6}_\d+_gray\.tiff', f)]
     if gray_files:
         datetime_str = '_'.join(gray_files[0].split('_')[:2])  # 예: 260318_071833
@@ -133,6 +133,6 @@ if __name__ == '__main__':
     upload = False     # upload 폴더에도 PNG 저장하려면 True 변경 / False
     # =============================================
 
-# 코드 입력 예시     python make_rgb_png.py /mnt/e/bkchoi/prep/data/20260323_Bab_al_Mandab_Strait
+# 코드 입력 예시     python make_rgb_png.py <WORK_ROOT>/prep/data/20260323_Bab_al_Mandab_Strait
 
     make_rgb_png(bluebon_path, cs_min, cs_max, gamma, r_scale, g_scale, b_scale, save_tiff, upload)

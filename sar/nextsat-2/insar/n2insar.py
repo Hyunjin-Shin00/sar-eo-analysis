@@ -248,14 +248,14 @@ class DemInterp:
 
 if __name__ == "__main__":
     import sys
-    D = "/mnt/c/N2_InSAR/N2/LV1A/TAEAN/"
+    D = "<DATA_ROOT>/N2_InSAR/N2/LV1A/TAEAN/"
     m = Scene(D + "N2_SAR_20240921_062139_ST_BB_VV_A_R_SSC_B_____.h5")
     s = Scene(D + "N2_SAR_20241026_062238_ST_BB_VV_A_R_SSC_B_____.h5")
     print("MASTER nlines=%d ncols=%d r0=%.1f dr=%.4f dt_az=%.3e lambda=%.5f" %
           (m.nlines, m.ncols, m.r0, m.dr, m.dt_az, m.wavelength))
     print("SLAVE  nlines=%d ncols=%d r0=%.1f dr=%.4f dt_az=%.3e" %
           (s.nlines, s.ncols, s.r0, s.dr, s.dt_az))
-    dem = DemInterp("/mnt/c/N2_InSAR/N2/taean_Insar/work/cop_dem_N36E126.tif")
+    dem = DemInterp("<DATA_ROOT>/N2_InSAR/N2/taean_Insar/work/cop_dem_N36E126.tif")
     print("MASTER side calib:", calibrate_side(m, 36.8728, 126.1615))
     print("SLAVE  side calib:", calibrate_side(s, 36.9169, 126.1562))
     # round-trip 검증: master 중앙 픽셀

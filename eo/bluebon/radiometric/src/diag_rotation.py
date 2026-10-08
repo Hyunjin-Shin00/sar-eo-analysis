@@ -5,7 +5,7 @@ import numpy as np, tifffile
 from skimage.registration import phase_cross_correlation
 from scipy.ndimage import gaussian_filter
 
-TEST = "/mnt/e/bkchoi/prep/data/correction_ref_260606/test_260616"
+TEST = "<WORK_ROOT>/prep/data/correction_ref_260606/test_260616"
 def hp(x): x = x.astype(np.float64); return x - gaussian_filter(x, 3)
 
 anc = hp(tifffile.imread(f"{TEST}/MS3_obs_reg_rgbn.tiff"))   # Red anchor

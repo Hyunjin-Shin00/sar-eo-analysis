@@ -9,7 +9,7 @@ import numpy as np
 import rasterio
 from PIL import Image, ImageDraw
 
-ROOT = "/mnt/e/bkchoi/working/debulr"
+ROOT = "<WORK_ROOT>/working/debulr"
 ALPHAS = ["1000", "3000", "5000"]
 SIZE = 512
 

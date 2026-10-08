@@ -26,8 +26,8 @@ def is_georeferenced(ftif):
     else:
         return "Not georeferenced"
 
-ftif = '/home/yp/Downloads/bluebon/250626_Chesapeake/250626_161648_stacked_nowarp_rhot.tif'
-# ftif = '/home/yp/Downloads/bluebon/250626_Chesapeake/250626_161648_stacked_warped_rhot_RGB710.png'
+ftif = '<WORK_ROOT>/Downloads/bluebon/250626_Chesapeake/250626_161648_stacked_nowarp_rhot.tif'
+# ftif = '<WORK_ROOT>/Downloads/bluebon/250626_Chesapeake/250626_161648_stacked_warped_rhot_RGB710.png'
 print(is_georeferenced(ftif))
 
 # np.allclose((0.0, 1.0, 0.0, 0.0, 0.0, 1.0),(0, 1, 0, 0, 0, -1))

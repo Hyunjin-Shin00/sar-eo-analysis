@@ -19,7 +19,7 @@ def basis_u_bb4b_rhorc_few():
     u=u3
     
     #from poly2medoid.py
-    #/home/yp/Downloads/bluebon/251123_Thai/myout/251123_041547_stacked_rhorc.nc
+    #<WORK_ROOT>/Downloads/bluebon/251123_Thai/myout/251123_041547_stacked_rhorc.nc
     _b=  [[0.09568933, 0.14972152, 0.16641489, 0.45024797],
          [0.13392843, 0.19700924, 0.27702755, 0.43698788],
          [0.07743954, 0.11871519, 0.11715877, 0.39848936],
@@ -55,7 +55,7 @@ def basis_u_bb4b_rhorc_few():
     bs=np.vstack((bs,np.array(_b)-_aer*u))
 
     
-    #/home/yp/Downloads/bluebon/251127_Thai/myout/251127_041230_stacked_rhorc.nc
+    #<WORK_ROOT>/Downloads/bluebon/251127_Thai/myout/251127_041230_stacked_rhorc.nc
     _b=[[0.19453727, 0.21603723, 0.22169833, 0.45650417],
          [0.20529488, 0.22623026, 0.2535439 , 0.41029984],
          [0.21789883, 0.24487679, 0.2784314 , 0.43160143],
@@ -134,7 +134,7 @@ def basis_u_bb4b_rhot_few():
     _aer=0.02
     bs=np.vstack((bs,np.array(_b)-_aer*u))
     
-    #/home/yp/Downloads/bluebon/251127_Thai/myout/251127_041230_stacked_rhorc.nc
+    #<WORK_ROOT>/Downloads/bluebon/251127_Thai/myout/251127_041230_stacked_rhorc.nc
     _b=[[0.24434271, 0.2343328 , 0.21875334, 0.44916457],
      [0.25203326, 0.24492256, 0.22099641, 0.5121843 ],
      [0.240589  , 0.22812238, 0.20929274, 0.4441596 ],
@@ -183,7 +183,7 @@ def basis_u_bb4b_rhot_few():
         [0.27220568, 0.2529946 , 0.268513  , 0.35712215]]
     _aer=0.1
     bs=np.vstack((bs,np.array(_b)-_aer*u))
-    #for /home/yp/Downloads/bluebon/251022_TakhliAP
+    #for <WORK_ROOT>/Downloads/bluebon/251022_TakhliAP
     _b=[[0.19660535, 0.17372562, 0.15056373, 0.22443454], #(center: 1081.8451109285127, 13327.014379622022)
         [0.19745925, 0.18531007, 0.15587369, 0.30664894], #(center: 1179.5817610062893, 13850.908805031446)
         [0.22791032, 0.21437307, 0.18984409, 0.22724959], #(center: 1218.9421768707482, 13067.162131519275)

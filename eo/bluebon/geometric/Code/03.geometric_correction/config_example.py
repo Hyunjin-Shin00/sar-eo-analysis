@@ -107,18 +107,18 @@ GENERATE_VISUALIZATIONS = True
 
 # 예제 1: BlueBON Jamsil 데이터셋
 BLUEBON_JAMSIL = {
-    'reference': "/media/steve/X10 Pro/02. Dataset/02. Geometric Correction/Input/BlueBON(Jamsil)/ReferenceImage/Sentinel_Jamsil_BlueBON.tif",
-    'target': "/media/steve/X10 Pro/02. Dataset/02. Geometric Correction/Input/BlueBON(Jamsil)/QueryImage/BlueBON_Jamsil(bottom)_rgb_resampling.tif",
-    'dem': "/media/steve/X10 Pro/02. Dataset/02. Geometric Correction/Input/BlueBON(Jamsil)/DEM/DEM_Merged.tif",
-    'output': "/media/steve/X10 Pro/02. Dataset/02. Geometric Correction/Output_Pipeline",
+    'reference': "/media/<USER>/X10 Pro/02. Dataset/02. Geometric Correction/Input/BlueBON(Jamsil)/ReferenceImage/Sentinel_Jamsil_BlueBON.tif",
+    'target': "/media/<USER>/X10 Pro/02. Dataset/02. Geometric Correction/Input/BlueBON(Jamsil)/QueryImage/BlueBON_Jamsil(bottom)_rgb_resampling.tif",
+    'dem': "/media/<USER>/X10 Pro/02. Dataset/02. Geometric Correction/Input/BlueBON(Jamsil)/DEM/DEM_Merged.tif",
+    'output': "/media/<USER>/X10 Pro/02. Dataset/02. Geometric Correction/Output_Pipeline",
 }
 
 # 예제 2: RapidEye France 데이터셋
 RAPIDEYE_FRANCE = {
-    'reference': "/media/steve/X10 Pro/02. Dataset/02. Geometric Correction/Input/Sentinel_France_RapidEye.tif",
-    'target': "/media/steve/X10 Pro/02. Dataset/02. Geometric Correction/Input/RapidEye-TrueColor_RGB_100km_shift.tif",
-    'dem': "/media/steve/X10 Pro/02. Dataset/02. Geometric Correction/DEM/SRTM/RapidEye_France/Merged.tif",
-    'output': "/media/steve/X10 Pro/02. Dataset/02. Geometric Correction/Output_RapidEye",
+    'reference': "/media/<USER>/X10 Pro/02. Dataset/02. Geometric Correction/Input/Sentinel_France_RapidEye.tif",
+    'target': "/media/<USER>/X10 Pro/02. Dataset/02. Geometric Correction/Input/RapidEye-TrueColor_RGB_100km_shift.tif",
+    'dem': "/media/<USER>/X10 Pro/02. Dataset/02. Geometric Correction/DEM/SRTM/RapidEye_France/Merged.tif",
+    'output': "/media/<USER>/X10 Pro/02. Dataset/02. Geometric Correction/Output_RapidEye",
 }
 
 # 사용할 데이터셋 선택

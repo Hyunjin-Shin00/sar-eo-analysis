@@ -148,7 +148,7 @@ def basis_u_oli_rhorc():
     print('[Function]: ', inspect.currentframe().f_code.co_name)
     return bases, u_norm
 def basis_u_cas_rhot_20250619_1():
-    #--[/home/yp/Downloads/CASdata/20250619]
+    #--[<WORK_ROOT>/Downloads/CASdata/20250619]
     # u_h=[0.04733035, 0.10063302, 0.078609854, 0.1133757] #(center: 4026.5, 3997.75)
     # u_l=[0.0437189, 0.09492544, 0.07532264, 0.10268912] #(center: 3603.75, 3907.25)
     u_h=[0.053324066, 0.10785578, 0.08691927, 0.1473717] #(center: 9644.866020114943, 3175.619731800766)
@@ -204,7 +204,7 @@ def basis_u_cas_rhot_20250619_1():
     return bases, u_norm
     
 def basis_u_cas_rhot_20250619():
-    #--[/home/yp/Downloads/CASdata/20250619]
+    #--[<WORK_ROOT>/Downloads/CASdata/20250619]
     # u_h=[0.04733035, 0.10063302, 0.078609854, 0.1133757] #(center: 4026.5, 3997.75)
     # u_l=[0.0437189, 0.09492544, 0.07532264, 0.10268912] #(center: 3603.75, 3907.25)
     u_h=[0.053324066, 0.10785578, 0.08691927, 0.1473717] #(center: 9644.866020114943, 3175.619731800766)

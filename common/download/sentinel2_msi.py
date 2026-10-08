@@ -17,8 +17,8 @@ os.system('date')
 
 ###############################################################
 #my account @ [browser.dataspace.copernicus.eu]
-ID = '***REMOVED***@kangwon.ac.kr'
-PW = 'Hyunjin1006!'
+ID = os.environ.get("CDSE_USER", "")
+PW = os.environ.get("CDSE_PASS", "")
 ###############################################################
 
 

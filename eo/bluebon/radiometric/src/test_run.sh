@@ -1,6 +1,6 @@
 #!/bin/bash
 
-rdir=/mnt/e/bkchoi/data
+rdir=<WORK_ROOT>/data
 
 cat flist.txt | awk '{print $11}' | cut -d/ -f 2 | while read t
 do

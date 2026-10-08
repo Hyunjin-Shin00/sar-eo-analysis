@@ -64,9 +64,9 @@ python merge_bands.py
 
 | 파일 | 고칠 상수 | 현재값 |
 |---|---|---|
-| `plot_histogram.py` | `DATA_DIR` | `/mnt/e/bkchoi/prep/data` |
+| `plot_histogram.py` | `DATA_DIR` | `<WORK_ROOT>/prep/data` |
 |  | `BINS` | `256` |
-| `plot_histogram_leop.py` | `OUT_DIR` | `/mnt/e/bkchoi/prep/data/cloud/histogram` |
+| `plot_histogram_leop.py` | `OUT_DIR` | `<WORK_ROOT>/prep/data/cloud/histogram` |
 |  | `BINS` | `256` |
 
 - 명령줄 인자가 없는 스크립트 — 파일 안의 입력 경로를 확인한 뒤 실행함: `make_rgb_png.py`

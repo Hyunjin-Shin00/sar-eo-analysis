@@ -34,7 +34,7 @@ roll_step_deg=0.02
 minutes=0.5; step_s=0.05
 
 #--[bluebon DN]
-fnc = '/home/yp/Downloads/bluebon/250821_Busan/myout/250821_023741_stacked_DN.ncc'
+fnc = '<WORK_ROOT>/Downloads/bluebon/250821_Busan/myout/250821_023741_stacked_DN.ncc'
 #--[msi rad(radiance)]
 ftif = ''
 

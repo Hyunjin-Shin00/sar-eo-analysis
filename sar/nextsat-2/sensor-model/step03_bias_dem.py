@@ -19,9 +19,9 @@ from dem import DEM
 from simulate import simulate, multilook_intensity, match
 from tropo import slant_delay, zenith_delay
 
-DEFAULT = ("/mnt/c/N2_InSAR/N2/LV1A/HALA/"
+DEFAULT = ("<DATA_ROOT>/N2_InSAR/N2/LV1A/HALA/"
            "N2_SAR_20250611_063619_ST_BB_VV_A_R_SSC_B_NP01.h5")
-DEM_PATH = "/mnt/c/N2_InSAR/DEM/cop_dem_N33E126.tif"
+DEM_PATH = "<DATA_ROOT>/N2_InSAR/DEM/cop_dem_N33E126.tif"
 OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "Output")
 H_LAND_MIN = 30.0        # 이 높이 아래(해안 저지·바다)는 정합에서 제외 — 지형 신호가 없다
 

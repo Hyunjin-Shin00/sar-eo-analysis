@@ -12,7 +12,7 @@ import rasterio
 import warnings
 
 warnings.filterwarnings("ignore")
-ROOT = "/mnt/e/bkchoi/working/debulr"
+ROOT = "<WORK_ROOT>/working/debulr"
 BANDS = {1: "MS1 (Blue)", 2: "MS2 (Green)", 3: "MS3 (Red)"}
 PAD = 512   # 주파수 해상도 확보용 제로패딩
 

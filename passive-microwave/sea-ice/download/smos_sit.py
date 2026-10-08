@@ -31,8 +31,8 @@ from datetime import date
 # ============================================================
 FTPS_HOST = "smos-diss.eo.esa.int"
 FTPS_PORT = 990
-USERNAME = "hyunjin@telepix.net"
-PASSWORD = "Apple1006!"
+USERNAME = os.environ.get("SMOS_USER", "")   # 자료 제공처 계정 이메일
+PASSWORD = os.environ.get("SMOS_PASS", "")
 
 # 확인된 FTP 경로: /SMOS/L3_SIT/L3C/north/YYYY/MM/
 FTP_BASE_DIR = "/SMOS/L3_SIT/L3C/north"

@@ -318,7 +318,7 @@ python step09_stack.py --res 5 --size 6 --outdir ../Output/baengnokdam
 
 ```bash
 conda activate isce2_snaphu
-cd C:\N2_InSAR\N2_Gemetric_Correction\Code
+cd <DATA_ROOT>/N2_InSAR/N2_Gemetric_Correction/Code
 
 python step01_grid_orbit.py  [h5]                 # 격자·궤도 체크포인트
 python step02_geometry.py    [h5]                 # 왕복정합·룩사이드·풋프린트

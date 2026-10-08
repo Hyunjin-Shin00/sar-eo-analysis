@@ -9,7 +9,7 @@ import numpy as np
 from n2reader import N2Scene
 from orbit import Orbit
 
-DEFAULT = ("/mnt/c/N2_InSAR/N2/LV1A/HALA/"
+DEFAULT = ("<DATA_ROOT>/N2_InSAR/N2/LV1A/HALA/"
            "N2_SAR_20250611_063619_ST_BB_VV_A_R_SSC_B_NP01.h5")
 R_EARTH_KM = 6371.0
 

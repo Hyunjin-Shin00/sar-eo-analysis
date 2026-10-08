@@ -5,7 +5,7 @@ from scipy.interpolate import griddata
 from rasterio.transform import from_origin
 from rasterio.warp import reproject, Resampling
 import n2insar as N
-R="/mnt/c/N2_InSAR/N2/Taean_recent/"; CCD="/mnt/c/N2_InSAR/Result/taean_CCD/"; DEM="/mnt/c/N2_InSAR/DEM/cop_dem_N36E126.tif"
+R="<DATA_ROOT>/N2_InSAR/N2/Taean_recent/"; CCD="<DATA_ROOT>/N2_InSAR/Result/taean_CCD/"; DEM="<DATA_ROOT>/N2_InSAR/DEM/cop_dem_N36E126.tif"
 S,Nn,W,E=36.3899,36.4350,126.3548,126.4107; AY,AX=10,12; dem=N.DemInterp(DEM)
 P={"0515":R+"20260515/N2_SAR_20260515_063509K_16360_A_ST_B5_L00_RAW_B.NP04/Distribution/N2_SAR_20260515_063509_ST_BB_VV_A_L_SSC_B_NP04.h5",
    "0614":R+"20260614/N2_SAR_20260614_063801K_16812_A_ST_B5_L00_RAW_B.NP04/Distribution/N2_SAR_20260614_063801_ST_BB_VV_A_L_SSC_B_NP04.h5"}

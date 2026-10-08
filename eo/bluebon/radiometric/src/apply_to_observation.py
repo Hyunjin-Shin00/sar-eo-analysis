@@ -15,9 +15,9 @@ import os
 import numpy as np
 import tifffile
 
-OUT_DIR  = "/mnt/e/bkchoi/prep/data/correction_ref_260606"
+OUT_DIR  = "<WORK_ROOT>/prep/data/correction_ref_260606"
 TEST_DIR = os.path.join(OUT_DIR, "test_260616")
-OBS_DIR  = "/mnt/e/bkchoi/prep/data/260616_193632"
+OBS_DIR  = "<WORK_ROOT>/prep/data/260616_193632"
 OBS_STEM = "260616_193632"
 BANDS    = [1, 2, 3, 4, 5, 6, 7]
 BAND_NAME = {1: "Blue", 2: "Green", 3: "Red", 4: "RE1", 5: "RE2", 6: "RE3", 7: "NIR"}

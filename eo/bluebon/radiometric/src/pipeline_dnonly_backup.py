@@ -35,7 +35,7 @@ from skimage.registration import phase_cross_correlation
 from scipy.ndimage import shift as nd_shift
 from scipy.ndimage import gaussian_filter, gaussian_filter1d, map_coordinates, median_filter
 
-REF_DIR = "/mnt/e/bkchoi/working/radiometric_correction/ref/master"   # dark/PRNU 참조
+REF_DIR = "<WORK_ROOT>/working/radiometric_correction/ref/master"   # dark/PRNU 참조
 
 CAP_ORDER = [1, 2, 3, 0, 7, 4, 5, 6]                         # 촬영 순서
 BAND_NAME = {0: "PAN", 1: "Blue", 2: "Green", 3: "Red", 4: "RE1", 5: "RE2", 6: "RE3", 7: "NIR"}

@@ -2,7 +2,7 @@ import os
 #!/usr/bin/env python3
 """
 sp_download_unprocessed.py — SharePoint 00_LEOPS/01_downlinked 에서 아직 처리하지 않은 영상만 받아
-/mnt/e/bkchoi/prep/data/YYYYMMDD_<target>.zip 으로 저장한다 (loop.sh 입력 형식).
+<WORK_ROOT>/prep/data/YYYYMMDD_<target>.zip 으로 저장한다 (loop.sh 입력 형식).
 
 "처리 안 한 영상" 기준:
   BlueBON Mission 시트(Mission 탭)에서 AD열(FEE/CEM Temp)이 비어 있는 행
@@ -22,9 +22,9 @@ from pathlib import Path
 
 RCLONE     = os.path.expanduser("~/.local/bin/rclone2")
 SP_ROOT    = "satrev:TelePIX/00_LEOPS/01_downlinked"
-DATA_DIR   = Path("/mnt/e/bkchoi/prep/data")
+DATA_DIR   = Path("<WORK_ROOT>/prep/data")
 TMP_DIR    = DATA_DIR / "tmp" / "sp_dl"
-CREDS      = Path("/mnt/e/bkchoi/prep/data/fee_cee_temp/ee-hyunjin-f97764a9f222.json")
+CREDS      = Path("<WORK_ROOT>/prep/data/fee_cee_temp/ee-hyunjin-f97764a9f222.json")
 SHEET_ID   = os.environ.get("BLUEBON_SHEET_ID", "")
 MAX_DELTA  = 20   # seconds (process_empty_rows.py 와 동일)
 

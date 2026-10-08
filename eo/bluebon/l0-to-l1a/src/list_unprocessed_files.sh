@@ -1,7 +1,7 @@
 #!/bin/bash
 
-LEOP_DIR="/home/bkchoi/gdrive/LEOP"
-OUTPUT_FILE="/mnt/e/bkchoi/prep/src/unprocessed_files.txt"
+LEOP_DIR="<WORK_ROOT>/gdrive/LEOP"
+OUTPUT_FILE="<WORK_ROOT>/prep/src/unprocessed_files.txt"
 
 # 출력 파일 초기화
 > "$OUTPUT_FILE"

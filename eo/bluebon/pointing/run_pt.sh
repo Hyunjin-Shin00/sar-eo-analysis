@@ -3,7 +3,7 @@
 input_file=$1
 output_file=./output.txt
 
-sdir=/mnt/e/bkchoi/pointing
+sdir=<WORK_ROOT>/pointing
 
 sed -i 's/\t/ /g' ${input_file}
 sed -i 's/([0-9]*)//g' ${input_file}

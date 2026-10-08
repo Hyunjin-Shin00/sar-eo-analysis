@@ -155,7 +155,7 @@ Blue 0.55→**0.14**, Green 0.37→**0.09**, NIR 0.85→**0.28**, RE1~3 ≤ **0.
 
 ```bash
 conda activate prep
-cd /mnt/e/bkchoi/working/radiometric_correction
+cd <WORK_ROOT>/working/radiometric_correction
 
 # 관측 1건 처리 (기본: flat PRNU + δ + 정합, 산출 = TOA radiance)
 python3 src/pipeline.py data/<SITE_DIR>

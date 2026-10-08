@@ -21,41 +21,41 @@ from genrgb import gen_rgb
 import gen_png_simple as GPS
 from PIL import Image
 if __name__ == "__main__":
-    # fnc = '/home/yp/Downloads/bluebon/251022_TakhliAP/myout/251022_042629_stacked_rhorc.nc'; sensor='bb'
-    # fnc = '/home/yp/Downloads/bluebon/250928_Thai_KKairport/myout/250928_041857_stacked_rhorc.nc'; sensor='bb'
-    # fnc = '/home/yp/Downloads/bluebon/250903_Namhae/myout/250903_023532_stacked_rhorc.nc'
-    # fnc='/home/yp/Downloads/bluebon/250629_Andong/myout/250629_023708_stacked_rhot.nc'
-    # fnc = '/home/yp/Downloads/bluebon/251030_Seorak/myout/251030_024535_stacked_rhot.nc'; sensor='bb'
-    # fnc = '/home/yp/Downloads/bluebon/250712_Seoul/myout/250712_024621_stacked_rhot.nc' #tdi[bd8]
-    # fnc = '/home/yp/Downloads/bluebon/250903_Namhae/myout/250903_023532_stacked_npz_rhot.nc'
-    # fnc = '/home/yp/Downloads/bluebon/250821_Busan/myout/250821_023741_stacked0_rhot.nc'
-    # fnc='/home/yp/Downloads/bluebon/250806_SoffSydney/myout/250806_002855_stacked0_rhot.nc'; sensor='bb'
-    # fnc='/home/yp/Downloads/bluebon/251022_TakhliAP_msi/myout/MSI_res20m_rhorc.nc'; sensor='msi_20m';
-    # fnc='/home/yp/Downloads/bluebon/251022_TakhliAP_msi/myout_sr/MSI_ressr_rhorc.tif'; sensor='msi_20m';
+    # fnc = '<WORK_ROOT>/Downloads/bluebon/251022_TakhliAP/myout/251022_042629_stacked_rhorc.nc'; sensor='bb'
+    # fnc = '<WORK_ROOT>/Downloads/bluebon/250928_Thai_KKairport/myout/250928_041857_stacked_rhorc.nc'; sensor='bb'
+    # fnc = '<WORK_ROOT>/Downloads/bluebon/250903_Namhae/myout/250903_023532_stacked_rhorc.nc'
+    # fnc='<WORK_ROOT>/Downloads/bluebon/250629_Andong/myout/250629_023708_stacked_rhot.nc'
+    # fnc = '<WORK_ROOT>/Downloads/bluebon/251030_Seorak/myout/251030_024535_stacked_rhot.nc'; sensor='bb'
+    # fnc = '<WORK_ROOT>/Downloads/bluebon/250712_Seoul/myout/250712_024621_stacked_rhot.nc' #tdi[bd8]
+    # fnc = '<WORK_ROOT>/Downloads/bluebon/250903_Namhae/myout/250903_023532_stacked_npz_rhot.nc'
+    # fnc = '<WORK_ROOT>/Downloads/bluebon/250821_Busan/myout/250821_023741_stacked0_rhot.nc'
+    # fnc='<WORK_ROOT>/Downloads/bluebon/250806_SoffSydney/myout/250806_002855_stacked0_rhot.nc'; sensor='bb'
+    # fnc='<WORK_ROOT>/Downloads/bluebon/251022_TakhliAP_msi/myout/MSI_res20m_rhorc.nc'; sensor='msi_20m';
+    # fnc='<WORK_ROOT>/Downloads/bluebon/251022_TakhliAP_msi/myout_sr/MSI_ressr_rhorc.tif'; sensor='msi_20m';
     # fnc='/media/yp/T7_msi/msidata/20250324_T52SDF_smoke/myout/MSI_res20m_rhorc.nc'; sensor='msi_20m';
     # fnc='/media/yp/T7_msi/msidata/20200820_BT52SCD_Yeosu/myout/MSI_res20_rhorc.nc'; sensor='msi_20m';
     # fnc='/media/yp/T7_msi/msidata/20210607_T51STU_Qingdao_6h1B/myout/MSI_res20m_rhorc.nc'; sensor='msi_20m';
     
-    # fnc='/home/yp/Downloads/bluebon/250903_Namhae_msi_T52SCD/myout/MSI_res20m_rhot.nc'; sensor='msi_20m' #glint-corr test
+    # fnc='<WORK_ROOT>/Downloads/bluebon/250903_Namhae_msi_T52SCD/myout/MSI_res20m_rhot.nc'; sensor='msi_20m' #glint-corr test
     
-    # # fnc='/home/yp/Downloads/bluebon/250926_Khovsgol/myout/250926_045459_stacked_rhot.nc'; sensor='bb'
-    # fnc='/home/yp/Downloads/bluebon/251022_TakhliAP/myout/251022_042629_stacked_rhot.nc'; sensor='bb' 
-    # fnc='/home/yp/Downloads/bluebon/251022_TakhliAP/myout/251022_042629_stacked_rhot_RGB210.png'; sensor='rgb'
-    # # fnc='/home/yp/Downloads/bluebon/251109_BanNongYaKaew/myout/251119_041834_stacked_rhorc.nc'; sensor='bb'
-    # # fnc='/home/yp/Downloads/bluebon/251123_Thai/myout/251123_041547_stacked_rhot.nc'; sensor='bb'
-    # # fnc='/home/yp/Downloads/bluebon/251127_Thai/myout/251127_041230_stacked_rhorc.nc'; sensor='bb'
-    # fnc='/home/yp/Downloads/bluebon/260209_Suwon/myout/260209_025928_stacked_rhot.nc'; sensor='bb'; 
-    # # fnc='/home/yp/Downloads/bluebon/260215_msi_T52SCG_dehazingtest/myout/MSI_res20m_rhot.nc'; sensor='msi_20m'
+    # # fnc='<WORK_ROOT>/Downloads/bluebon/250926_Khovsgol/myout/250926_045459_stacked_rhot.nc'; sensor='bb'
+    # fnc='<WORK_ROOT>/Downloads/bluebon/251022_TakhliAP/myout/251022_042629_stacked_rhot.nc'; sensor='bb' 
+    # fnc='<WORK_ROOT>/Downloads/bluebon/251022_TakhliAP/myout/251022_042629_stacked_rhot_RGB210.png'; sensor='rgb'
+    # # fnc='<WORK_ROOT>/Downloads/bluebon/251109_BanNongYaKaew/myout/251119_041834_stacked_rhorc.nc'; sensor='bb'
+    # # fnc='<WORK_ROOT>/Downloads/bluebon/251123_Thai/myout/251123_041547_stacked_rhot.nc'; sensor='bb'
+    # # fnc='<WORK_ROOT>/Downloads/bluebon/251127_Thai/myout/251127_041230_stacked_rhorc.nc'; sensor='bb'
+    # fnc='<WORK_ROOT>/Downloads/bluebon/260209_Suwon/myout/260209_025928_stacked_rhot.nc'; sensor='bb'; 
+    # # fnc='<WORK_ROOT>/Downloads/bluebon/260215_msi_T52SCG_dehazingtest/myout/MSI_res20m_rhot.nc'; sensor='msi_20m'
     
-    # fnc = '/home/yp/Downloads/bluebon/260322_msi_T52SCG_Suwon/myout/MSI_res20m_rhot.nc'; sensor='msi_20m'
-    # fnc='/home/yp/Downloads/bluebon/260320_LC09_116034_Suwon/OLI_rhot.nc'; sensor='oli'
-    # fnc='/home/yp/Downloads/bluebon/260304_LC09_116034_GG/OLI_rhorc.nc'; sensor='oli'
+    # fnc = '<WORK_ROOT>/Downloads/bluebon/260322_msi_T52SCG_Suwon/myout/MSI_res20m_rhot.nc'; sensor='msi_20m'
+    # fnc='<WORK_ROOT>/Downloads/bluebon/260320_LC09_116034_Suwon/OLI_rhot.nc'; sensor='oli'
+    # fnc='<WORK_ROOT>/Downloads/bluebon/260304_LC09_116034_GG/OLI_rhorc.nc'; sensor='oli'
     # fnc='/media/yp/T7_win31/olidata/20240313_117037_WoffJeju/OLI_rhorc.nc'; sensor='oli'
     
-    # fnc='/home/yp/Downloads/bluebon/250821_Busan_msi_T52SDD/myout/MSI_res20m_rhorc.nc'; sensor='msi_20m'
+    # fnc='<WORK_ROOT>/Downloads/bluebon/250821_Busan_msi_T52SDD/myout/MSI_res20m_rhorc.nc'; sensor='msi_20m'
     # fnc='/media/yp/T7_win31/olidata/20250728_119035_Qingdao/OLI_rhorc.nc'; sensor='oli'
-    # fnc='/home/yp/Downloads/bluebon/250903_Geoje_oli_114036/OLI_rhorc.nc'; sensor='oli'
-    # fnc='/home/yp/Downloads/bluebon/260413_Kuwait/myout/260413_081143_stacked_rhot.nc'; sensor='bb' #Fail
+    # fnc='<WORK_ROOT>/Downloads/bluebon/250903_Geoje_oli_114036/OLI_rhorc.nc'; sensor='oli'
+    # fnc='<WORK_ROOT>/Downloads/bluebon/260413_Kuwait/myout/260413_081143_stacked_rhot.nc'; sensor='bb' #Fail
     fnc='/media/yp/T7_msi/msidata/20260330_T38RQT_dehTest/myout/MSI_res20m_rhorc.nc'; sensor='msi_20m'
     
     if '.nc' in fnc:

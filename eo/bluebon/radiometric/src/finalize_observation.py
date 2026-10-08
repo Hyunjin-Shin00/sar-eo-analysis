@@ -28,9 +28,9 @@ from skimage.registration import phase_cross_correlation
 from scipy.ndimage import shift as nd_shift
 from scipy.ndimage import gaussian_filter, gaussian_filter1d, map_coordinates, median_filter
 
-OUT_DIR  = "/mnt/e/bkchoi/prep/data/correction_ref_260606"
+OUT_DIR  = "<WORK_ROOT>/prep/data/correction_ref_260606"
 TEST_DIR = os.path.join(OUT_DIR, "test_260616")
-OBS_DIR  = "/mnt/e/bkchoi/prep/data/260616_193632"
+OBS_DIR  = "<WORK_ROOT>/prep/data/260616_193632"
 OBS_STEM = "260616_193632"
 
 CAP_ORDER   = [1, 2, 3, 0, 7, 4, 5, 6]

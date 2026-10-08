@@ -571,8 +571,8 @@ def compute_calcoeffs_save(total_x, total_y, fnpz_out):
 calpar_list=[]
 # first calpar
 calpar = {'fnpz':None, 'indir':None , '_gcps_ll':None ,  'fmsi':None   }
-fnpz='/home/yp/Downloads/bluebon/260220_Suwon/myout/260220_025632_affineMtx_bandRegister.npz'
-indir='/home/yp/Downloads/bluebon/260220_Suwon/rawDN'; keystr='260220_025632'
+fnpz='<WORK_ROOT>/Downloads/bluebon/260220_Suwon/myout/260220_025632_affineMtx_bandRegister.npz'
+indir='<WORK_ROOT>/Downloads/bluebon/260220_Suwon/rawDN'; keystr='260220_025632'
 calpar['fnpz'] = fnpz
 calpar['indir'] = indir
 calpar['keystr'] = keystr
@@ -592,13 +592,13 @@ _gcps_ll = [
     [36.87920411,126.97835809, 0, 3592.5,14774.2]
 ]
 calpar['_gcps_ll'] =_gcps_ll 
-fmsi='/home/yp/Downloads/bluebon/260220_msi_T52SCG_dehazingtest/myout/MSI_res20m_merged_rad.tif'
+fmsi='<WORK_ROOT>/Downloads/bluebon/260220_msi_T52SCG_dehazingtest/myout/MSI_res20m_merged_rad.tif'
 calpar['fmsi']=fmsi
 calpar_list.append(calpar)
 # setup second calpar
 calpar = {}
-fnpz='/home/yp/Downloads/bluebon/250926_Khuvsgul/myout/250926_045459_affineMtx_bandRegister.npz'
-indir='/home/yp/Downloads/bluebon/250926_Khuvsgul/rawDN'; keystr='250926_045459'
+fnpz='<WORK_ROOT>/Downloads/bluebon/250926_Khuvsgul/myout/250926_045459_affineMtx_bandRegister.npz'
+indir='<WORK_ROOT>/Downloads/bluebon/250926_Khuvsgul/rawDN'; keystr='250926_045459'
 calpar['fnpz'] = fnpz
 calpar['indir'] = indir
 calpar['keystr'] = keystr
@@ -612,7 +612,7 @@ _gcps_ll = [
     [50.7554938,100.5131371, 0, 3538.8,15451.2]
 ]
 calpar['_gcps_ll'] =_gcps_ll 
-fmsi='/home/yp/Downloads/bluebon/250926_Khuvsgul_msi_T47UNS/myout/MSI_res20m_merged_rad.tif'
+fmsi='<WORK_ROOT>/Downloads/bluebon/250926_Khuvsgul_msi_T47UNS/myout/MSI_res20m_merged_rad.tif'
 calpar['fmsi']=fmsi
 calpar_list.append(calpar)
 # add to calpar_list 

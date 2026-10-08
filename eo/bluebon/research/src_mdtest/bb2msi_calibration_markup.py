@@ -43,7 +43,7 @@ import pandas as pd
 # # Step 1: bandReg(Band registration) model Import
 # loading affine model from a npz file and copy to a dictionary and close the loader
 
-fnpz='/home/yp/Downloads/bluebon/260220_Suwon/myout/260220_025632_affineMtx_bandRegister.npz'
+fnpz='<WORK_ROOT>/Downloads/bluebon/260220_Suwon/myout/260220_025632_affineMtx_bandRegister.npz'
 _loader=np.load(fnpz)
 bandReg_mtx = {key.replace('arr_','MS'): _loader[key] for key in _loader.files}
 _loader.close()
@@ -69,7 +69,7 @@ if 0:
 # # Step2 : Geocorrection Affine model
 # Reference_band (bandno=4) to lonlat conversion model based on **gcps_ll**
 # which is prepared here by visual idenfication of feature points with zview and Qgis software  
-indir='/home/yp/Downloads/bluebon/260220_Suwon/myout'; keystr='260220_025632'
+indir='<WORK_ROOT>/Downloads/bluebon/260220_Suwon/myout'; keystr='260220_025632'
 _gcps_ll = [
     [37.51771592,126.95896201, 0 , 124.2,  278.0], 
     [37.51809633,126.97242457, 0 , 361.0,  219.2],
@@ -199,7 +199,7 @@ f0_bb, waves_bb = rsr_f0_bluebon.compute_F0() #order MS1 MS2 ...MS7 PAN
 waves_bb=np.roll(waves_bb,1) #reorder Pan, MS1, MS2, .., MS7
 
 # read msi data and waves
-fmsi='/home/yp/Downloads/bluebon/260220_msi_T52SCG_dehazingtest/myout/MSI_res20m_merged_rad.tif'
+fmsi='<WORK_ROOT>/Downloads/bluebon/260220_msi_T52SCG_dehazingtest/myout/MSI_res20m_merged_rad.tif'
 data_msi=tiffutils.getraster(fmsi,None)
 waves_msi=tiffutils.get_waves_tif(fmsi)
 
@@ -239,7 +239,7 @@ print(f'{key} lonlat (0,0) => ',tform([0.,0.]))
 # ##read bluebon rawDN data for a band f'MS{ib}'
 #%%
 # ##read bluebon band dn data
-indir='/home/yp/Downloads/bluebon/260220_Suwon/rawDN'
+indir='<WORK_ROOT>/Downloads/bluebon/260220_Suwon/rawDN'
 keystr='260220_025632'
 #Pan,MS1...
 ftif = indir+f'/{keystr}_{ib}_gray.tiff'

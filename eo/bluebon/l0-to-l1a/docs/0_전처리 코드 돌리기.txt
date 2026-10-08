@@ -3,17 +3,17 @@
 3. conda activate prep
 4. cd prep/src
 5. ./loop.sh
-6. Sharedpoint 00_LEOPS/02_processed_images 에 /mnt/e/bkchio/prep/data/upload 내 yymmdd_HHMMSS 디렉터리 업로드
-7. Sharedpoint 업로드 후 mnt/e/bkchio/prep/data/upload/yymmdd_HHMMSS 를 complete 디렉터리로 이동
+6. Sharedpoint 00_LEOPS/02_processed_images 에 <WORK_ROOT>/prep/data/upload 내 yymmdd_HHMMSS 디렉터리 업로드
+7. Sharedpoint 업로드 후 <WORK_ROOT>/prep/data/upload/yymmdd_HHMMSS 를 complete 디렉터리로 이동
    mv 2* complete/.
 #8.  sh upload4GDrive.sh -> loop.sh에 통합
-9. mv GDrive/yymmdd_HHMMSS /home/bkchoi/gdrive/LEOP/.
+9. mv GDrive/yymmdd_HHMMSS <WORK_ROOT>/gdrive/LEOP/.
 10.(optional) 결과 지우기
 11. BlueBON Mission 구글시트 업데이트 - date image 복사보정 update
-12. 너무 색이 이상할 경우 /mnt/e/bkchoi/prep/src/make_rgb_png.py 코드 돌려서 색감보정
+12. 너무 색이 이상할 경우 <WORK_ROOT>/prep/src/make_rgb_png.py 코드 돌려서 색감보정
 	- PNG만 true로 설정해서 코드 돌리고 구글 드라이브랑 setrev에 png 파일 업로드 해두기
 13. 구글 드라이브에 업로드 수동으로 해야하는 경우 upload 폴더에 생성됐으면 ./upload4GDrive.sh 코드 돌리기
-14. cd /mnt/e/bkchoi/prep/data/fee_cee_temp
+14. cd <WORK_ROOT>/prep/data/fee_cee_temp
 15. ./process-all.sh 입력 (BlueBON Mission 구글시트 자동업데이트 및 Telemetry랑 result.txt 구글 드라이브 업로드)
 
 

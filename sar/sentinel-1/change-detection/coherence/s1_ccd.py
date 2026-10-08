@@ -13,9 +13,9 @@ FP="/mnt/c/Windows/Fonts/malgun.ttf"; fm.fontManager.addfont(FP)
 plt.rcParams['font.family']=fm.FontProperties(fname=FP).get_name(); plt.rcParams['axes.unicode_minus']=False
 from rasterio.transform import from_origin; from rasterio.warp import reproject, Resampling
 import n2insar as N, s1insar as S1
-t0=time.time(); OUT="/mnt/c/N2_InSAR/N2/taean_CCD/"; INS="/mnt/c/N2_InSAR/N2/taean_Insar/"
+t0=time.time(); OUT="<DATA_ROOT>/N2_InSAR/N2/taean_CCD/"; INS="<DATA_ROOT>/N2_InSAR/N2/taean_Insar/"
 def log(*a): print("[%6.1fs]"%(time.time()-t0),*a,flush=True)
-Z="/mnt/c/N2_InSAR/sentinel1/"; DEM="/mnt/c/N2_InSAR/DEM/cop_dem_N36E126.tif"
+Z="<DATA_ROOT>/N2_InSAR/sentinel1/"; DEM="<DATA_ROOT>/N2_InSAR/DEM/cop_dem_N36E126.tif"
 S,Nn,W,E=36.3899,36.4350,126.3548,126.4107; AY,AX=2,12; dem=N.DemInterp(DEM)
 ZP={"0519":Z+"S1C_IW_SLC__1SDV_20260519T214004_20260519T214028_007728_00FB4A_A82C.zip",
     "0531":Z+"S1C_IW_SLC__1SDV_20260531T214004_20260531T214029_007903_010126_2310.zip",

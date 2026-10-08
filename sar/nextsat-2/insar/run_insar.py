@@ -8,11 +8,11 @@ import matplotlib; matplotlib.use("Agg"); import matplotlib.pyplot as plt
 import rasterio; from rasterio.transform import from_origin
 import pyproj
 import s1insar as S1, n2insar as N
-t0=time.time(); OUT="/mnt/c/N2_InSAR/N2/taean_Insar/"; WK=OUT+"work/"
+t0=time.time(); OUT="<DATA_ROOT>/N2_InSAR/N2/taean_Insar/"; WK=OUT+"work/"
 def log(*a): print("[%6.1fs]"%(time.time()-t0),*a,flush=True)
 SNAPHU="$CONDA_PREFIX/bin/snaphu.conda_backup"
 mode=sys.argv[1] if len(sys.argv)>1 else "s1ab"
-Z="/mnt/c/N2_InSAR/sentinel1/"; DEM="/mnt/c/N2_InSAR/DEM/cop_dem_N36E126.tif"
+Z="<DATA_ROOT>/N2_InSAR/sentinel1/"; DEM="<DATA_ROOT>/N2_InSAR/DEM/cop_dem_N36E126.tif"
 S,Nn,W,E=36.3899,36.4350,126.3548,126.4107
 dem=N.DemInterp(DEM)
 if mode in ("s1ab","s1cd"):
@@ -26,7 +26,7 @@ if mode in ("s1ab","s1cd"):
     NLINES_m=m.lpb; NCOLS_m=m.ncols; slp=s.lpb
 else:
     is_tops=False; AY,AX=20,12
-    R="/mnt/c/N2_InSAR/N2/Taean_recent/"
+    R="<DATA_ROOT>/N2_InSAR/N2/Taean_recent/"
     mz=R+"20260515/N2_SAR_20260515_063509K_16360_A_ST_B5_L00_RAW_B.NP04/Distribution/N2_SAR_20260515_063509_ST_BB_VV_A_L_SSC_B_NP04.h5"
     sz=R+"20260614/N2_SAR_20260614_063801K_16812_A_ST_B5_L00_RAW_B.NP04/Distribution/N2_SAR_20260614_063801_ST_BB_VV_A_L_SSC_B_NP04.h5"
     import h5py

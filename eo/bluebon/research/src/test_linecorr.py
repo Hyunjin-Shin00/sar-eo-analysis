@@ -10,7 +10,7 @@ import sys
 sys.path.append('./../../tools')
 import ncutils
 from genrgb import gen_rgb
-fnc = '/home/yp/Downloads/bluebon/250716_Bahrain/myout/250716_074255_stacked_rhot.nc'
+fnc = '<WORK_ROOT>/Downloads/bluebon/250716_Bahrain/myout/250716_074255_stacked_rhot.nc'
 indata = ncutils.getimage(fnc, bip=False, noScale=False)
 ibd=6
 data_b6 = indata[ibd,:,:]

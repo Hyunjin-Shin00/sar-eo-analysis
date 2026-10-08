@@ -39,8 +39,8 @@ import moving_average as MA
 
 import masked_histogram as MH
 if 0:#__name__=="__main__":
-    # fnc = '/home/yp/Downloads/bluebon/250928_Thai_KKairport/myout/250928_041857_stacked_rhot.nc'
-    fnc = '/home/yp/Downloads/bluebon/251022_TakhliAP/myout/251022_042629_stacked_rhot.nc'
+    # fnc = '<WORK_ROOT>/Downloads/bluebon/250928_Thai_KKairport/myout/250928_041857_stacked_rhot.nc'
+    fnc = '<WORK_ROOT>/Downloads/bluebon/251022_TakhliAP/myout/251022_042629_stacked_rhot.nc'
     img = ncutils.getimage(fnc, bip=False)
     msk1 = mask_cloud(img)
     msk_clean=1-msk1

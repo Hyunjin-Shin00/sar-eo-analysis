@@ -130,20 +130,20 @@ MCD19A2 다운로드에 필요. 세 가지 방법 중 하나:
 **(A) `~/.netrc` (권장)**
 ```
 machine urs.earthdata.nasa.gov
-  login     bkchoi
+  login     <USER>
   password  <PASSWORD>
 ```
 `chmod 600 ~/.netrc`
 
 **(B) 환경변수**
 ```bash
-export EARTHDATA_USERNAME=bkchoi
+export EARTHDATA_USERNAME=<USER>
 export EARTHDATA_PASSWORD='<PASSWORD>'
 ```
 
 **(C) CLI 인수**
 ```bash
---earthdata-user bkchoi --earthdata-pass '<PASSWORD>'
+--earthdata-user <USER> --earthdata-pass '<PASSWORD>'
 ```
 
 ### 4.3. Py6S 설치 (6S 복사전달 모델)

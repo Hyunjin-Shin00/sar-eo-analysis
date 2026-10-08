@@ -237,7 +237,7 @@ def proc_rhorc2iop_by_fitting(rhorc, LUTratio,  amratio, ofbase,flagging=True,su
     return mask, Rrs_out, iop, relerr,niter, iop_f, relnormdif_f
 
 if __name__=="__main__":
-    frhorc='/home/yp/Downloads/bluebon/250716_Bahrain/myout/250716_074255_stacked_warped_rhorc.tif'
+    frhorc='<WORK_ROOT>/Downloads/bluebon/250716_Bahrain/myout/250716_074255_stacked_warped_rhorc.tif'
     subset=[2117,7643, 4440,9911]
     subset=[1967.2,7562.5, 3550.1,10007.2]
     sj, si, ej, ei = [int(_) for _ in subset]
@@ -253,5 +253,5 @@ if __name__=="__main__":
     am_r=1.
     amratio =np.ones((nlin,npix),dtype=np.float64)
     LUTratio=np.ones((nlin,npix,nb), dtype=np.float64)
-    ofbase = '/home/yp/Downloads/bluebon/250716_Bahrain/myout/250716_074255_subset_test'
+    ofbase = '<WORK_ROOT>/Downloads/bluebon/250716_Bahrain/myout/250716_074255_subset_test'
     proc_rhorc2iop_by_fitting(rhorc, LUTratio,  amratio, ofbase,flagging=True,subset=None)

@@ -45,9 +45,9 @@ conda activate pyps      # geopandas · rasterio
 
 | 파일 | 고칠 상수 | 현재값 |
 |---|---|---|
-| `mtf_edge.py` | `ROOT` | `/mnt/e/bkchoi/working/debulr` |
+| `mtf_edge.py` | `ROOT` | `<WORK_ROOT>/working/debulr` |
 | `mtf_plot.py` | `INK` | `#0b0b0b` |
 |  | `INK2` | `#52514e` |
-| `mtf_spectral.py` | `ROOT` | `/mnt/e/bkchoi/working/debulr` |
+| `mtf_spectral.py` | `ROOT` | `<WORK_ROOT>/working/debulr` |
 
 - 명령줄 인자가 없는 스크립트 — 파일 안의 입력 경로를 확인한 뒤 실행함: `tile_deconv.py`

@@ -12,8 +12,8 @@ import os
 import numpy as np
 import tifffile
 
-REF = "/mnt/e/bkchoi/prep/data/correction_ref_260606"
-DATA = "/mnt/e/bkchoi/prep/data"
+REF = "<WORK_ROOT>/prep/data/correction_ref_260606"
+DATA = "<WORK_ROOT>/prep/data"
 # δ 생성용 바다(어두운 물) 포함 2026 장면
 SCENES = [
     ("20260712_Strait_of_Hormuz_or_UAE_border", "260712_072621"),

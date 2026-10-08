@@ -137,47 +137,47 @@ from scipy.interpolate import interp1d
 from scipy.stats import linregress
     
 if 0:#__name__=="__main__":
-    # ftif = '/home/yp/Downloads/bluebon/250626_Chesapeake/250626_161648_stacked_warped_rhot.tif' ; ncfile=False
+    # ftif = '<WORK_ROOT>/Downloads/bluebon/250626_Chesapeake/250626_161648_stacked_warped_rhot.tif' ; ncfile=False
     # # fnc = '/media/yp/T7_msi/msi_for_bluebon/20250628_T18SUF_ChesapeakeS/myout/MSI_res20m_rhot.nc'; ncfile=True
     # # ftif = '/media/yp/T7_msi/msi_for_bluebon/20250628_T18SUF_ChesapeakeS/T18SUF_20250628T154819_B05.jp2'
-    # fjson = '/home/yp/myPy/zview/src_zv/polygon_bb_Chesapeake_land.json'
+    # fjson = '<WORK_ROOT>/myPy/zview/src_zv/polygon_bb_Chesapeake_land.json'
     
-    # ftif = '/home/yp/Downloads/bluebon/250629_Andong/myout_rhot_intercal/250629_023708_stacked_warped_rhot.tif' ; ncfile=False
+    # ftif = '<WORK_ROOT>/Downloads/bluebon/250629_Andong/myout_rhot_intercal/250629_023708_stacked_warped_rhot.tif' ; ncfile=False
     # fnc = '/media/yp/T7_msi/msi_for_bluebon/20250627_T52SDF_Andong/myout/MSI_res20m_rhot.nc'; ncfile=True
     # ftif='/media/yp/T7_msi/msi_for_bluebon/20250627_T52SDF_Andong/T52SDF_20250627T020711_B05.jp2'
-    # fnc = '/home/yp/Downloads/bluebon/250629_Andong_PS/files_myout/20250629_024028_75_2539_3B_AnalyticMS_8b_clip_deb_rhot.nc'; ncfile=True
-    # ftif ='/home/yp/Downloads/bluebon/250629_Andong_PS/files/20250629_024028_75_2539_3B_AnalyticMS_8b_clip.tif'
+    # fnc = '<WORK_ROOT>/Downloads/bluebon/250629_Andong_PS/files_myout/20250629_024028_75_2539_3B_AnalyticMS_8b_clip_deb_rhot.nc'; ncfile=True
+    # ftif ='<WORK_ROOT>/Downloads/bluebon/250629_Andong_PS/files/20250629_024028_75_2539_3B_AnalyticMS_8b_clip.tif'
     
     # rtype='rhorc'
-    # ftif = f'/home/yp/Downloads/bluebon/250629_Andong/250629_023708_stacked_warped_{rtype}.tif'; ncfile=False
-    # # fnc = f'/home/yp/Downloads/bluebon/250629_Andong_PS/files_myout/20250629_024028_75_2539_3B_AnalyticMS_8b_clip_deb_{rtype}.nc'; ncfile=True
-    # # ftif ='/home/yp/Downloads/bluebon/250629_Andong_PS/files/20250629_024028_75_2539_3B_AnalyticMS_8b_clip.tif'
-    # fjson = '/home/yp/myPy/zview/src_zv/polygon_Andong.json'
+    # ftif = f'<WORK_ROOT>/Downloads/bluebon/250629_Andong/250629_023708_stacked_warped_{rtype}.tif'; ncfile=False
+    # # fnc = f'<WORK_ROOT>/Downloads/bluebon/250629_Andong_PS/files_myout/20250629_024028_75_2539_3B_AnalyticMS_8b_clip_deb_{rtype}.nc'; ncfile=True
+    # # ftif ='<WORK_ROOT>/Downloads/bluebon/250629_Andong_PS/files/20250629_024028_75_2539_3B_AnalyticMS_8b_clip.tif'
+    # fjson = '<WORK_ROOT>/myPy/zview/src_zv/polygon_Andong.json'
     
     # rtype='rhot'
-    # ftif = f'/home/yp/Downloads/bluebon/250712_Seoul/myout/250712_024621_stacked_warped_{rtype}.tif'; ncfile=False
-    # # fnc=f'/home/yp/Downloads/bluebon/250712_Seoul_msi/myout/MSI_res20m_{rtype}.nc'; ncfile=True
-    # # ftif='/home/yp/Downloads/bluebon/250712_Seoul_msi/T52SCG_20250712T022131_B05.jp2'
-    # fjson = '/home/yp/myPy/zview/src_zv/polygon_Seoul.json'
+    # ftif = f'<WORK_ROOT>/Downloads/bluebon/250712_Seoul/myout/250712_024621_stacked_warped_{rtype}.tif'; ncfile=False
+    # # fnc=f'<WORK_ROOT>/Downloads/bluebon/250712_Seoul_msi/myout/MSI_res20m_{rtype}.nc'; ncfile=True
+    # # ftif='<WORK_ROOT>/Downloads/bluebon/250712_Seoul_msi/T52SCG_20250712T022131_B05.jp2'
+    # fjson = '<WORK_ROOT>/myPy/zview/src_zv/polygon_Seoul.json'
     
     # rtype='rhorc'
-    # ftif = f'/home/yp/Downloads/bluebon/250716_Bahrain/myout/250716_074255_stacked_warped_{rtype}.tif'; ncfile=False
-    # # fnc=f'/home/yp/Downloads/bluebon/250717_Bahrain_msi/myout/MSI_res20m_{rtype}.nc'; ncfile=True
-    # # ftif='/home/yp/Downloads/bluebon/250717_Bahrain_msi/T39RVJ_20250717T070651_B05.jp2'
-    # fjson = '/home/yp/myPy/zview/src_zv/polygon_Bahrain.json'
+    # ftif = f'<WORK_ROOT>/Downloads/bluebon/250716_Bahrain/myout/250716_074255_stacked_warped_{rtype}.tif'; ncfile=False
+    # # fnc=f'<WORK_ROOT>/Downloads/bluebon/250717_Bahrain_msi/myout/MSI_res20m_{rtype}.nc'; ncfile=True
+    # # ftif='<WORK_ROOT>/Downloads/bluebon/250717_Bahrain_msi/T39RVJ_20250717T070651_B05.jp2'
+    # fjson = '<WORK_ROOT>/myPy/zview/src_zv/polygon_Bahrain.json'
     
     rtype='rhot'
-    ftif = f'/home/yp/Downloads/bluebon/250806_SoffSydney/myout/250806_002855_stacked_warped_{rtype}.tif'; ncfile=False
-    # fnc=f'/home/yp/Downloads/bluebon/250806_SoffSydney_msi/myout/MSI_res20m_{rtype}.nc'; ncfile=True
-    # ftif='/home/yp/Downloads/bluebon/250806_SoffSydney_msi/T56HLH_20250806T000219_B05.jp2'
-    ftif = f'/home/yp/Downloads/bluebon/250806_SoffSydney_msi/myout/MSI_res20m_merged_{rtype}.tif'; ncfile=False
-    fjson = '/home/yp/myPy/zview/dist/polygon_SoffSydney.json'
+    ftif = f'<WORK_ROOT>/Downloads/bluebon/250806_SoffSydney/myout/250806_002855_stacked_warped_{rtype}.tif'; ncfile=False
+    # fnc=f'<WORK_ROOT>/Downloads/bluebon/250806_SoffSydney_msi/myout/MSI_res20m_{rtype}.nc'; ncfile=True
+    # ftif='<WORK_ROOT>/Downloads/bluebon/250806_SoffSydney_msi/T56HLH_20250806T000219_B05.jp2'
+    ftif = f'<WORK_ROOT>/Downloads/bluebon/250806_SoffSydney_msi/myout/MSI_res20m_merged_{rtype}.tif'; ncfile=False
+    fjson = '<WORK_ROOT>/myPy/zview/dist/polygon_SoffSydney.json'
     
     rtype='rhot'
-    # ftif = f'/home/yp/Downloads/bluebon/250903_Namhae/myout/250903_023532_stacked_warped_{rtype}.tif'; ncfile=False
-    fnc = f'/home/yp/Downloads/bluebon/250903_Namhae_msi_T52SCD/myout/MSI_res20m_{rtype}.nc' ; ncfile=True
-    ftif = '/home/yp/Downloads/bluebon/250903_Namhae_msi_T52SCD/T52SCD_20250903T021529_B05.jp2'
-    fjson = '/home/yp/myPy/zview/dist/polygon_Namhae_noglint.json'
+    # ftif = f'<WORK_ROOT>/Downloads/bluebon/250903_Namhae/myout/250903_023532_stacked_warped_{rtype}.tif'; ncfile=False
+    fnc = f'<WORK_ROOT>/Downloads/bluebon/250903_Namhae_msi_T52SCD/myout/MSI_res20m_{rtype}.nc' ; ncfile=True
+    ftif = '<WORK_ROOT>/Downloads/bluebon/250903_Namhae_msi_T52SCD/T52SCD_20250903T021529_B05.jp2'
+    fjson = '<WORK_ROOT>/myPy/zview/dist/polygon_Namhae_noglint.json'
     
     pixel_map, rings =  inpolygons_to_pixelcoords(ftif,fjson)
     
@@ -192,50 +192,50 @@ if 0:#__name__=="__main__":
     to_graph(data_pixels, waves, rtype)
     
 if 0: #for rhot comparison    
-    # ftif1 = '/home/yp/Downloads/bluebon/250626_Chesapeake/250626_161648_stacked_warped_rhot.tif' ; ncfile=False
+    # ftif1 = '<WORK_ROOT>/Downloads/bluebon/250626_Chesapeake/250626_161648_stacked_warped_rhot.tif' ; ncfile=False
     # fnc2 = '/media/yp/T7_msi/msi_for_bluebon/20250628_T18SUF_ChesapeakeS/myout/MSI_res20m_rhot.nc'; ncfile=True
     # ftif2 = '/media/yp/T7_msi/msi_for_bluebon/20250628_T18SUF_ChesapeakeS/T18SUF_20250628T154819_B05.jp2'
     
-    # fjson = '/home/yp/myPy/zview/src_zv/polygon_bb_Chesapeake_land.json'  
+    # fjson = '<WORK_ROOT>/myPy/zview/src_zv/polygon_bb_Chesapeake_land.json'  
     
     #---1. rho_t
-    # ftif1 = '/home/yp/Downloads/bluebon/250629_Andong/250629_023708_stacked_warped_rhot.tif' ; ncfile=False
-    # fnc2 = '/home/yp/Downloads/bluebon/250629_Andong_PS/files_myout/20250629_024028_75_2539_3B_AnalyticMS_8b_clip_deb_rhot.nc'; ncfile=True
+    # ftif1 = '<WORK_ROOT>/Downloads/bluebon/250629_Andong/250629_023708_stacked_warped_rhot.tif' ; ncfile=False
+    # fnc2 = '<WORK_ROOT>/Downloads/bluebon/250629_Andong_PS/files_myout/20250629_024028_75_2539_3B_AnalyticMS_8b_clip_deb_rhot.nc'; ncfile=True
     # #---2. rho_rc
-    # # ftif1 = '/home/yp/Downloads/bluebon/250629_Andong/myout_rhorc_intercal/250629_023708_stacked_warped_rhorc.tif'; ncfile=False
-    # # fnc2 = '/home/yp/Downloads/bluebon/250629_Andong_PS/files_myout/20250629_024028_75_2539_3B_AnalyticMS_8b_clip_deb_rhorc.nc'; ncfile=True
-    # ftif2 ='/home/yp/Downloads/bluebon/250629_Andong_PS/files/20250629_024028_75_2539_3B_AnalyticMS_8b_clip.tif'
-    # fjson = '/home/yp/myPy/zview/src_zv/polygon_Andong.json'
+    # # ftif1 = '<WORK_ROOT>/Downloads/bluebon/250629_Andong/myout_rhorc_intercal/250629_023708_stacked_warped_rhorc.tif'; ncfile=False
+    # # fnc2 = '<WORK_ROOT>/Downloads/bluebon/250629_Andong_PS/files_myout/20250629_024028_75_2539_3B_AnalyticMS_8b_clip_deb_rhorc.nc'; ncfile=True
+    # ftif2 ='<WORK_ROOT>/Downloads/bluebon/250629_Andong_PS/files/20250629_024028_75_2539_3B_AnalyticMS_8b_clip.tif'
+    # fjson = '<WORK_ROOT>/myPy/zview/src_zv/polygon_Andong.json'
     
     # #Seoul--rho_t
-    # ftif1 = '/home/yp/Downloads/bluebon/250712_Seoul/myout/250712_024621_stacked_warped_rhot.tif'; ncfile=False
-    # fnc2='/home/yp/Downloads/bluebon/250712_Seoul_msi/myout/MSI_res20m_rhot.nc'
-    # ftif2='/home/yp/Downloads/bluebon/250712_Seoul_msi/T52SCG_20250712T022131_B05.jp2'
-    # fjson = '/home/yp/myPy/zview/src_zv/polygon_Seoul.json'
+    # ftif1 = '<WORK_ROOT>/Downloads/bluebon/250712_Seoul/myout/250712_024621_stacked_warped_rhot.tif'; ncfile=False
+    # fnc2='<WORK_ROOT>/Downloads/bluebon/250712_Seoul_msi/myout/MSI_res20m_rhot.nc'
+    # ftif2='<WORK_ROOT>/Downloads/bluebon/250712_Seoul_msi/T52SCG_20250712T022131_B05.jp2'
+    # fjson = '<WORK_ROOT>/myPy/zview/src_zv/polygon_Seoul.json'
     
     #Bahrain--rho_t
-    # ftif1 = '/home/yp/Downloads/bluebon/250716_Bahrain/myout/250716_074255_stacked_warped_rhot.tif'; ncfile=False
-    # fnc2='/home/yp/Downloads/bluebon/250717_Bahrain_msi/myout/MSI_res20m_rhot.nc'
-    # ftif2='/home/yp/Downloads/bluebon/250717_Bahrain_msi/T39RVJ_20250717T070651_B05.jp2'
-    # fjson = '/home/yp/myPy/zview/src_zv/polygon_Bahrain.json'
+    # ftif1 = '<WORK_ROOT>/Downloads/bluebon/250716_Bahrain/myout/250716_074255_stacked_warped_rhot.tif'; ncfile=False
+    # fnc2='<WORK_ROOT>/Downloads/bluebon/250717_Bahrain_msi/myout/MSI_res20m_rhot.nc'
+    # ftif2='<WORK_ROOT>/Downloads/bluebon/250717_Bahrain_msi/T39RVJ_20250717T070651_B05.jp2'
+    # fjson = '<WORK_ROOT>/myPy/zview/src_zv/polygon_Bahrain.json'
     
     # #SoffSydney--rho_t
-    # ftif1 = f'/home/yp/Downloads/bluebon/250806_SoffSydney/myout/250806_002855_stacked_warped_{rtype}.tif'; ncfile=False
-    # ftif2 = f'/home/yp/Downloads/bluebon/250806_SoffSydney_msi/myout/MSI_res20m_merged_{rtype}.tif'; ncfile=False
-    # fjson = '/home/yp/myPy/zview/dist/polygon_SoffSydney.json'
+    # ftif1 = f'<WORK_ROOT>/Downloads/bluebon/250806_SoffSydney/myout/250806_002855_stacked_warped_{rtype}.tif'; ncfile=False
+    # ftif2 = f'<WORK_ROOT>/Downloads/bluebon/250806_SoffSydney_msi/myout/MSI_res20m_merged_{rtype}.tif'; ncfile=False
+    # fjson = '<WORK_ROOT>/myPy/zview/dist/polygon_SoffSydney.json'
     
     #Namhae--rho_t
     # rtype='rhot'
-    # ftif1 = f'/home/yp/Downloads/bluebon/250903_Namhae/myout/250903_023532_stacked_warped_{rtype}.tif'; ncfile=False
-    # fnc2 = f'/home/yp/Downloads/bluebon/250903_Namhae_msi_T52SCD/myout/MSI_res20m_{rtype}.nc' ; ncfile=True
-    # ftif2 = '/home/yp/Downloads/bluebon/250903_Namhae_msi_T52SCD/T52SCD_20250903T021529_B05.jp2'
-    # fjson = '/home/yp/myPy/zview/dist/polygon_Namhae_noglint.json'
+    # ftif1 = f'<WORK_ROOT>/Downloads/bluebon/250903_Namhae/myout/250903_023532_stacked_warped_{rtype}.tif'; ncfile=False
+    # fnc2 = f'<WORK_ROOT>/Downloads/bluebon/250903_Namhae_msi_T52SCD/myout/MSI_res20m_{rtype}.nc' ; ncfile=True
+    # ftif2 = '<WORK_ROOT>/Downloads/bluebon/250903_Namhae_msi_T52SCD/T52SCD_20250903T021529_B05.jp2'
+    # fjson = '<WORK_ROOT>/myPy/zview/dist/polygon_Namhae_noglint.json'
     
     # Khuvsgul--rad 
     rtype='rad'
-    ftif2 = f'/home/yp/Downloads/bluebon/250926_Khuvsgul_msi_T47UNS/myout/MSI_res20m_merged_{rtype}.tif'; ncfile=False
-    ftif1 = f'/home/yp/Downloads/bluebon/250926_Khuvsgul/myout/250926_045459_stacked_warped_{rtype}.tif'; ncfile=False
-    fjson = '/home/yp/myPy/zview/out_tmp/polygon_bb_Khuvsgul.json'
+    ftif2 = f'<WORK_ROOT>/Downloads/bluebon/250926_Khuvsgul_msi_T47UNS/myout/MSI_res20m_merged_{rtype}.tif'; ncfile=False
+    ftif1 = f'<WORK_ROOT>/Downloads/bluebon/250926_Khuvsgul/myout/250926_045459_stacked_warped_{rtype}.tif'; ncfile=False
+    fjson = '<WORK_ROOT>/myPy/zview/out_tmp/polygon_bb_Khuvsgul.json'
     # conclusion: add_L=[0., 0, -0.05, 0.13, 0.21, 0.25,-0.06] #ms band L to-add based on 250926 Khuvsgul image
     
     #bluebon

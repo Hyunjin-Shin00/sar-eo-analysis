@@ -19,7 +19,7 @@ import rasterio
 from rasterio.windows import Window
 
 warnings.filterwarnings("ignore")
-ROOT = "/mnt/e/bkchoi/working/debulr"
+ROOT = "<WORK_ROOT>/working/debulr"
 ALPHAS = ["1000", "3000", "5000"]
 
 

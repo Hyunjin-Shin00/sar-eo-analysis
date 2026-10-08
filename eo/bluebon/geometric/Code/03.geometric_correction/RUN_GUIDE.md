@@ -48,10 +48,10 @@ def main():
 
 **현재 기본 설정 (BlueBON Jamsil):**
 ```python
-REFERENCE_PATH = "/media/steve/X10 Pro/02. Dataset/02. Geometric Correction/Input/BlueBON(Jamsil)/ReferenceImage/Sentinel_Jamsil_BlueBON.tif"
-TARGET_PATH = "/media/steve/X10 Pro/02. Dataset/02. Geometric Correction/Input/BlueBON(Jamsil)/QueryImage/BlueBON_Jamsil(bottom)_rgb_resampling.tif"
-DEM_PATH = "/media/steve/X10 Pro/02. Dataset/02. Geometric Correction/Input/BlueBON(Jamsil)/DEM/DEM_Merged.tif"
-OUTPUT_DIR = "/media/steve/X10 Pro/02. Dataset/02. Geometric Correction/Output_Pipeline"
+REFERENCE_PATH = "/media/<USER>/X10 Pro/02. Dataset/02. Geometric Correction/Input/BlueBON(Jamsil)/ReferenceImage/Sentinel_Jamsil_BlueBON.tif"
+TARGET_PATH = "/media/<USER>/X10 Pro/02. Dataset/02. Geometric Correction/Input/BlueBON(Jamsil)/QueryImage/BlueBON_Jamsil(bottom)_rgb_resampling.tif"
+DEM_PATH = "/media/<USER>/X10 Pro/02. Dataset/02. Geometric Correction/Input/BlueBON(Jamsil)/DEM/DEM_Merged.tif"
+OUTPUT_DIR = "/media/<USER>/X10 Pro/02. Dataset/02. Geometric Correction/Output_Pipeline"
 ```
 
 ### STEP 2: 파이프라인 실행

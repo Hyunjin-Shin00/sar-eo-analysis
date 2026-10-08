@@ -102,7 +102,7 @@ BlueBON 관측영상 전처리 파이프라인 (dark/PRNU 보정 + 밴드 정합
 
 | 인자 | 필수 | 기본값 | 설명 |
 |---|---|---|---|
-| `input_dir` |  | `/mnt/e/bkchoi/prep/data/20260721_Bushehr_Nuclear_Power_plant_Iran` | 8밴드 raw TIFF 가 있는 관측 디렉터리 |
+| `input_dir` |  | `<WORK_ROOT>/prep/data/20260721_Bushehr_Nuclear_Power_plant_Iran` | 8밴드 raw TIFF 가 있는 관측 디렉터리 |
 
 ```bash
 python pipeline_dnonly_backup.py 
@@ -150,21 +150,21 @@ python rgb_from_8band.py
 
 | 파일 | 고칠 상수 | 현재값 |
 |---|---|---|
-| `apply_fullstrip.py` | `OUT_DIR` | `/mnt/e/bkchoi/prep/data/correction_ref_260606` |
-|  | `OBS_DIR` | `/mnt/e/bkchoi/prep/data/260616_193632` |
-| `apply_fullstrip_m.py` | `REF_DIR` | `/mnt/e/bkchoi/prep/data/correction_ref_260606` |
-|  | `OUT_DIR` | `/mnt/e/bkchoi/prep/data` |
-|  | `OBS_DIR` | `/mnt/e/bkchoi/prep/data/20260721_Sohae_Satellite_Launching_Station_…` |
-| `apply_to_observation.py` | `OUT_DIR` | `/mnt/e/bkchoi/prep/data/correction_ref_260606` |
-|  | `OBS_DIR` | `/mnt/e/bkchoi/prep/data/260616_193632` |
-| `apply_to_observation_m.py` | `REF_DIR` | `/mnt/e/bkchoi/prep/data/correction_ref_260606` |
-|  | `OUT_DIR` | `/mnt/e/bkchoi/prep/data` |
-|  | `OBS_DIR` | `/mnt/e/bkchoi/prep/data/20260721_Sohae_Satellite_Launching_Station_…` |
-| `make_correction_ref.py` | `DATA_ROOT` | `/mnt/e/bkchoi/prep/data` |
-|  | `LIB_DIR` | `/mnt/e/bkchoi/prep/data/260607_094318` |
-|  | `OUT_DIR` | `/mnt/e/bkchoi/prep/data/correction_ref_260606` |
+| `apply_fullstrip.py` | `OUT_DIR` | `<WORK_ROOT>/prep/data/correction_ref_260606` |
+|  | `OBS_DIR` | `<WORK_ROOT>/prep/data/260616_193632` |
+| `apply_fullstrip_m.py` | `REF_DIR` | `<WORK_ROOT>/prep/data/correction_ref_260606` |
+|  | `OUT_DIR` | `<WORK_ROOT>/prep/data` |
+|  | `OBS_DIR` | `<WORK_ROOT>/prep/data/20260721_Sohae_Satellite_Launching_Station_…` |
+| `apply_to_observation.py` | `OUT_DIR` | `<WORK_ROOT>/prep/data/correction_ref_260606` |
+|  | `OBS_DIR` | `<WORK_ROOT>/prep/data/260616_193632` |
+| `apply_to_observation_m.py` | `REF_DIR` | `<WORK_ROOT>/prep/data/correction_ref_260606` |
+|  | `OUT_DIR` | `<WORK_ROOT>/prep/data` |
+|  | `OBS_DIR` | `<WORK_ROOT>/prep/data/20260721_Sohae_Satellite_Launching_Station_…` |
+| `make_correction_ref.py` | `DATA_ROOT` | `<WORK_ROOT>/prep/data` |
+|  | `LIB_DIR` | `<WORK_ROOT>/prep/data/260607_094318` |
+|  | `OUT_DIR` | `<WORK_ROOT>/prep/data/correction_ref_260606` |
 |  | `PRNU_WINDOW` | `21` |
-| `verify_correction_ref.py` | `OUT_DIR` | `/mnt/e/bkchoi/prep/data/correction_ref_260606` |
-|  | `LIB_DIR` | `/mnt/e/bkchoi/prep/data/260607_094318` |
+| `verify_correction_ref.py` | `OUT_DIR` | `<WORK_ROOT>/prep/data/correction_ref_260606` |
+|  | `LIB_DIR` | `<WORK_ROOT>/prep/data/260607_094318` |
 
 - 명령줄 인자가 없는 스크립트 — 파일 안의 입력 경로를 확인한 뒤 실행함: `make_delta_adaptive.py`, `make_delta_persistent.py`

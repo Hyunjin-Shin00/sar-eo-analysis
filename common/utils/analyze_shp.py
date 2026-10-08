@@ -9,12 +9,12 @@ from matplotlib import font_manager as fm
 import matplotlib.pyplot as plt
 FP="/mnt/c/Windows/Fonts/malgun.ttf"; fm.fontManager.addfont(FP)
 plt.rcParams['font.family']=fm.FontProperties(fname=FP).get_name(); plt.rcParams['axes.unicode_minus']=False
-CCD="/mnt/c/N2_InSAR/N2/taean_CCD/"; OT="/mnt/c/N2_InSAR/N2/taean_OT/"; DEM="/mnt/c/N2_InSAR/DEM/cop_dem_N36E126.tif"
+CCD="<DATA_ROOT>/N2_InSAR/N2/taean_CCD/"; OT="<DATA_ROOT>/N2_InSAR/N2/taean_OT/"; DEM="<DATA_ROOT>/N2_InSAR/DEM/cop_dem_N36E126.tif"
 S,Nn,W,E=36.3899,36.4350,126.3548,126.4107
 res=0.00027778; gx=np.arange(W,E+res,res); gy=np.arange(Nn,S-res,-res); GX,GY=np.meshgrid(gx,gy); H,Wd=GX.shape
 EXT=[gx[0],gx[-1],gy[-1],gy[0]]; tr=from_origin(gx[0]-res/2,gy[0]+res/2,res,res)
 # 폴리곤 래스터화
-ds=ogr.Open('/mnt/c/N2_InSAR/shp/Taean.shp'); ly=ds.GetLayer(); f=ly.GetNextFeature(); gj=json.loads(f.GetGeometryRef().ExportToJson())
+ds=ogr.Open('<DATA_ROOT>/N2_InSAR/shp/Taean.shp'); ly=ds.GetLayer(); f=ly.GetNextFeature(); gj=json.loads(f.GetGeometryRef().ExportToJson())
 poly=rasterize([(gj,1)],out_shape=(H,Wd),transform=tr,fill=0,all_touched=True).astype(bool)
 print("폴리곤 화소수(30m grid):",poly.sum())
 def load(f):

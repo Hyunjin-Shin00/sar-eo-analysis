@@ -10,7 +10,7 @@ from n2reader import N2Scene
 from orbit import Orbit
 from geometry import RangeDoppler, geodetic_to_ecef, ecef_to_geodetic
 
-DEFAULT = ("/mnt/c/N2_InSAR/N2/LV1A/HALA/"
+DEFAULT = ("<DATA_ROOT>/N2_InSAR/N2/LV1A/HALA/"
            "N2_SAR_20250611_063619_ST_BB_VV_A_R_SSC_B_NP01.h5")
 OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "Output")
 

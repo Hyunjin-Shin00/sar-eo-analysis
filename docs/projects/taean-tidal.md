@@ -392,7 +392,7 @@ taean_tidal/
 ## 재현
 
 ```bash
-cd /mnt/c/N2_InSAR/taean_tidal/work
+cd <DATA_ROOT>/N2_InSAR/taean_tidal/work
 P=$CONDA_PREFIX/bin/python
 # 1) 지오코딩 + 1차 분류
 $P step1_inventory.py && $P step2_geocode.py && $P step5_exposure.py

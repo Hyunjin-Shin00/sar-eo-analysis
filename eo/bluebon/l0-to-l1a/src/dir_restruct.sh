@@ -1,6 +1,6 @@
 #!/bin/bash
 
-gdir=/home/bkchoi/gdrive/LEOP
+gdir=<WORK_ROOT>/gdrive/LEOP
 
 find ${gdir} -maxdepth 1 -type d -name "??????_??????" | while read dir
 do

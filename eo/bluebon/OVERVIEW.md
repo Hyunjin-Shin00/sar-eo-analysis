@@ -500,7 +500,7 @@ python3 pipeline.py <장면> --to-reflectance --sza <태양천정각deg>
 #   ※ --prnu-mode residual 은 ref/master에 잔차 PRNU 파일이 없어 동작하지 않습니다
 bash test_run.sh                            # flist.txt 목록 일괄 처리 (TDI/lp 기본값으로 돌아감에 주의)
 
-# 참조 재생성 (스크립트 안의 /mnt/e/bkchoi/prep/data/... 경로를 먼저 수정해야 함)
+# 참조 재생성 (스크립트 안의 <WORK_ROOT>/prep/data/... 경로를 먼저 수정해야 함)
 python3 make_correction_ref.py; python3 make_pan_ref.py; python3 make_flat_prnu.py; python3 make_delta_persistent.py
 python3 verify_correction_ref.py
 ```
@@ -808,7 +808,7 @@ cd docker && bash build.sh && bash run.sh --input … --lat … --lon … --key 
 
 ### 8.1 `bluebon_L0_L1_research/`: 초기 L0→L1 연구 코드
 
-> 실행에는 원 작성자 환경의 `../../tools`, `../../g2l1bpy` 등 형제 디렉터리와 `/home/yp/...` 경로가 필요함. 그대로는 돌아가지 않으므로 **알고리즘 참고용**으로 보세요.
+> 실행에는 원 작성자 환경의 `../../tools`, `../../g2l1bpy` 등 형제 디렉터리와 `<WORK_ROOT>/...` 경로가 필요함. 그대로는 돌아가지 않으므로 **알고리즘 참고용**으로 보세요.
 
 **`src/bluebon_calibration.py`**: 메인 체인. raw DN을 받아 nc 스택으로 만듦.
 
@@ -933,7 +933,7 @@ cd docker && bash build.sh && bash run.sh --input … --lat … --lon … --key 
 | bin2png 빌드 | g++ (C++17), libssl, libpng, libtiff, zlib | `telepix-bin2png-cpp-*/makefile` |
 | pointing | conda `pt` (sgp4) | – |
 
-> 대부분의 스크립트에 `/mnt/e/bkchoi/...`, `/mnt/hdd/...`, `/home/yp/...` 같은 **절대경로가 하드코딩**되어 있음. 새 환경에서 실행하려면 경로를 먼저 바꿔야 함.
+> 대부분의 스크립트에 `<WORK_ROOT>/...`, `/mnt/hdd/...`, `<WORK_ROOT>/...` 같은 **절대경로가 하드코딩**되어 있음. 새 환경에서 실행하려면 경로를 먼저 바꿔야 함.
 
 ---
 
@@ -1031,7 +1031,7 @@ cd docker && bash build.sh && bash run.sh --input … --lat … --lon … --key 
 패키지를 만든 뒤(2026-10-07), 넣은 코드가 **최종판인지** 다음 세 가지로 확인했음.
 
 1. **패키지와 원본 일치**: 패키지의 모든 코드와 문서를 원본 작업 폴더와 **내용(checksum) 기준**으로 비교했음. 모두 같았음.
-2. **다른 사본 중 최신 여부**: 핵심 파일 14개의 모든 사본을 `/mnt/e/bkchoi`, `/mnt/hdd`, `/home/bkchoi`에서 찾아 수정일을 비교했음. 패키지에 넣은 원본이 **모두 가장 최신**이었음.
+2. **다른 사본 중 최신 여부**: 핵심 파일 14개의 모든 사본을 `<WORK_ROOT>`, `/mnt/hdd`, `<WORK_ROOT>`에서 찾아 수정일을 비교했음. 패키지에 넣은 원본이 **모두 가장 최신**이었음.
 
    | 파일 | 패키지 판 (수정일) | 다른 사본 |
    |---|---|---|

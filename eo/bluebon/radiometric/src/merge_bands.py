@@ -13,7 +13,7 @@ import argparse
 import numpy as np
 import tifffile
 
-TEST_DIR = "/mnt/e/bkchoi/prep/data/correction_ref_260606/test_260616"
+TEST_DIR = "<WORK_ROOT>/prep/data/correction_ref_260606/test_260616"
 # (index, 파일 basename prefix)  — 0~7 순서
 BAND_FILES = [
     (0, "PAN"), (1, "MS1"), (2, "MS2"), (3, "MS3"),

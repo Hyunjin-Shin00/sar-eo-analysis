@@ -247,5 +247,5 @@ dependencies:
       - scikit-image==0.25.2
       - tifffile==2025.9.9
       - wcwidth==0.2.14
-prefix: /home/bkchoi/miniconda3/envs/prep
+prefix: <WORK_ROOT>/miniconda3/envs/prep
 

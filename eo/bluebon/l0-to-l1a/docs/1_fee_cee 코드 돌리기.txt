@@ -3,7 +3,7 @@
 ═══════════════════════════════════════════════════════════════
 
 작업 폴더 (둘 다 공통):
-/mnt/e/bkchoi/prep/data/fee_cee_temp
+<WORK_ROOT>/prep/data/fee_cee_temp
 
 
 ┌─────────────────────────────────────────────────────────────┐
@@ -15,11 +15,11 @@
     위성영상 압축파일을 직접 받았을 때
 
   순서:
-    1. .tar.xz 파일을 /mnt/e/bkchoi/prep/data/ 에 둔다
+    1. .tar.xz 파일을 <WORK_ROOT>/prep/data/ 에 둔다
        (파일명 규칙: YYYYMMDD_<지역>.tar.xz)
     2. 실행:
 
-cd /mnt/e/bkchoi/prep/data/fee_cee_temp
+cd <WORK_ROOT>/prep/data/fee_cee_temp
 rm -rf data/fee_cee_temp/downlink data/fee_cee_temp/result
 rm -f data/fee_cee_temp/archive_capture_map.csv
 ./process-all.sh

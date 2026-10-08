@@ -56,7 +56,7 @@ python dn_to_radiance.py
 
 | 인자 | 필수 | 기본값 | 설명 |
 |---|---|---|---|
-| `--srf` |  | `/mnt/e/bkchoi/working/radiometric_correction/ref/SpectralResponseFunction.xlsx` |  |
+| `--srf` |  | `<WORK_ROOT>/working/radiometric_correction/ref/SpectralResponseFunction.xlsx` |  |
 | `--lp` |  |  |  |
 | `--convert` |  |  | v5 8밴드 DN TIFF 경로 (지정 시 8밴드 radiance/TOAR 산출) |
 | `--out-radiance` |  |  | 8밴드 radiance float32 출력 경로 |
@@ -114,7 +114,7 @@ python scene_report.py --ref <값> --rad <값> --radcal <값> --utc <값> --roi 
 | `--ref` | ● |  | TOA reflectance 8밴드 f32 |
 | `--rad` | ● |  | TOA radiance 8밴드 f32 |
 | `--radcal` | ● |  |  |
-| `--srf` |  | `/mnt/e/bkchoi/working/radiometric_correction/ref/SpectralResponseFunction.xlsx` |  |
+| `--srf` |  | `<WORK_ROOT>/working/radiometric_correction/ref/SpectralResponseFunction.xlsx` |  |
 | `--utc` | ● |  |  |
 | `--roi` | ● |  |  |
 | `--out` | ● |  |  |

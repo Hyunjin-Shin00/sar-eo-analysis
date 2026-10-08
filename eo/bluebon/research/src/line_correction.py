@@ -81,7 +81,7 @@ def main(fnc):
     outdata = bluebon_linecorrection(indata)
     
     if True: #creatubg pngs
-        odir='/home/yp/myPy_inout/bluebon'
+        odir='<WORK_ROOT>/myPy_inout/bluebon'
         ngb=[7,1,0]
         rgb=[3,1,0]
         gen_rgb(indata, ofilepath=odir+'/indata', bds=rgb)
@@ -97,6 +97,6 @@ def main(fnc):
         print(f'Writing to {fnc_out}')
 
 if __name__=="__main__":
-    # fnc = '/home/yp/Downloads/bluebon/250716_Bahrain/myout/250716_074255_stacked_rhot.nc'
-    fnc = '/home/yp/Downloads/bluebon/250806_Australia/myout/250806_002855_stacked_rhot.nc'
+    # fnc = '<WORK_ROOT>/Downloads/bluebon/250716_Bahrain/myout/250716_074255_stacked_rhot.nc'
+    fnc = '<WORK_ROOT>/Downloads/bluebon/250806_Australia/myout/250806_002855_stacked_rhot.nc'
     main(fnc)

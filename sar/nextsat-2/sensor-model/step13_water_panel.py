@@ -41,7 +41,7 @@ HAL = os.path.join(ROOT, "halla")
 S1D, S2D, LEG = (os.path.join(HAL, "reference", "s1"), os.path.join(HAL, "reference", "s2"),
                  os.path.join(HAL, "legacy"))
 OUTD = os.path.join(HAL, "water")
-DEM_PATH = "/mnt/c/N2_InSAR/DEM/cop_dem_N33E126.tif"
+DEM_PATH = "<DATA_ROOT>/N2_InSAR/DEM/cop_dem_N33E126.tif"
 BLD_LON, BLD_LAT = 126.53310, 33.36156
 GRID, HALF, ZOOM = 5.0, 1000.0, 400.0
 EPSG = 32652

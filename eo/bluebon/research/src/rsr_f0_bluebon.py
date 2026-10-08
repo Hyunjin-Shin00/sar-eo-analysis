@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 def read_bb_srf():
-    fcsv_srf = '/home/yp/myPy/bluebon/calib/Spectral Response Function.csv'
+    fcsv_srf = '<WORK_ROOT>/myPy/bluebon/calib/Spectral Response Function.csv'
     df = pd.read_csv(fcsv_srf) #this fast
     column_names=df.columns.tolist()
     # print('\n')

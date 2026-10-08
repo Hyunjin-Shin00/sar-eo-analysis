@@ -128,7 +128,7 @@ build_windows.bat
 
 ### 메모리 (Claude 자동 메모리)
 
-`/home/bkchoi/.claude/projects/-mnt-e-bkchoi-working-DehazingGUI/memory/`:
+`<WORK_ROOT>/.claude/projects/-mnt-e-<USER>-working-DehazingGUI/memory/`:
 
 | 파일 | 내용 |
 |---|---|
@@ -143,7 +143,7 @@ build_windows.bat
 
 ### 플랜
 
-- `/home/bkchoi/.claude/plans/abstract-sprouting-ullman.md` — 다중 파일 배치 처리 플랜 (승인됨)
+- `<WORK_ROOT>/.claude/plans/abstract-sprouting-ullman.md` — 다중 파일 배치 처리 플랜 (승인됨)
 
 ### 핵심 코드
 

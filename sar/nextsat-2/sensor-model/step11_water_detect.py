@@ -32,8 +32,8 @@ from scipy.ndimage import binary_dilation, binary_erosion, label as cclabel
 from skimage.morphology import reconstruction
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-DEM_PATH = "/mnt/c/N2_InSAR/DEM/cop_dem_N33E126.tif"
-S2_DIR = "/mnt/c/N2_InSAR/N2_Gemetric_Correction/Output/halla/reference/s2"
+DEM_PATH = "<DATA_ROOT>/N2_InSAR/DEM/cop_dem_N33E126.tif"
+S2_DIR = "<DATA_ROOT>/N2_InSAR/N2_Gemetric_Correction/Output/halla/reference/s2"
 BLD_LON, BLD_LAT = 126.53310, 33.36156
 SCL_BAD = (8, 9, 11)          # 구름 중/고확률, 눈
 NDWI_T = 0.10

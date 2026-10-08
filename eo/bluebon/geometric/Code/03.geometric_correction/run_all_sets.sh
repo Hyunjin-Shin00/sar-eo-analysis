@@ -6,7 +6,7 @@ set -euo pipefail
 #  - Python 환경 활성화 (필요 시)
 #  - 데이터셋 경로 유효성 확인
 
-REPO_ROOT="/media/steve/X10 Pro/04.Code/03.geometric_correction/03.geometric_correction"
+REPO_ROOT="/media/<USER>/X10 Pro/04.Code/03.geometric_correction/03.geometric_correction"
 PY_FILE="$REPO_ROOT/geometric_correction.py"
 
 # 순회할 실험 셋 (파일 내 EXPERIMENT_SETS 키와 동일해야 함)

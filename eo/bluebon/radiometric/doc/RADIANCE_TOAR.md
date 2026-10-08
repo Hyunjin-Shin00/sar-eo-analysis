@@ -139,7 +139,7 @@ off-nadir(roll −9.85° vs 0528 −5.28°) → 평균 ratio ~1.23(계통 고편
 | `run_lcfr_calib.py` | RadCalNet 검증 오케스트레이션(gains.csv/플롯/report.md) |
 
 참조: `ref/SpectralResponseFunction.xlsx`(BlueBON SRF), `ref/radcal/LCFR/`(RadCalNet),
-FM1 표·Thuillier F0는 `/mnt/e/bkchoi/prep/src/03_code/sub/`.
+FM1 표·Thuillier F0는 `<WORK_ROOT>/prep/src/03_code/sub/`.
 
 ---
 

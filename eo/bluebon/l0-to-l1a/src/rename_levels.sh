@@ -1,6 +1,6 @@
 #!/bin/bash
 
-LEOP_DIR="/home/bkchoi/gdrive/LEOP"
+LEOP_DIR="<WORK_ROOT>/gdrive/LEOP"
 
 # yymmdd_HHMMSS 패턴의 디렉터리만 처리
 for session_dir in "$LEOP_DIR"/[0-9][0-9][0-9][0-9][0-9][0-9]_[0-9][0-9][0-9][0-9][0-9][0-9]; do

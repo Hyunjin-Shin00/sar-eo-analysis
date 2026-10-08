@@ -15,7 +15,7 @@ BlueBON 관측영상 전처리 파이프라인 (dark/PRNU 보정 + 밴드 정합
          - registration_shifts.csv, rgb_preview.png
 
 사용법:
-  python3 pipeline.py /mnt/e/bkchoi/prep/data/20260721_Bushehr_Nuclear_Power_plant_Iran
+  python3 pipeline.py <WORK_ROOT>/prep/data/20260721_Bushehr_Nuclear_Power_plant_Iran
   (인자 생략 시 기본 = Bushehr)
 
 정합 규약: phase_cross_correlation(ref, mov) -> shift(mov, s) 하면 ref 에 정렬.
@@ -32,7 +32,7 @@ from skimage.registration import phase_cross_correlation
 from scipy.ndimage import shift as nd_shift
 from scipy.ndimage import gaussian_filter, gaussian_filter1d, map_coordinates, median_filter
 
-REF_DIR = "/mnt/e/bkchoi/prep/data/correction_ref_260606"   # dark/PRNU 참조
+REF_DIR = "<WORK_ROOT>/prep/data/correction_ref_260606"   # dark/PRNU 참조
 
 CAP_ORDER = [1, 2, 3, 0, 7, 4, 5, 6]                         # 촬영 순서
 BAND_NAME = {0: "PAN", 1: "Blue", 2: "Green", 3: "Red", 4: "RE1", 5: "RE2", 6: "RE3", 7: "NIR"}
@@ -250,7 +250,7 @@ def save_rgb_png(out_dir, stem, reg, pct=(1.0, 99.0), gamma=1.4):
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("input_dir", nargs="?",
-                    default="/mnt/e/bkchoi/prep/data/20260721_Bushehr_Nuclear_Power_plant_Iran",
+                    default="<WORK_ROOT>/prep/data/20260721_Bushehr_Nuclear_Power_plant_Iran",
                     help="8밴드 raw TIFF 가 있는 관측 디렉터리")
     args = ap.parse_args()
     main(args.input_dir)

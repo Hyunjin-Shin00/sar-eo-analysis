@@ -29,7 +29,7 @@ from rasterio.windows import Window
 
 warnings.filterwarnings("ignore")
 
-ROOT = "/mnt/e/bkchoi/working/debulr"
+ROOT = "<WORK_ROOT>/working/debulr"
 ALPHAS = ["1000", "3000", "5000"]
 ACROSS, ALONG = 56, 80      # 에지 횡단 / 에지 따라가는 길이
 BAND0 = 16                  # 1단 탐색 밴드(중심 고정, 넓게)

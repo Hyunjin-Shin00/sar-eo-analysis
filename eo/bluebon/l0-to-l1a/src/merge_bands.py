@@ -23,11 +23,11 @@
   python merge_bands.py <input_directory>
 
 예시:
-  python merge_bands.py /mnt/e/bkchoi/prep/data/upload/complete/GDrive/260116_021517/level-1B
+  python merge_bands.py <WORK_ROOT>/prep/data/upload/complete/GDrive/260116_021517/level-1B
   -> bb_l1b_20260116_021517_8band.tiff (level-1B, 8밴드)
   -> bb_l1b_20260116_021517_4band.tiff (level-1B, 4밴드)
 
-  python merge_bands.py /mnt/e/bkchoi/prep/data/upload/complete/GDrive/260116_021517/level-1A
+  python merge_bands.py <WORK_ROOT>/prep/data/upload/complete/GDrive/260116_021517/level-1A
   -> bb_l1a_20260116_021517_8band.tiff (level-1A, 8밴드)
 """
 
