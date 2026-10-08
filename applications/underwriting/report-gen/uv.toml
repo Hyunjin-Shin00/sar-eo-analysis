@@ -1,0 +1,11 @@
+# uv 설정 — `uv pip install -r requirements.txt` 가 이 파일을 자동으로 읽는다(뿌리에서 실행).
+#
+# **왜 index-strategy 를 바꾸는가.** uv 는 기본으로 "어떤 패키지를 처음 담은 인덱스만" 본다
+# (dependency confusion 방지). 그런데 이 환경은 인덱스가 둘이다 — CUDA 휠은
+# download.pytorch.org, 미리 빌드된 mmcv 는 openmmlab. pytorch 인덱스에는 torchmetrics 같은
+# 패키지가 **낮은 버전만** 섞여 있어서, 기본 전략이면 PyPI 의 정확한 버전을 보지 못하고
+# "no solution" 으로 멈춘다(실측).
+#
+# 이 저장소에서 그 위험이 없는 이유: `requirements.txt` 의 **모든 버전이 고정**이고 인덱스
+# 둘 다 공식(pytorch.org · openmmlab.com)이다. 즉 고를 여지가 없다.
+index-strategy = "unsafe-best-match"

@@ -38,6 +38,15 @@ results/
 !**/figures/
 !**/figures/*.webp
 
+# 예외 — 인수심사 보고서 생성기의 참조표와 대표 결과
+# 위 data/ · results/ · *.geojson · *.pdf 는 전역 규칙이라 아래를 명시적으로 되살린다.
+# 참조표(기본풍속·ASOS)는 보고서의 기후 항목에 필요하고,
+# 대표 결과 2건은 파이프라인이 무엇을 내는지 보여주는 유일한 산출 예시다.
+!applications/underwriting/report-gen/data/
+!applications/underwriting/report-gen/data/**
+!applications/underwriting/report-gen/results/
+!applications/underwriting/report-gen/results/**
+
 # 파이썬
 __pycache__/
 *.py[cod]

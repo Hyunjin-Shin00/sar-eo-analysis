@@ -1,0 +1,135 @@
+# 실행 환경 — **이 파일 하나로 전부 만든다. 환경도 하나다.**
+#
+#   uv venv --python 3.10                            # 뿌리에 .venv/
+#   uv pip install -r requirements.txt               # 8 GB 쯤 · 캐시가 비면 2~10분
+#   .venv/bin/python -m sitecheck.tools.check        # 다 초록이면 끝
+#   .venv/bin/python run.py "경상북도 구미시 공단동 293-15"
+#
+# 다른 곳에 이미 같은 환경이 있으면 만들지 말고 경로만 준다: SITECHECK_PYTHON=/경로/bin/python
+#
+# ── 2026-08-27: 환경 둘을 하나로 합쳤다 ───────────────────────────────────────────────
+# 어제까지 환경이 둘이었다 — 파이프라인 `.venv`(torch 2.0 + mmcv 2.0)와 건물 모델
+# `.venv-dinov3`(torch 2.13 + transformers 5.15). 「합칠 수 없다」고 적혀 있었고 그때는
+# 맞았다: mmcv 는 torch 버전에 맞춰 컴파일되는 패키지라 torch 를 올리면 그 자리에서 깨진다.
+#
+# 그 mmcv 를 **SAMPolyBuild 와 함께 걷어 냈다**(2026-08-27 · e22b9d8). 그러고 나니 파이프라인
+# 쪽에는 torch 를 쓰는 코드가 **한 줄도 없다** — 실측으로 `import torch`·`mmcv`·`lightning`·
+# `pycocotools` 가 `sitecheck/vendor/dinov3seg/` 밖에서 하나도 안 나온다. 그래서 torch 를 2.13
+# 하나로 두고 지오 묶음을 그 위에 얹으면 된다. 막고 있던 것이 사라진 것이지 무리해서 합친 것이
+# 아니다.
+#
+# **같은 값이 나오는 것을 확인하고 합쳤다.** 합친 환경으로 공단동 293-15 를 추론부터 다시
+# 돌려(`--no-reuse`) 저장된 `out/` 결과와 대조했다 — 건물 면적 · 이격 11줄 · 대장 판정 ·
+# 정합 잔차가 **한 자리도 다르지 않다**(2026-08-27).
+#
+# 줄어든 것: 고정 패키지 122 → 79개. 걷어 낸 것은 mmcv·mmengine·lightning 3종·torchmetrics·
+# pycocotools·scikit-image·prettytable·addict·yapf·terminaltables 와 그것들이 끌고 오던
+# fastapi·starlette·uvicorn·croniter·inquirer·blessed 따위다. `settings.DINOV3_PYTHON` 은
+# 남겨 두었다 — 값이 없으면 `SITECHECK_PYTHON` 으로 떨어지므로 이 환경 하나로 돈다. 모델을
+# 다른 환경에서 돌려야 할 날이 오면 그 깃발만 주면 된다.
+#
+# **인덱스를 파일 안에 적어 둔 이유.** torch 는 CUDA 휠이 PyPI 에 없다. 인덱스가 둘이라
+# `uv.toml` 의 index-strategy 도 함께 필요하다 — 이유는 그 파일에 있다.
+#
+# **cu126 인 이유.** 모델은 cu130 에서 학습됐는데 그 휠은 드라이버 13.x 를 요구한다. 이 장비는
+# 535(CUDA 12.2)라 cu130 을 깔면 `torch.cuda.is_available()` 이 False 가 되어 CPU 로 떨어진다
+# (실측 2026-08-26). torch **버전은 그대로 2.13.0** 이고 CUDA 런타임만 드라이버에 맞췄다 —
+# 12.x 안에서는 마이너 호환이 보장된다. 드라이버가 13.x 면 아래 줄을 cu130 으로 바꿔도 된다.
+#
+# **버전을 다 고정한 이유.** 풀어 두면 어제 되던 설치가 오늘 깨진다. 「딸려 오는 것」은 위
+# 목록으로 실제로 만든 환경을 `uv pip freeze` 한 값이다 — 손으로 고치지 않는다. 다시 만들려면
+# 「딸려 오는 것」 위까지만 잘라 새 환경에 설치하고 freeze 한 값을 그 아래로 옮긴다.
+
+--extra-index-url https://download.pytorch.org/whl/cu126
+
+# ── 건물 모델 — DINOv3(동결) + Mask2Former (sitecheck/vendor/dinov3seg) ───────────
+torch==2.13.0+cu126
+torchvision==0.28.0+cu126
+transformers==5.15.0
+
+# ── 두 쪽이 같이 쓰는 것 ────────────────────────────────────────────────────────────
+numpy==1.26.4                          # 모델이 2 미만을 요구한다
+opencv-python-headless==4.11.0.86
+scipy==1.15.3
+pillow==12.3.0
+tqdm==4.70.0
+
+# ── 파이프라인(단계 0·2·3·4)과 그림 ───────────────────────────────────────────────────
+affine==3.0.0                        # 지오트랜스폼 — rasterio 가 끌고 오지만 직접 쓴다
+shapely==2.0.7                     # 2.0.1 은 정상 결과에도 numpy 경고를 뿜는다(GEOS 3.11.1)
+pyproj==3.7.1                     # 경위도 ↔ UTM(EPSG:5179) — 미터로 재는 모든 것
+rasterio==1.4.4                   # 정사영상 tif 의 지오트랜스폼 · 창 읽기
+geopandas==1.1.4                  # GIS건물통합정보(.gpkg) — 없으면 동별 대장 대조를 건너뛴다
+matplotlib==3.7.1                 # 그림 · 보고서 판짜기
+
+# ── 보고서 PDF 손보기(sitecheck/report/pdf_refit.py) ──────────────────────────────
+# 그 판을 내는 코드가 저장소에 없어서, 값이 바뀌면 **있는 PDF 안에서 글자·그림만** 갈아
+# 끼운다. 파이프라인은 이것 없이도 돈다.
+pymupdf==1.28.2
+
+# ── 딸려 오는 것 ─────────────────────────────────────────────────────────────────
+# 위 목록으로 만든 환경을 `uv pip freeze` 한 값. 손으로 고치지 않는다.
+annotated-doc==0.0.5
+anyio==4.14.2
+attrs==26.1.0
+certifi==2026.7.22
+click==8.5.0
+click-plugins==1.1.1.2
+cligj==0.7.2
+contourpy==1.3.2
+cuda-bindings==12.9.7
+cuda-pathfinder==1.7.0
+cuda-toolkit==12.6.3
+cycler==0.12.1
+exceptiongroup==1.3.1
+filelock==3.32.4
+fonttools==4.63.0
+fsspec==2026.7.0
+h11==0.16.0
+hf-xet==1.6.0
+httpcore==1.0.9
+httpx==0.28.1
+huggingface-hub==1.28.0
+idna==3.19
+jinja2==3.1.6
+kiwisolver==1.5.0
+markdown-it-py==4.2.0
+markupsafe==3.0.3
+mdurl==0.1.2
+mpmath==1.3.0
+networkx==3.4.2
+nvidia-cublas-cu12==12.6.4.1
+nvidia-cuda-cupti-cu12==12.6.80
+nvidia-cuda-nvrtc-cu12==12.6.85
+nvidia-cuda-runtime-cu12==12.6.77
+nvidia-cudnn-cu12==9.10.2.21
+nvidia-cufft-cu12==11.3.0.4
+nvidia-cufile-cu12==1.11.1.6
+nvidia-curand-cu12==10.3.7.77
+nvidia-cusolver-cu12==11.7.1.2
+nvidia-cusparse-cu12==12.5.4.2
+nvidia-cusparselt-cu12==0.7.1
+nvidia-nccl-cu12==2.29.3
+nvidia-nvjitlink-cu12==12.6.85
+nvidia-nvshmem-cu12==3.4.5
+nvidia-nvtx-cu12==12.6.77
+packaging==26.3
+pandas==2.3.3
+pygments==2.21.0
+pyogrio==0.13.0
+pyparsing==3.3.2
+python-dateutil==2.9.0.post0
+pytz==2026.3.post1
+pyyaml==6.0.3
+regex==2026.7.19
+rich==15.0.0
+safetensors==0.8.0
+setuptools==84.0.0
+shellingham==1.5.4
+six==1.17.0
+sympy==1.14.0
+tokenizers==0.22.2
+triton==3.7.1
+typer==0.27.1
+typing-extensions==4.16.0
+tzdata==2026.3

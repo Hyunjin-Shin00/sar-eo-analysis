@@ -1,0 +1,10 @@
+# 큰 이진 파일은 Git LFS 로. 클론 전에 `git lfs install` 이 필요하다(README 5절).
+*.tif  filter=lfs diff=lfs merge=lfs -text
+*.ckpt filter=lfs diff=lfs merge=lfs -text
+*.pth  filter=lfs diff=lfs merge=lfs -text
+*.png  filter=lfs diff=lfs merge=lfs -text
+*.gpkg filter=lfs diff=lfs merge=lfs -text
+# 보고서 산출물. **HTML 은 그림을 base64 로 품어 한 부에 10 MB** 라 git 안에 텍스트로 넣으면
+# diff 가 의미 없고 이력에서 지울 수 없다. PDF 도 이진이라 같이 LFS 로 보낸다.
+*.html filter=lfs diff=lfs merge=lfs -text
+*.pdf  filter=lfs diff=lfs merge=lfs -text
