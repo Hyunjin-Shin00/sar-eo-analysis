@@ -1,4 +1,4 @@
-# sar/sentinel-1/water/soil-moisture/uk_maslanka2022
+# sar/sentinel-1/soil-moisture/uk_maslanka2022
 
 Maslanka 2022 (TU Wien 변화탐지) — 영국 COSMOS-UK 재현.
 
@@ -23,4 +23,4 @@ Maslanka 2022 (TU Wien 변화탐지) — 영국 COSMOS-UK 재현.
 conda activate pyps      # geopandas · rasterio
 ```
 
-- 환경 정의: [`environment/`](../../../../../environment/)
+- 환경 정의: [`environment/`](../../../../environment/)

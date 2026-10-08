@@ -17,6 +17,17 @@
 | `run_coh_pairs.sh` | 결맞음 페어 일괄 처리(범용). 사용: run_coh_pairs.sh <SAFE루트> <출력접두> <subswath> "<AOI wkt>" <cohAz> <cohRg> <nRg> <pix> <a:b | — | — |
 | `s1_ccd.py` | S1 코히런스 변화탐지 + 진폭 변화 (Sentinel-1). N2 CCD와 동일 산출 구성. | GeoTIFF | GeoTIFF · PNG 그림 · 텍스트/로그 |
 
+<!-- crosslink -->
+### 이 기법을 쓴 사례
+
+- 여기 코드는 어느 자료에도 쓸 수 있는 처리임. 아래는 실제로 적용한 사건별 분석임
+
+| 사례 | 내용 |
+|---|---|
+| [`applications/disaster-damage/earthquake/`](../../../../applications/disaster-damage/earthquake/) | 베네수엘라 M7.5 — 건물 단위 피해 등급과 GIS 교차검증 |
+| [`applications/rail-hazard/`](../../../../applications/rail-hazard/) | 일본 철도 재해 탐지 타당성 |
+<!-- crosslink -->
+
 ---
 
 ## 실행

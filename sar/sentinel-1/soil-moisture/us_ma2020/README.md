@@ -1,4 +1,4 @@
-# sar/sentinel-1/water/soil-moisture/us_ma2020
+# sar/sentinel-1/soil-moisture/us_ma2020
 
 Ma 2020 (Oh + WCM) — 미국 SCAN 재현. **재현 실패 기록 포함.**
 
@@ -21,4 +21,4 @@ Ma 2020 (Oh + WCM) — 미국 SCAN 재현. **재현 실패 기록 포함.**
 conda activate pyps      # geopandas · rasterio
 ```
 
-- 환경 정의: [`environment/`](../../../../../environment/)
+- 환경 정의: [`environment/`](../../../../environment/)

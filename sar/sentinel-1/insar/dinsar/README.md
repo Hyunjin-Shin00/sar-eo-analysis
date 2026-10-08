@@ -49,6 +49,17 @@ flowchart TD
 > - 원통: 입력 자료 · 사각형: 처리 단계 · 마름모: 판정·검증 · 양끝 둥근 사각형: 산출물
 > - GitHub 에서 자동 렌더링됨
 
+<!-- crosslink -->
+### 이 기법을 쓴 사례
+
+- 여기 코드는 어느 자료에도 쓸 수 있는 처리임. 아래는 실제로 적용한 사건별 분석임
+
+| 사례 | 내용 |
+|---|---|
+| [`applications/disaster-damage/earthquake/`](../../../../applications/disaster-damage/earthquake/) | 베네수엘라 M7.5 — 건물 단위 피해 등급과 GIS 교차검증 |
+| [`applications/dem-generation/`](../../../../applications/dem-generation/) | 중남미 고해상도 DTM 제작 |
+<!-- crosslink -->
+
 ---
 
 ## 코드

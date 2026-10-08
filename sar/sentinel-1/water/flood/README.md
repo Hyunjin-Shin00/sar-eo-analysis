@@ -53,6 +53,17 @@ flowchart TD
 > - 원통: 입력 자료 · 사각형: 처리 단계 · 마름모: 판정·검증 · 양끝 둥근 사각형: 산출물
 > - GitHub 에서 자동 렌더링됨
 
+<!-- crosslink -->
+### 이 기법을 쓴 사례
+
+- 여기 코드는 어느 자료에도 쓸 수 있는 처리임. 아래는 실제로 적용한 사건별 분석임
+
+| 사례 | 내용 |
+|---|---|
+| [`applications/disaster-damage/flood/`](../../../../applications/disaster-damage/flood/) | 네팔 라수와 빙하붕괴 돌발홍수 — 하천 회랑 피해범위와 노출 집계 |
+| [`applications/rail-hazard/`](../../../../applications/rail-hazard/) | 일본 철도 재해 탐지 타당성 |
+<!-- crosslink -->
+
 ---
 
 ## 하위

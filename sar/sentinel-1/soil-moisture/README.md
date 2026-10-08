@@ -1,4 +1,4 @@
-# sar/sentinel-1/water/soil-moisture
+# sar/sentinel-1/soil-moisture
 
 후방산란 변화로 표층 토양수분을 산출함. 논문 3편을 수정 없이 재현함.
 

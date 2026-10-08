@@ -24,6 +24,16 @@
 - `decomp_csk_dsc.py` — `--cell` `--t0` `--t1`
 - `decompose_asc_dsc.py` — `--t0` `--t1`
 
+<!-- crosslink -->
+### 이 기법을 쓴 사례
+
+- 여기 코드는 어느 자료에도 쓸 수 있는 처리임. 아래는 실제로 적용한 사건별 분석임
+
+| 사례 | 내용 |
+|---|---|
+| [`applications/dam-monitoring/`](../../../../applications/dam-monitoring/) | Usoi 자연댐 — 수직·동서 변위와 시계열 웹맵 |
+<!-- crosslink -->
+
 ---
 
 ## 실행

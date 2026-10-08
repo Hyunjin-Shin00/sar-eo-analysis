@@ -1,4 +1,4 @@
-# sar/sentinel-1/water/soil-moisture/korea_gao2017
+# sar/sentinel-1/soil-moisture/korea_gao2017
 
 Gao 2017 (S1+S2 변화탐지) — 국내 가평·화성 적용.
 
@@ -27,7 +27,7 @@ Gao 2017 (S1+S2 변화탐지) — 국내 가평·화성 적용.
 conda activate pyps      # geopandas · rasterio
 ```
 
-- 환경 정의: [`environment/`](../../../../../environment/)
+- 환경 정의: [`environment/`](../../../../environment/)
 
 ### 환경변수
 

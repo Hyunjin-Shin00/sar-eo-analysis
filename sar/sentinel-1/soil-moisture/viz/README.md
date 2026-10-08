@@ -1,4 +1,4 @@
-# sar/sentinel-1/water/soil-moisture/viz
+# sar/sentinel-1/soil-moisture/viz
 
 지도 합성·위치 정합 확인용 그림 생성.
 
@@ -23,6 +23,6 @@
 conda activate pyps      # geopandas · rasterio
 ```
 
-- 환경 정의: [`environment/`](../../../../../environment/)
+- 환경 정의: [`environment/`](../../../../environment/)
 
 - 명령줄 인자가 없는 스크립트 — 파일 안의 입력 경로를 확인한 뒤 실행함: `make_satchat.py`

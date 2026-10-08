@@ -61,6 +61,16 @@ flowchart TD
 > - 원통: 입력 자료 · 사각형: 처리 단계 · 마름모: 판정·검증 · 양끝 둥근 사각형: 산출물
 > - GitHub 에서 자동 렌더링됨
 
+<!-- crosslink -->
+### 쓴 기법
+
+- 아래는 **재사용 가능한 처리**이고, 이 폴더는 그것을 특정 사건에 적용한 **사례 분석**임
+
+| 기법 | 이 사례에서 맡은 몫 |
+|---|---|
+| [`eo/planetscope/change-detection/`](../../eo/planetscope/change-detection/) | 다시기 광학 변화탐지 |
+<!-- crosslink -->
+
 ---
 
 ## 하위 모듈

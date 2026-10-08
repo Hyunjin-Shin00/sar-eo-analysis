@@ -1,4 +1,4 @@
-# sar/sentinel-1/water/soil-moisture/verify
+# sar/sentinel-1/soil-moisture/verify
 
 원본 산출물에서 핵심 수치를 다시 계산해 문서와 대조함.
 
@@ -25,4 +25,4 @@
 conda activate pyps      # geopandas · rasterio
 ```
 
-- 환경 정의: [`environment/`](../../../../../environment/)
+- 환경 정의: [`environment/`](../../../../environment/)

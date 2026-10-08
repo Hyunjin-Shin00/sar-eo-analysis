@@ -1,4 +1,4 @@
-# sar/sentinel-1/water/soil-moisture/pinn_cho2026
+# sar/sentinel-1/soil-moisture/pinn_cho2026
 
 Cho 2026 PINN-WCM 재구현 시도 (동료심사 전 논문, 검증용).
 
@@ -22,7 +22,7 @@ Cho 2026 PINN-WCM 재구현 시도 (동료심사 전 논문, 검증용).
 conda activate bldseg      # PyTorch · transformers
 ```
 
-- 환경 정의: [`environment/`](../../../../../environment/)
+- 환경 정의: [`environment/`](../../../../environment/)
 
 ### 상수를 고쳐 돌리는 스크립트
 

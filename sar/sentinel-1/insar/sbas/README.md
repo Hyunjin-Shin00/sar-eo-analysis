@@ -58,6 +58,18 @@ flowchart TD
 > - 원통: 입력 자료 · 사각형: 처리 단계 · 마름모: 판정·검증 · 양끝 둥근 사각형: 산출물
 > - GitHub 에서 자동 렌더링됨
 
+<!-- crosslink -->
+### 이 기법을 쓴 사례
+
+- 여기 코드는 어느 자료에도 쓸 수 있는 처리임. 아래는 실제로 적용한 사건별 분석임
+
+| 사례 | 내용 |
+|---|---|
+| [`applications/disaster-damage/landslide/`](../../../../applications/disaster-damage/landslide/) | 경주 태풍 산사태와 카라코람 사면 |
+| [`applications/dam-monitoring/`](../../../../applications/dam-monitoring/) | Usoi 자연댐 — 수직·동서 변위와 시계열 웹맵 |
+| [`applications/subsidence-warning/`](../../../../applications/subsidence-warning/) | 지반침하 조기경보 — 리드타임 백테스트와 위험 판정 |
+<!-- crosslink -->
+
 ---
 
 ## 하위

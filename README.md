@@ -17,6 +17,31 @@
 
 ---
 
+## 어디를 열어야 하는가
+
+트리가 둘이고 역할이 다름. **기법 트리**는 어느 자료에나 쓰는 처리이고,
+**사례 트리(`applications/`)** 는 그 처리를 특정 사건에 적용한 분석임.
+같은 주제라도 둘 다 있을 수 있어 양쪽 README 가 서로를 링크함.
+
+| 찾는 것 | 가는 곳 |
+|---|---|
+| 새 영상으로 결과를 내고 싶음 | [`RUNBOOK.md`](RUNBOOK.md) — 10개 경로를 끝까지 연결해 둠 |
+| 환경·키·외부 도구 | [`environment/ENV.md`](environment/ENV.md) |
+| 특정 기법이 어떻게 구현됐나 | `sar/` · `eo/` · `passive-microwave/` 아래 — 센서 → 위성 → 기법 |
+| 특정 사건을 어떻게 분석했나 | [`applications/`](applications/) 아래 — 사건마다 한 폴더 |
+| 사업 배경·계획서·결과보고서 | [`docs/`](docs/) |
+| 결과 그림과 프로젝트 설명 | [hyunjin-shin00.github.io](https://hyunjin-shin00.github.io) |
+
+### 두 트리가 어떻게 나뉘는가 — 홍수를 예로
+
+| | 기법 `sar/sentinel-1/water/flood/` | 사례 `applications/disaster-damage/flood/` |
+|---|---|---|
+| 성격 | 어느 장면에도 도는 처리 | 그 사건에만 해당하는 집계·판정 |
+| 내용 | 전처리, Edge-Otsu 임계, 경사 마스크, 전후 차분 | 하천 회랑 매칭, 노출 인구·시설 집계, 공개 재난지도 대조 |
+| 새 홍수가 나면 | **그대로 씀** | 새로 씀 |
+
+---
+
 ## 구조 — 센서 → 위성 → 분석 기법
 
 프로젝트가 아니라 **무엇으로 무엇을 했는가**로 나눴음.
@@ -35,7 +60,8 @@ sar/                        능동 마이크로파
       coherence/                CCD — 건물 붕괴·침수
       amplitude/                ACD — 코히런스가 없을 때
     water/                    물은 SAR에서 어둡다
-      flood/ · oil-spill/ · soil-moisture/
+      flood/ · oil-spill/
+    soil-moisture/            후방산란 변화로 표층 토양수분 — 논문 3편 재현
     isce2-patches/            Sentinel-1D 지원 패치
   cosmo-skymed/             X-band 상용 · preprocessing · insar/psinsar
   nextsat-2/                국산 X-band · 지원 SW 없음 → 직접 구현
