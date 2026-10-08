@@ -10,6 +10,10 @@ flowchart TD
     classDef proc stroke-width:1.5px
     classDef dec stroke-width:2px
     classDef out stroke-width:2.5px
+    img[("0.5 m 위성영상")]
+    seg["건물 의미분할 — DINOv3 백본 + Mask2Former 헤드 (산단 전역 658동)"]
+    match{"검출 폴리곤 ↔ 연속지적도 PNU · 대장 등록 동 대조"}
+    verdict["물건별 판정 — 최근접 이격거리 · 적재물(비전-언어 모델) · 대장 면적 대조"]
     fac[("공장등록현황 (대구 11,744행)")]
     bld[("GIS건물통합정보 shapefile — 익명 필드 A0~A39")]
     ksic[("KSIC 11차 연계표")]
@@ -19,7 +23,11 @@ flowchart TD
     norm["지번 꼬리표 · 외 N 종 · 공백 차이 정규화"]
     pnu{"주용도 = 공장(A29 17000) 을 PNU 로 묶어 연면적 합 vs 3,000㎡ — 폴리곤 겹침 선택 시 3~8배 과대"}
     src{"업종·위험물 정보원 후보 전수 확인 → 사용 가능 여부 판정"}
-    out(["대상 공장 식별 · 규모 판정 · 활용 가능 정보원 목록"])
+    out(["물건별 인수심사 참고보고서 · 특건 공백 산출 · 활용 가능 정보원 목록"])
+    img --> seg
+    seg --> match
+    bld --> match
+    match --> verdict
     fac --> prof
     bld --> rev
     prof --> link
@@ -28,7 +36,13 @@ flowchart TD
     link --> norm
     norm --> pnu
     pnu --> src
+    link --> verdict
+    verdict --> out
     src --> out
+    class img data
+    class seg proc
+    class match dec
+    class verdict proc
     class fac data
     class bld data
     class ksic data
