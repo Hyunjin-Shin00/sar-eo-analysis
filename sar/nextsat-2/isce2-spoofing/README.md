@@ -66,3 +66,31 @@ flowchart TD
 | `n2_viz.py` | N2 처리 결과(진폭·간섭도·코히런스) 시각화 | GeoTIFF · 파일 묶음 | PNG 그림 |
 | `read_n2_meta.py` | N2 HDF5 메타데이터를 사람이 읽을 형태로 덤프 | HDF5 | — |
 | `run_np04.py` | NP04 runner — n2_main_portable.py 와 동일 로직, 단 /mnt/c(DrvFs)에서 chmod 실패를 피하려고 shutil.copy -> shutil.copyfile 로 교 | XML | 텍스트/로그 |
+
+---
+
+## 실행
+
+> 새 영상·새 자료가 들어왔을 때 이 모듈만으로 결과까지 가는 순서임.
+> 아래 인자와 상수는 코드에서 그대로 뽑은 것임.
+
+### 환경
+
+```bash
+conda activate pyps      # geopandas · rasterio
+```
+
+- 환경 정의: [`environment/`](../../../environment/)
+
+### 환경변수
+
+| 이름 | 설명 |
+|---|---|
+| `CSK_DEM` | 코드 참조 |
+| `CSK_OUT` | 코드 참조 |
+| `CSK_ROOT` | 코드 참조 |
+| `N2_ROOT` | 코드 참조 |
+| `N2_XML` | 코드 참조 |
+| `SNAPHU_BIN` | snaphu 실행 파일 경로 |
+
+- 명령줄 인자가 없는 스크립트 — 파일 안의 입력 경로를 확인한 뒤 실행함: `csk_main.py`, `fix_sbi_layout.py`, `n2_main.py`, `n2_to_csk.py`, `run_np04.py`

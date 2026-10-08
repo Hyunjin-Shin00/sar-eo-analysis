@@ -41,3 +41,130 @@
 - `pipeline_dnonly_backup.py` — `--no-delta` `--out-name` `--prnu-mode`
 - `pipeline_v5.py` — `--lp` `--no-delta` `--out-name` `--prnu-mode` `--sza` `--tdi` `--to-reflectance`
 - `rgb_from_8band.py` — `--gamma` `--out` `--pct`
+
+---
+
+## 실행
+
+> 새 영상·새 자료가 들어왔을 때 이 모듈만으로 결과까지 가는 순서임.
+> 아래 인자와 상수는 코드에서 그대로 뽑은 것임.
+
+### 환경
+
+```bash
+conda activate pyps      # geopandas · rasterio
+```
+
+- 환경 정의: [`environment/`](../../../../environment/)
+
+### 진입점
+
+```bash
+python finalize_observation.py 
+```
+관측영상 최종화: dark/PRNU 보정 -> 밴드 정합 -> 공통 crop -> 좌우 flip -> 저장. 두 정합 버전을 모두 생성/저장: (T) 평행이동(translation) : *_obs_reg.tiff (J) jitter 보정(along-track) : *_
+
+| 인자 | 필수 | 기본값 | 설명 |
+|---|---|---|---|
+| `--anchor-set` |  | `all` | anchor/jitter 기준을 최적화할 focus 밴드 집합 (all=8밴드, rgbn=Blue/Green/Red/NIR) |
+| `--suffix` |  |  | 출력 파일명 접미사 (예: _rgbn) — 결과 별도 저장 |
+| `--jitter-mode` |  | `row` | row=along-track 지터만, collin=across-track 선형(회전 yaw+keystone) 포함 |
+
+```bash
+python merge_bands.py 
+```
+RGBN 중심 정합 결과를 밴드 순서 0~7 로 하나의 멀티밴드 TIFF 로 병합. band 순서: 0=PAN, 1=Blue, 2=Green, 3=Red, 4=RE1, 5=RE2, 6=RE3, 7=NIR T(평행이동) -> obs260616_reg_rgbn_8band.
+
+| 인자 | 필수 | 기본값 | 설명 |
+|---|---|---|---|
+| `--var` |  | `_rgbn` | 변형 접미사 (예: _rgbn, _rgbn_rot) |
+
+```bash
+python pipeline.py 
+```
+BlueBON 관측영상 전처리 파이프라인 — 최종 v5 (dark/PRNU 보정 + 밴드 정합). 입력 : <INPUT_DIR> 하위 8밴드 raw TIFF (YYMMDD_HHMMSS_{0..7}_gray.tiff) 처리 : ① 전 밴드(PAN 포함) 복사보정 = (r
+
+| 인자 | 필수 | 기본값 | 설명 |
+|---|---|---|---|
+| `input_dir` |  |  | 8밴드 raw TIFF 가 있는 관측 디렉터리 |
+| `--prnu-mode` |  | `flat` | flat(기본)=full-width(넓은 vignetting 포함), residual=고주파 검출기 FPN만 |
+| `--out-name` |  | `radiometric_v5` | 출력 하위폴더명 |
+| `--no-delta` |  |  | 지속 가산 잔차(δ) 제거 끄기 |
+| `--to-reflectance` |  |  | TOA reflectance(bb_l1a-ref_..._8band_f32.tiff) 추가 산출 (--sza 필요) |
+| `--sza` |  |  | 태양천정각(deg) — --to-reflectance 시 필요 |
+| `--tdi` |  |  |  |
+| `--lp` |  |  |  |
+
+```bash
+python pipeline_20260723.py 
+```
+BlueBON 관측영상 전처리 파이프라인 (dark/PRNU 보정 + 밴드 정합). 입력 : <INPUT_DIR> 하위 8밴드 raw TIFF (YYMMDD_HHMMSS_{0..7}_gray.tiff) 처리 : ① MS1~7 = (raw - dark_ref[col]) 
+
+| 인자 | 필수 | 기본값 | 설명 |
+|---|---|---|---|
+| `input_dir` |  | `/mnt/e/bkchoi/prep/data/20260721_Bushehr_Nuclear_Power_plant_Iran` | 8밴드 raw TIFF 가 있는 관측 디렉터리 |
+
+```bash
+python pipeline_dnonly_backup.py 
+```
+BlueBON 관측영상 전처리 파이프라인 — 최종 v5 (dark/PRNU 보정 + 밴드 정합). 입력 : <INPUT_DIR> 하위 8밴드 raw TIFF (YYMMDD_HHMMSS_{0..7}_gray.tiff) 처리 : ① 전 밴드(PAN 포함) 복사보정 = (r
+
+| 인자 | 필수 | 기본값 | 설명 |
+|---|---|---|---|
+| `input_dir` |  |  | 8밴드 raw TIFF 가 있는 관측 디렉터리 |
+| `--prnu-mode` |  | `flat` | flat(기본)=full-width(넓은 vignetting 포함), residual=고주파 검출기 FPN만 |
+| `--out-name` |  | `radiometric_v5` | 출력 하위폴더명 |
+| `--no-delta` |  |  | 지속 가산 잔차(δ) 제거 끄기 |
+
+```bash
+python pipeline_v5.py 
+```
+BlueBON 관측영상 전처리 파이프라인 — 최종 v5 (dark/PRNU 보정 + 밴드 정합). 입력 : <INPUT_DIR> 하위 8밴드 raw TIFF (YYMMDD_HHMMSS_{0..7}_gray.tiff) 처리 : ① 전 밴드(PAN 포함) 복사보정 = (r
+
+| 인자 | 필수 | 기본값 | 설명 |
+|---|---|---|---|
+| `input_dir` |  |  | 8밴드 raw TIFF 가 있는 관측 디렉터리 |
+| `--prnu-mode` |  | `flat` | flat(기본)=full-width(넓은 vignetting 포함), residual=고주파 검출기 FPN만 |
+| `--out-name` |  | `radiometric_v5` | 출력 하위폴더명 |
+| `--no-delta` |  |  | 지속 가산 잔차(δ) 제거 끄기 |
+| `--to-reflectance` |  |  | TOA reflectance(bb_l1a-ref_..._8band_f32.tiff) 추가 산출 (--sza 필요) |
+| `--sza` |  |  | 태양천정각(deg) — --to-reflectance 시 필요 |
+| `--tdi` |  |  |  |
+| `--lp` |  |  |  |
+
+```bash
+python rgb_from_8band.py 
+```
+8밴드 TIFF -> RGB 합성 PNG (원해상도, 이미지만; 축/타이틀/여백 없음). 밴드 순서 : 0=PAN,1=Blue,2=Green,3=Red,4=RE1,5=RE2,6=RE3,7=NIR RGB 매핑 : R=Red(band3), G=Green(band2), B=
+
+| 인자 | 필수 | 기본값 | 설명 |
+|---|---|---|---|
+| `tiff` |  |  | 8밴드 TIFF 경로 (u16 또는 f32) |
+| `--pct` |  |  | 채널별 스트레치 percentile (기본 1 99) |
+| `--gamma` |  | `1.4` | 감마 (기본 1.4) |
+| `--out` |  |  | 출력 PNG 경로 (기본: <입력>_rgb.png) |
+
+### 상수를 고쳐 돌리는 스크립트
+
+- 명령줄 인자가 없음. 파일 위쪽 상수를 대상 자료에 맞게 바꾼 뒤 `python <파일>` 로 실행함
+
+| 파일 | 고칠 상수 | 현재값 |
+|---|---|---|
+| `apply_fullstrip.py` | `OUT_DIR` | `/mnt/e/bkchoi/prep/data/correction_ref_260606` |
+|  | `OBS_DIR` | `/mnt/e/bkchoi/prep/data/260616_193632` |
+| `apply_fullstrip_m.py` | `REF_DIR` | `/mnt/e/bkchoi/prep/data/correction_ref_260606` |
+|  | `OUT_DIR` | `/mnt/e/bkchoi/prep/data` |
+|  | `OBS_DIR` | `/mnt/e/bkchoi/prep/data/20260721_Sohae_Satellite_Launching_Station_…` |
+| `apply_to_observation.py` | `OUT_DIR` | `/mnt/e/bkchoi/prep/data/correction_ref_260606` |
+|  | `OBS_DIR` | `/mnt/e/bkchoi/prep/data/260616_193632` |
+| `apply_to_observation_m.py` | `REF_DIR` | `/mnt/e/bkchoi/prep/data/correction_ref_260606` |
+|  | `OUT_DIR` | `/mnt/e/bkchoi/prep/data` |
+|  | `OBS_DIR` | `/mnt/e/bkchoi/prep/data/20260721_Sohae_Satellite_Launching_Station_…` |
+| `make_correction_ref.py` | `DATA_ROOT` | `/mnt/e/bkchoi/prep/data` |
+|  | `LIB_DIR` | `/mnt/e/bkchoi/prep/data/260607_094318` |
+|  | `OUT_DIR` | `/mnt/e/bkchoi/prep/data/correction_ref_260606` |
+|  | `PRNU_WINDOW` | `21` |
+| `verify_correction_ref.py` | `OUT_DIR` | `/mnt/e/bkchoi/prep/data/correction_ref_260606` |
+|  | `LIB_DIR` | `/mnt/e/bkchoi/prep/data/260607_094318` |
+
+- 명령줄 인자가 없는 스크립트 — 파일 안의 입력 경로를 확인한 뒤 실행함: `make_delta_adaptive.py`, `make_delta_persistent.py`

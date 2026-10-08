@@ -19,3 +19,20 @@
 | `RGB.py` | 밴드 합성 → RGB 영상 생성 (스트레치·감마 보정) | GeoTIFF · CSV | GeoTIFF · Excel · 텍스트/로그 |
 | `bluebon_radiance_to_TOAR_for_IPB.py` | IPB 납품 포맷용 복사휘도 → TOA 반사도 변환 | GeoTIFF · CSV | GeoTIFF · 텍스트/로그 |
 | `plot_m.py` | 밴드별 통계·히스토그램 진단 그림 | GeoTIFF · CSV | GeoTIFF · Excel · 텍스트/로그 |
+
+---
+
+## 실행
+
+> 새 영상·새 자료가 들어왔을 때 이 모듈만으로 결과까지 가는 순서임.
+> 아래 인자와 상수는 코드에서 그대로 뽑은 것임.
+
+### 환경
+
+```bash
+conda activate pyps      # geopandas · rasterio
+```
+
+- 환경 정의: [`environment/`](../../../../../environment/)
+
+- 명령줄 인자가 없는 스크립트 — 파일 안의 입력 경로를 확인한 뒤 실행함: `01_DN_to_L.py`, `01_DN_to_L_band.py`, `01_DN_to_L_darkTest.py`, `01_DN_to_L_manual.py`, `02_L_to_TOAR.py`, `RGB.py`, `bluebon_radiance_to_TOAR_for_IPB.py`, `plot_m.py`

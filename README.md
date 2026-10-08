@@ -11,6 +11,10 @@
 분석 결과와 프로젝트 설명은 **[hyunjin-shin00.github.io](https://hyunjin-shin00.github.io)** 에 정리되어 있음.
 이 저장소에는 코드만 둠.
 
+> **새 영상이 들어왔을 때 어디서부터 돌리는가** → [`RUNBOOK.md`](RUNBOOK.md)
+> **환경·자격증명·외부 도구** → [`environment/ENV.md`](environment/ENV.md)
+> 모듈마다 README 의 「실행」 절에 진입점과 인자가 코드에서 뽑은 그대로 들어 있음.
+
 ---
 
 ## 구조 — 센서 → 위성 → 분석 기법

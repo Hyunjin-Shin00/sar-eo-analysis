@@ -17,3 +17,28 @@ InSAR 변위 + 지반 등급 + 지하수를 융합해 지표를 만듦.
 | `step2_fusion.py` | STEP 2 — 변위 3지표 × α 융합 → 최종 위험등급 | CSV | CSV |
 | `step3_analysis.py` | STEP 3 — 싱크홀 발생지 vs 미발생지 차이분석 + (A)제약 검증 | CSV | CSV · PNG 그림 |
 | `subsidence_list_analysis.py` | 과제②: 정제 지반침하 사고 리스트 전체에 '기존 위험판정 기준'을 동일 적용 | CSV | CSV · PNG 그림 |
+
+---
+
+## 실행
+
+> 새 영상·새 자료가 들어왔을 때 이 모듈만으로 결과까지 가는 순서임.
+> 아래 인자와 상수는 코드에서 그대로 뽑은 것임.
+
+### 환경
+
+```bash
+conda activate pyps      # geopandas · rasterio
+```
+
+- 환경 정의: [`environment/`](../../../environment/)
+
+### 상수를 고쳐 돌리는 스크립트
+
+- 명령줄 인자가 없음. 파일 위쪽 상수를 대상 자료에 맞게 바꾼 뒤 `python <파일>` 로 실행함
+
+| 파일 | 고칠 상수 | 현재값 |
+|---|---|---|
+| `sasang_filter_opt.py` | `OUT` | `<DATA_ROOT>/analysis/sinkhole/out/acclist_Busan_Sasang_Hadan_aoibox` |
+
+- 명령줄 인자가 없는 스크립트 — 파일 안의 입력 경로를 확인한 뒤 실행함: `analyze_options.py`, `geol_grade.py`, `loaders.py`, `step1_ground_grade.py`, `step2_fusion.py`, `step3_analysis.py`, `subsidence_list_analysis.py`

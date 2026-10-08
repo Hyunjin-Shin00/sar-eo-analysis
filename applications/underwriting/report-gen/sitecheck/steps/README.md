@@ -23,3 +23,38 @@
 | `parcel_bias.py` | 연속지적도 **레이어 고유 편이** 보정 — 영상을 고쳐도 대구에서는 필지가 맞지 않아 따로 둠 | 필지 레이어 | 보정된 필지 |
 | `align.py` | 정합 2차 — 모델 폴리곤으로 보정 결과를 확인하고 마무리 | 모델 폴리곤 | 확정된 정합 |
 | `gt_parallax.py` | 이식해 온 GT 의 **지붕 시차 잔차**를 해당 지번에서 재서 그만큼 GT 를 옮김 | 1차 영상 GT, 2차 영상 | 시차 보정된 GT |
+
+---
+
+## 실행
+
+> 새 영상·새 자료가 들어왔을 때 이 모듈만으로 결과까지 가는 순서임.
+> 아래 인자와 상수는 코드에서 그대로 뽑은 것임.
+
+### 환경
+
+```bash
+conda activate pyps      # geopandas · rasterio
+```
+
+- 환경 정의: [`environment/`](../../../../../environment/)
+
+### 상수를 고쳐 돌리는 스크립트
+
+- 명령줄 인자가 없음. 파일 위쪽 상수를 대상 자료에 맞게 바꾼 뒤 `python <파일>` 로 실행함
+
+| 파일 | 고칠 상수 | 현재값 |
+|---|---|---|
+| `align.py` | `MIN_PAIRS` | `5` |
+|  | `MIN_IOU` | `0.35` |
+| `georef.py` | `LOCAL_WIN_M` | `300.0` |
+|  | `SCENE_WIN_PX` | `4000` |
+| `gt_parallax.py` | `MIN_RINGS` | `1` |
+|  | `MIN_AREA_PX` | `600` |
+|  | `MIN_PX` | `0.5` |
+|  | `WIN_PAD_PX` | `24` |
+| `parcel_bias.py` | `FINE_M` | `1.0` |
+|  | `MIN_PAIRS` | `8` |
+|  | `MIN_AREA_M2` | `30.0` |
+|  | `MIN_FRAC` | `0.6` |
+|  | `MIN_GAIN` | `0.08` |

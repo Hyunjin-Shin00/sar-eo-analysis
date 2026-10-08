@@ -11,3 +11,32 @@
 ## 주요 인자
 
 - `run_romav2_standalone.py` — `--batch_size` `--dir` `--match_rate_thresh` `--setting` `--target_resolution`
+
+---
+
+## 실행
+
+> 새 영상·새 자료가 들어왔을 때 이 모듈만으로 결과까지 가는 순서임.
+> 아래 인자와 상수는 코드에서 그대로 뽑은 것임.
+
+### 환경
+
+```bash
+conda activate bldseg      # PyTorch · transformers
+```
+
+- 환경 정의: [`environment/`](../../../../../../../environment/)
+
+### 진입점
+
+```bash
+python run_romav2_standalone.py --dir <값>
+```
+
+| 인자 | 필수 | 기본값 | 설명 |
+|---|---|---|---|
+| `--dir` | ● |  | OUTPUT_DIR |
+| `--target_resolution` |  |  |  |
+| `--match_rate_thresh` |  | `0.8` |  |
+| `--setting` |  | `fast` |  |
+| `--batch_size` |  | `4` | GPU 추론 배치 크기 (클수록 GPU 활용률 높아짐, 기본값: 8) |

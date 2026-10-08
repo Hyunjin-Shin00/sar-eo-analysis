@@ -18,3 +18,39 @@
 
 - `dinov3seg/ORIGIN.md` · `UPSTREAM_README.md` 에 원본 위치와 수정 내역이 있음
 - `hf/` 아래 `config.json` · `preprocessor_config.json` 은 오프라인 구성용 설정만 있고 **가중치는 없음**
+
+---
+
+## 실행
+
+> 새 영상·새 자료가 들어왔을 때 이 모듈만으로 결과까지 가는 순서임.
+> 아래 인자와 상수는 코드에서 그대로 뽑은 것임.
+
+### 환경
+
+```bash
+conda activate pyps      # geopandas · rasterio
+```
+
+- 환경 정의: [`environment/`](../../../../../environment/)
+
+### 진입점
+
+```bash
+python dinov3seg_run.py --scene <값>
+```
+DINOv3 + Mask2Former 추론 — **이 폴더 안에서** 돔. `sampoly_run.py` 와 같은 자림. 모델 코드 `<WORK_ROOT>/building_seg/dinov3_v2` → `sitecheck/vendor/dinov3seg/` (`inf
+
+| 인자 | 필수 | 기본값 | 설명 |
+|---|---|---|---|
+| `--scene` | ● |  |  |
+| `--tag` |  | `dinov3` |  |
+| `--ckpt` |  |  |  |
+| `--python` |  |  |  |
+| `--crop` |  |  |  |
+| `--overlap` |  |  |  |
+| `--threshold` |  |  |  |
+| `--region` |  |  |  |
+| `--gpu` |  |  |  |
+| `--tta` |  |  |  |
+| `--no-tta` |  |  |  |

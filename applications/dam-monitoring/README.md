@@ -67,3 +67,20 @@ flowchart TD
 | `make_dsc_corr_map.py` | Standalone HTML: Esri imagery + water-masked, AOI-cropped DSC LOS velocity. The RAW velocity field (float32) i | JSON | 텍스트/로그 |
 | `plot_decomp.py` | Render ASC/DSC LOS + vertical/horizontal decomposition velocity maps to a PNG. | HDF5 | PNG 그림 |
 | `seasonal_point.py` | Extract the seasonal cycle at the requested point: remove the linear trend, then (a) fit annual+semiannual sin | JSON | PNG 그림 |
+
+---
+
+## 실행
+
+> 새 영상·새 자료가 들어왔을 때 이 모듈만으로 결과까지 가는 순서임.
+> 아래 인자와 상수는 코드에서 그대로 뽑은 것임.
+
+### 환경
+
+- 표준 과학 스택(numpy · pandas · matplotlib)이면 충분함
+
+### 환경변수
+
+| 이름 | 설명 |
+|---|---|
+| `DATA_ROOT` | 원본·중간 산출물이 놓인 데이터 루트 |

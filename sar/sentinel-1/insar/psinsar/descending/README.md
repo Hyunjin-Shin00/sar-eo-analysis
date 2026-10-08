@@ -13,3 +13,14 @@
 | `run_mintpy.sh` | MintPy SBAS 실행 (하강궤도) | — | — |
 | `run_sbas.sh` | DSC 간섭도 130쌍. ASC 와 동일한 run_sbas_s1.sh 를 S1_ROOT 만 바꿔 재사용함. | — | — |
 | `setup_stack.sh` | DSC path32 topsStack 코레지 설정. -W slc 로 코레지된 SLC 스택만 만들고, 간섭도는 ASC 때 검증된 sbas_lib_s1.py 를 그대로 써서 따로 만든다(멀티룩 8rg  | — | — |
+
+---
+
+## 실행
+
+> 새 영상·새 자료가 들어왔을 때 이 모듈만으로 결과까지 가는 순서임.
+> 아래 인자와 상수는 코드에서 그대로 뽑은 것임.
+
+### 환경
+
+- 표준 과학 스택(numpy · pandas · matplotlib)이면 충분함

@@ -228,3 +228,93 @@ crop jitter stays live rather than being frozen into a cache.
     python infer.py --ckpt ./runs/v1/best.pth         --images ../dataset/refined_data/scenes/daegu_crop1/daegu_crop1.png         --stage1 <folder with daegu_crop1_masks.npz> --out ./preds/v1
     python bench.py --pred ./preds/v1 --stage1 <same folder>
 ```
+
+---
+
+## 실행
+
+> 새 영상·새 자료가 들어왔을 때 이 모듈만으로 결과까지 가는 순서임.
+> 아래 인자와 상수는 코드에서 그대로 뽑은 것임.
+
+### 환경
+
+```bash
+conda activate bldseg      # PyTorch · transformers
+```
+
+- 환경 정의: [`environment/`](../../../../environment/)
+
+### 진입점
+
+```bash
+python bench.py --pred <값> --stage1 <값>
+```
+End-to-end scoring against the rule-based pipeline this replaces. Three rows, identically scored: baseline polygonize.regularize() on stage 1's masks 
+
+| 인자 | 필수 | 기본값 | 설명 |
+|---|---|---|---|
+| `--scenes` |  | `../dataset/refined_data/scenes` |  |
+| `--pred` | ● |  | folder of *_polys.json |
+| `--stage1` | ● |  | folder of *_masks.npz |
+| `--val-width` |  | `725` |  |
+| `--whole-scene` |  |  | score everything, not just the val band. Mixes in stage-1 training pix |
+| `--match-iou` |  | `0.5` |  |
+
+```bash
+python infer.py --ckpt <값> --images <값> --stage1 <값> --out <값>
+```
+Stage 1 boxes -> stage 2 crops -> polygons. TAKES STAGE 1's `_masks.npz` BY DEFAULT rather than re-running it. Detection is unchanged by this project,
+
+| 인자 | 필수 | 기본값 | 설명 |
+|---|---|---|---|
+| `--ckpt` | ● |  | stage-2 checkpoint (.pth) |
+| `--images` | ● |  | scene image, or a folder |
+| `--stage1` | ● |  | folder of dinov3_v2 <stem>_masks.npz |
+| `--out` | ● |  |  |
+| `--batch` |  | `64` |  |
+| `--vertex-thr` |  | `0.3` |  |
+| `--merge` |  | `1.0` |  |
+| `--mask-thr` |  | `0.5` |  |
+| `--max-dist-frac` |  | `0.08` | candidate-to-contour gate, as a fraction of the mask's long side. THE  |
+| `--no-fit-edges` |  |  | disable wall refitting. ON by default: the head picks how many corners |
+| `--prune-width` |  | `0.06` | cut tentacles and bays out of the mask contour before using it as a gu |
+| `--refine-tol` |  | `0.06` | let the mask contour insert a corner wherever the vertex polygon depar |
+| `--max-add` |  | `4` | cap on inserted corners per polygon; bounds the damage when a mask is  |
+| `--min-turn` |  | `10.0` | drop vertices whose turn is below this many degrees (a straight wall)  |
+| `--angle-tol` |  | `0` | drop vertices whose direction disagrees with the contour by more than  |
+| `--guard-min-iou` |  | `0.35` |  |
+| `--min-area` |  | `64` |  |
+| `--viz` |  |  | write <stem>_overlay.png: raw image | polygons, coloured by source (gr |
+| `--viz-scale` |  | `1.0` | downscale the panels AFTER drawing, so thin outlines survive instead o |
+| `--viz-alpha` |  | `0.35` |  |
+| `--debug-crops` |  | `0` | dump <stem>_debug.png: for the first N instances, crop | mask + guide  |
+| `--viz-dot` |  | `2` | vertex marker radius; 0 hides them |
+
+```bash
+python train.py --out <값>
+```
+Train the stage-2 polygon network. SELECTION IS ON CORNER F1 AT 2 SCENE PX, not on val loss and not on recall. Not loss: it is a weighted sum of four 
+
+| 인자 | 필수 | 기본값 | 설명 |
+|---|---|---|---|
+| `--data-root` |  | `../dataset/refined_data/scenes` |  |
+| `--out` | ● |  |  |
+| `--epochs` |  | `60` |  |
+| `--batch-size` |  | `32` |  |
+| `--lr` |  | `0.0003` |  |
+| `--workers` |  | `4` |  |
+| `--crop` |  | `256` |  |
+| `--out-size` |  | `128` |  |
+| `--val-width` |  | `725` | MUST match the tiler's, or stage-1 training pixels leak into stage-2 v |
+| `--encoder` |  | `resnet18` |  |
+| `--no-pretrained` |  |  |  |
+| `--dim` |  | `128` |  |
+| `--no-edge` |  |  |  |
+| `--w-mask` |  | `1.0` |  |
+| `--w-vmap` |  | `1.0` |  |
+| `--w-voff` |  | `1.0` |  |
+| `--w-edge` |  | `1.0` |  |
+| `--vertex-thr` |  | `0.3` |  |
+| `--merge` |  | `1.0` | collapse decoded peaks closer than this many cells |
+| `--eval-ckpt` |  |  | load this checkpoint, run validation once, print the metrics and exit. |
+| `--seed` |  | `0` |  |

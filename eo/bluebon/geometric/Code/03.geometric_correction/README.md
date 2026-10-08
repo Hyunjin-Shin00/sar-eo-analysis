@@ -30,3 +30,58 @@
 
 - `Weight_.py` — `--set` `--weight`
 - `geometric_correction.py` — `--bands` `--dem` `--gcp_chip_res` `--gcp_chips` `--geoid` `--lat` `--lon` `--output` `--output_name` `--ref` `--res` `--target`
+
+---
+
+## 실행
+
+> 새 영상·새 자료가 들어왔을 때 이 모듈만으로 결과까지 가는 순서임.
+> 아래 인자와 상수는 코드에서 그대로 뽑은 것임.
+
+### 환경
+
+```bash
+conda activate bldseg      # PyTorch · transformers
+```
+
+- 환경 정의: [`environment/`](../../../../../environment/)
+
+### 환경변수
+
+| 이름 | 설명 |
+|---|---|
+| `PROJ_DATA` | PROJ 자료 경로 |
+
+### 진입점
+
+```bash
+python Weight_.py 
+```
+============================================================================== RPC 생성 및 정사보정 파이프라인 (JSON GCP 기반) =====================================
+
+| 인자 | 필수 | 기본값 | 설명 |
+|---|---|---|---|
+| `--weight` |  |  | GCP 가중치 (Real GCP 복제 횟수, 기본값: Setting_Weight 자동 계산) |
+| `--set` |  | `t1` | EXPERIMENT_SETS 키 이름 (기본값: t1) |
+
+```bash
+python geometric_correction.py 
+```
+============================================================================== 2단계 정밀 기하보정 파이프라인 (Two-Stage Precision Geometric Correction Pipeline) =
+
+| 인자 | 필수 | 기본값 | 설명 |
+|---|---|---|---|
+| `--dem` |  |  | DEM 파일 경로 |
+| `--geoid` |  |  | Geoid 파일 경로 |
+| `--ref` |  |  | Reference(Sentinel) 영상 경로 |
+| `--target` |  |  | Target(BlueBON) 영상 경로 |
+| `--output` |  |  | 출력 디렉토리 경로 |
+| `--lat` |  |  | Target 중심 위도 |
+| `--lon` |  |  | Target 중심 경도 |
+| `--res` |  |  | Target 해상도 (m) |
+| `--bands` |  |  | Target 밴드 인덱스 (R G B 순서, 1-based). 예: PlanetScope -> 6 4 2 |
+| `--gcp_chips` |  |  | GCP Chips 디렉토리 경로 (재사용 시) |
+| `--gcp_chip_res` |  |  | GCP chip 해상도 (m/px, 기본값: 1.2) |
+| `--output_name` |  |  | 출력 파일 기본 이름 (확장자 제외, 예: bb_l1b_20260116_021517_8band) |
+
+- 명령줄 인자가 없는 스크립트 — 파일 안의 입력 경로를 확인한 뒤 실행함: `build_executable.py`, `quick_test.py`, `run_batch.py`, `setup_venv.py`

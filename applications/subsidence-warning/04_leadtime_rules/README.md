@@ -17,3 +17,22 @@
 | `ml_loao_fast.py` | LOAO(사고 단위 일반화) - 점수 캐싱판. usage: ml_loao_fast.py | JSON | JSON |
 | `rule_loao.py` | 규칙기반 1·2단의 LOAO(사고 단위 일반화) 측정. usage: rule_loao.py | JSON | JSON |
 | `verify_gate_lead.py` | [검증 전용·읽기 전용] 2단 파이프라인 탐지율 주장 6개 검증. usage: verify_gate_lead.py | JSON | — |
+
+---
+
+## 실행
+
+> 새 영상·새 자료가 들어왔을 때 이 모듈만으로 결과까지 가는 순서임.
+> 아래 인자와 상수는 코드에서 그대로 뽑은 것임.
+
+### 환경
+
+- 표준 과학 스택(numpy · pandas · matplotlib)이면 충분함
+
+### 환경변수
+
+| 이름 | 설명 |
+|---|---|
+| `CLAB_ROOT` | 지반침하 과제 트리 루트 |
+
+- 명령줄 인자가 없는 스크립트 — 파일 안의 입력 경로를 확인한 뒤 실행함: `00_selftest.py`, `fp_operational.py`, `leadtime_backtest.py`, `leadtime_gate_op.py`, `leadtime_last.py`, `leadtime_op.py`, `leadtime_op2.py`, `leadtime_overfit.py`, `leadtime_region_rule.py`, `ml_loao_fast.py`, `rule_loao.py`, `verify_gate_lead.py`

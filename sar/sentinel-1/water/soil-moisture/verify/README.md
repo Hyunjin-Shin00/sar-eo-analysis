@@ -11,3 +11,18 @@
 | `r2_uk_chimn250.py` | Independent end-to-end CHIMN 250 m r2 from s1rtc npz + COSMOS csv (+WorldCover mask, remote COG). | GeoTIFF · CSV · NumPy · JSON · 파일 묶음 | — |
 | `r3_us_kr.py` | 미국 SCAN·국내 관측소 검증 지표 재계산 | CSV | — |
 | `r4_loso.py` | LOSO (leave-one-site-out) check on Cho 2026 Zenodo table: RF on 4 inputs vs constant baseline vs authors' publ | Excel | — |
+
+---
+
+## 실행
+
+> 새 영상·새 자료가 들어왔을 때 이 모듈만으로 결과까지 가는 순서임.
+> 아래 인자와 상수는 코드에서 그대로 뽑은 것임.
+
+### 환경
+
+```bash
+conda activate pyps      # geopandas · rasterio
+```
+
+- 환경 정의: [`environment/`](../../../../../environment/)

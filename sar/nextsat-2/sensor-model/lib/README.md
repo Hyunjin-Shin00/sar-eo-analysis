@@ -12,3 +12,18 @@
 | `orbit.py` | Step 2. 궤도 보간 — 상태벡터(1 s 간격, 60점)를 연속함수 S(t), V(t), A(t) 로. | — | — |
 | `simulate.py` | Step 7. DEM 기반 SAR 지형 시뮬레이션 + 실영상 멀티룩 + 2D 정합. | — | — |
 | `tropo.py` | 대류권 전파지연 — 표준대기 기반 간이 모델 (Saastamoinen 건조항 + 습윤항 근사). | — | — |
+
+---
+
+## 실행
+
+> 새 영상·새 자료가 들어왔을 때 이 모듈만으로 결과까지 가는 순서임.
+> 아래 인자와 상수는 코드에서 그대로 뽑은 것임.
+
+### 환경
+
+```bash
+conda activate pyps      # geopandas · rasterio
+```
+
+- 환경 정의: [`environment/`](../../../../environment/)

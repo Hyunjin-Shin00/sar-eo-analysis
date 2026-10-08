@@ -76,3 +76,26 @@ flowchart TD
 | `process_region.sh` | 일반화 지역 처리: PS(차감전/후/raw + 클릭맵2) + SBAS(차감전/후 + 클릭맵2) → CLAB/{REGION}/{PS,SBAS} usage: process_region.sh REGION | shp/GeoJSON · JSON | — |
 | `ps_extract.py` | PS 후보 추출 → LOS 속도·시계열 산출 | shp/GeoJSON | CSV |
 | `stamps_mp_patch.py` | 런처용 monkeypatch: ps_select(step3)의 OOM 폭증을 막는 '스마트 Pool'. | — | — |
+
+---
+
+## 실행
+
+> 새 영상·새 자료가 들어왔을 때 이 모듈만으로 결과까지 가는 순서임.
+> 아래 인자와 상수는 코드에서 그대로 뽑은 것임.
+
+### 환경
+
+```bash
+conda activate pyps      # geopandas · rasterio
+```
+
+- 환경 정의: [`environment/`](../../../../environment/)
+
+### 환경변수
+
+| 이름 | 설명 |
+|---|---|
+| `CHUNKSIZE` | 코드 참조 |
+| `MAXTASKSPERCHILD` | 코드 참조 |
+| `NWORKERS` | 코드 참조 |

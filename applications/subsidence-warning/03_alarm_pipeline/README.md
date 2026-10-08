@@ -17,3 +17,43 @@ AOI 단위 경보 파이프라인 — 속도 역수(invvel) 기반 판정.
 ## 주요 인자
 
 - `run_pipeline.py` — `--aoi` `--date-from` `--date-to` `--gims-key` `--skip-backtest`
+
+---
+
+## 실행
+
+> 새 영상·새 자료가 들어왔을 때 이 모듈만으로 결과까지 가는 순서임.
+> 아래 인자와 상수는 코드에서 그대로 뽑은 것임.
+
+### 환경
+
+```bash
+conda activate pyps      # geopandas · rasterio
+```
+
+- 환경 정의: [`environment/`](../../../environment/)
+
+### 환경변수
+
+| 이름 | 설명 |
+|---|---|
+| `GIMS_KEY` | 국가지하수정보센터 인증키 |
+| `GIMS_KEY_DEPTH` | 국가지하수정보센터 수위 인증키 |
+| `GIMS_KEY_STATION` | 국가지하수정보센터 관측소 인증키 |
+
+### 진입점
+
+```bash
+python run_pipeline.py 
+```
+싱크홀 사전 알람 파이프라인 0~5단계 일괄 실행 (AOI 한정). 0 인벤토리(00_inventory_report.md, 사전작성) 1 GIMS 지하수(옵션) 3 피처(InSAR 3지표+역속도, 지반α) 4 융합→DBSCAN 클러스터 알람(gpkg/csv) 5 백테스
+
+| 인자 | 필수 | 기본값 | 설명 |
+|---|---|---|---|
+| `--aoi` |  |  | 처리할 region 콤마목록(기본 전체 7) |
+| `--date-from` |  |  | (예약) 시작일 YYYYMMDD |
+| `--date-to` |  |  | asof 종료일 YYYYMMDD(기본 전체기간) |
+| `--gims-key` |  |  | GIMS Decoding 서비스키(옵션) |
+| `--skip-backtest` |  |  |  |
+
+- 명령줄 인자가 없는 스크립트 — 파일 안의 입력 경로를 확인한 뒤 실행함: `aoi.py`, `backtest.py`, `fuse_cluster.py`, `gims.py`, `invvel.py`

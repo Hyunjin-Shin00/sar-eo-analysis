@@ -70,3 +70,22 @@ flowchart TD
 | `make_map.py` | 결맞음 변화 지도 생성 — 2026 네팔 홍수 | GeoTIFF · JSON | PNG 그림 |
 | `nrsc_check.py` | NRSC/ISRO(Charter Call 1209 AOI-02)가 지목한 인프라 피해가 우리 SAR에서 보이는지 검증. | GeoTIFF | PNG 그림 · JSON |
 | `source_scar.py` | 빙하 붕괴 원점의 붕괴 흔적(scar) 탐지 — 2026 네팔 홍수 | GeoTIFF | — |
+
+---
+
+## 실행
+
+> 새 영상·새 자료가 들어왔을 때 이 모듈만으로 결과까지 가는 순서임.
+> 아래 인자와 상수는 코드에서 그대로 뽑은 것임.
+
+### 환경
+
+- 표준 과학 스택(numpy · pandas · matplotlib)이면 충분함
+
+### 환경변수
+
+| 이름 | 설명 |
+|---|---|
+| `DATA_ROOT` | 원본·중간 산출물이 놓인 데이터 루트 |
+
+- 명령줄 인자가 없는 스크립트 — 파일 안의 입력 경로를 확인한 뒤 실행함: `corridor_matched2.py`, `exposure.py`, `make_map.py`, `nrsc_check.py`, `source_scar.py`

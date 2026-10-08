@@ -74,3 +74,18 @@ flowchart TD
 |---|---|---|---|
 | `acd_pair.py` | N2 ACD 진폭 로그비 0515->0614 (InSAR/OT와 동일 쌍). SSC 진폭, 동일 멀티룩·지오코딩. | GeoTIFF | GeoTIFF · 텍스트/로그 |
 | `acd_right_look.py` | N2 A_R ACD: 진폭 지오코딩(0402,0529,0613) + 로그비(0402->0613, 0529->0613). SSC, 동일 처리. | GeoTIFF | GeoTIFF · 텍스트/로그 |
+
+---
+
+## 실행
+
+> 새 영상·새 자료가 들어왔을 때 이 모듈만으로 결과까지 가는 순서임.
+> 아래 인자와 상수는 코드에서 그대로 뽑은 것임.
+
+### 환경
+
+```bash
+conda activate pyps      # geopandas · rasterio
+```
+
+- 환경 정의: [`environment/`](../../../environment/)

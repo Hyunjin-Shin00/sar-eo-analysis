@@ -27,3 +27,20 @@
 | `pcaX.py` | inputdata for pcx (n_samples, n_features) | — | — |
 | `poly2medoid.py` | def extract_representatives(X, k): X = np.asarray(X) | NetCDF · 이미지 | — |
 | `wrap_pca.py` | Created on Sun Nov  9 00:48:11 2025 | NC | — |
+
+---
+
+## 실행
+
+> 새 영상·새 자료가 들어왔을 때 이 모듈만으로 결과까지 가는 순서임.
+> 아래 인자와 상수는 코드에서 그대로 뽑은 것임.
+
+### 환경
+
+```bash
+conda activate pyps      # geopandas · rasterio
+```
+
+- 환경 정의: [`environment/`](../../../../../environment/)
+
+- 명령줄 인자가 없는 스크립트 — 파일 안의 입력 경로를 확인한 뒤 실행함: `basematch.py`, `basematch_NEW.py`, `haze_spec_modeling.py`, `pc1_share.py`, `pca.py`, `poly2medoid.py`, `wrap_pca.py`

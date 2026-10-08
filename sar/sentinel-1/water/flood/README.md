@@ -79,3 +79,62 @@ flowchart TD
 
 - `s1_processor.py` — `--after_mask` `--aoi_shp` `--before_mask` `--dem_path` `--edge_buffer` `--flood_detection` `--flood_stats` `--initial_db_threshold` `--input_zips` `--output_dir` `--polarization` `--slope_path`
 - `s1_processor_benchmark.py` — `--edge_buffer` `--initial_db_threshold` `--input_tifs` `--output_dir` `--polarization`
+
+---
+
+## 실행
+
+> 새 영상·새 자료가 들어왔을 때 이 모듈만으로 결과까지 가는 순서임.
+> 아래 인자와 상수는 코드에서 그대로 뽑은 것임.
+
+### 환경
+
+```bash
+conda activate pyps      # geopandas · rasterio
+```
+
+- 환경 정의: [`environment/`](../../../../environment/)
+
+### 환경변수
+
+| 이름 | 설명 |
+|---|---|
+| `DATA_ROOT` | 원본·중간 산출물이 놓인 데이터 루트 |
+
+### 진입점
+
+```bash
+python s1_processor.py --input_zips <값> --output_dir <값> --before_mask <값> --after_mask <값> --output_dir <값>
+```
+
+| 인자 | 필수 | 기본값 | 설명 |
+|---|---|---|---|
+| `--input_zips` | ● |  | 입력 S1 원본 ZIP 경로(1개 이상) |
+| `--output_dir` | ● |  | 산출물 기본 폴더 |
+| `--aoi_shp` |  |  | AOI Shapefile 경로(없으면 AOI 미사용) |
+| `--dem_path` |  |  | 외부 DEM GeoTIFF 경로(없으면 자동 다운로드) |
+| `--slope_path` |  |  | 외부 Slope GeoTIFF 경로(없으면 자동 계산) |
+| `--polarization` |  | `VV` | 편파 (기본: VV) |
+| `--initial_db_threshold` |  |  | Edge Otsu 초기 임계값(dB) |
+| `--slope_threshold` |  | `5.0` | 경사 임계값(도) |
+| `--edge_buffer` |  | `5` | Edge 감지 후 버퍼링 횟수 |
+| `--flood_detection` |  | `no` | 두 시점 수체마스크로 홍수탐지 수행 여부 |
+| `--flood_stats` |  | `no` | 홍수 결과 픽셀/면적 통계 로그 출력 |
+| `--before_mask` | ● |  | 이전 시점 수체 마스크 경로 |
+| `--after_mask` | ● |  | 이후 시점 수체 마스크 경로 |
+| `--output_dir` | ● |  | 산출물 폴더(무시됨: 클래스 내부 폴더 사용) |
+| `--flood_stats` |  | `no` | 픽셀/면적 통계 로그 출력 |
+
+```bash
+python s1_processor_benchmark.py --input_tifs <값> --output_dir <값>
+```
+
+| 인자 | 필수 | 기본값 | 설명 |
+|---|---|---|---|
+| `--input_tifs` | ● |  | 입력 dB GeoTIFF 경로 (와일드카드 지원, 예: 'D:\data\*.tif') |
+| `--output_dir` | ● |  | 수체 마스크 GeoTIFF를 저장할 폴더 |
+| `--polarization` |  | `VH` | 사용할 편파 (기본: VH, Sen1Floods11 S1 기준 band2) |
+| `--initial_db_threshold` |  |  | Edge-Otsu 초기 임계값 (dB) |
+| `--edge_buffer` |  | `5` | 경계 dilation 버퍼링 횟수 |
+
+- 명령줄 인자가 없는 스크립트 — 파일 안의 입력 경로를 확인한 뒤 실행함: `analyse_flood_grd.py`, `db_geocode.py`, `flood_detect_slc.py`, `flood_map.py`, `otsu_flood.py`, `waterbody_mask.py`

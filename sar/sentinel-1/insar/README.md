@@ -17,3 +17,18 @@
 | 파일 | 역할 | 입력 | 출력 |
 |---|---|---|---|
 | `compare_ps_sbas.py` | PS vs SBAS 비교분석: 공통 격자(300m) 집계 → 공통모드 제거 → 패턴 상관 + 4패널 비교도(지역별 PNG) + 요약 | shp/GeoJSON | PNG 그림 · 텍스트/로그 |
+
+---
+
+## 실행
+
+> 새 영상·새 자료가 들어왔을 때 이 모듈만으로 결과까지 가는 순서임.
+> 아래 인자와 상수는 코드에서 그대로 뽑은 것임.
+
+### 환경
+
+```bash
+conda activate pyps      # geopandas · rasterio
+```
+
+- 환경 정의: [`environment/`](../../../environment/)

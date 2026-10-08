@@ -12,3 +12,23 @@
 | `run_coreg.sh` | SETUP 완료 후 남은 run_files(run_02~run_13) 병렬 코레지. usage: run_coreg_dsc.sh <t061/t134> [NP] DSC_incheon/run_coreg_ | TXT | — |
 | `setup_coreg.sh` | DSC 코레지 SETUP + run_01 topo 조기검증.  usage: setup_coreg_dsc.sh <t061/t134> DSC_incheon/setup_coreg.sh 절차를 그대로 따름 | TXT | — |
 | `watchdog.sh` | t134 코레지 워치독 - 완주까지 자동 재시작, 이후 SBAS·통합맵까지 자동 연결. 왜 별도 unit 인가 systemd-oomd 는 cgroup 안의 프로세스를 통째로 죽인다(t134e 에서  | — | — |
+
+---
+
+## 실행
+
+> 새 영상·새 자료가 들어왔을 때 이 모듈만으로 결과까지 가는 순서임.
+> 아래 인자와 상수는 코드에서 그대로 뽑은 것임.
+
+### 환경
+
+- 표준 과학 스택(numpy · pandas · matplotlib)이면 충분함
+
+### 상수를 고쳐 돌리는 스크립트
+
+- 명령줄 인자가 없음. 파일 위쪽 상수를 대상 자료에 맞게 바꾼 뒤 `python <파일>` 로 실행함
+
+| 파일 | 고칠 상수 | 현재값 |
+|---|---|---|
+| `download.py` | `ROOT` | `<WORK_ROOT>/CLAB_DSC` |
+| `download_orbits.py` | `ROOT` | `<WORK_ROOT>/CLAB_DSC` |

@@ -87,3 +87,64 @@ flowchart TD
 
 - `export_sbas.py` — `--geo` `--out` `--tag` `--tc-min` `--ts`
 - `run_sbas_autoscale.py` — `--azl` `--bbox` `--cmax` `--coh_min` `--lam` `--merged` `--out` `--region` `--rgl` `--tcoh_min` `--tmax`
+
+---
+
+## 실행
+
+> 새 영상·새 자료가 들어왔을 때 이 모듈만으로 결과까지 가는 순서임.
+> 아래 인자와 상수는 코드에서 그대로 뽑은 것임.
+
+### 환경
+
+```bash
+conda activate isce2_snaphu      # ISCE2 · snaphu
+```
+
+- 환경 정의: [`environment/`](../../../../environment/)
+
+### 환경변수
+
+| 이름 | 설명 |
+|---|---|
+| `EARTHDATA_PASS` | NASA Earthdata 비밀번호 |
+| `EARTHDATA_PASSWORD` | NASA Earthdata 비밀번호 |
+| `EARTHDATA_USER` | NASA Earthdata 계정 |
+| `EARTHDATA_USERNAME` | NASA Earthdata 계정 |
+| `PROJ_LIB` | PROJ 자료 경로 |
+| `WORK_ROOT` | 작업 디렉터리 루트 |
+
+### 진입점
+
+```bash
+python export_sbas.py --geo <값> --out <값> --tag <값>
+```
+Geocoded SBAS grids -> GeoTIFF (+ point shapefile of the valid cells). MintPy writes geocoded HDF5 on a plain lat/lon grid, so the GeoTIFF transform c
+
+| 인자 | 필수 | 기본값 | 설명 |
+|---|---|---|---|
+| `--geo` | ● |  | MintPy geo/ directory |
+| `--out` | ● |  |  |
+| `--tag` | ● |  |  |
+| `--tc-min` |  | `0.5` |  |
+| `--ts` |  |  | geocoded timeseries h5 |
+
+```bash
+python run_sbas_autoscale.py --merged <값> --bbox <값> --out <값> --region <값>
+```
+
+| 인자 | 필수 | 기본값 | 설명 |
+|---|---|---|---|
+| `--merged` | ● |  |  |
+| `--bbox` | ● |  |  |
+| `--out` | ● |  |  |
+| `--region` | ● |  |  |
+| `--rgl` |  | `9` |  |
+| `--azl` |  | `3` |  |
+| `--cmax` |  | `4` |  |
+| `--tmax` |  | `72` |  |
+| `--coh_min` |  | `0.3` |  |
+| `--tcoh_min` |  | `0.7` |  |
+| `--lam` |  | `0.055465763` |  |
+
+- 명령줄 인자가 없는 스크립트 — 파일 안의 입력 경로를 확인한 뒤 실행함: `fix_rsc_looks.py`

@@ -17,3 +17,37 @@
 | `run_deblur.sh` | BlueBON MS1(Blue)/MS2(Green)/MS3(Red) L0 blind deblurring ./run_deblur.sh kernel     커널 추정 (3밴드 동시, 약 5분) | TIF · TIFF | — |
 | `tile_deconv.py` | deconv 를 타일 분할 + 프로세스 병렬로 실행해 전체 해상도 결과를 만듦. | GeoTIFF | GeoTIFF · 텍스트/로그 |
 | `validate_tiling.sh` | 실행 중인 단일프로세스 deconv 가 끝나기를 기다린 뒤, 타일 방식으로 MS1 alpha=1000 을 다시 계산해 전체이미지 결과와 비교함. | GeoTIFF | — |
+
+---
+
+## 실행
+
+> 새 영상·새 자료가 들어왔을 때 이 모듈만으로 결과까지 가는 순서임.
+> 아래 인자와 상수는 코드에서 그대로 뽑은 것임.
+
+### 환경
+
+```bash
+conda activate pyps      # geopandas · rasterio
+```
+
+- 환경 정의: [`environment/`](../../../environment/)
+
+### 환경변수
+
+| 이름 | 설명 |
+|---|---|
+| `TILE_TMP` | 타일 임시 디렉터리 |
+
+### 상수를 고쳐 돌리는 스크립트
+
+- 명령줄 인자가 없음. 파일 위쪽 상수를 대상 자료에 맞게 바꾼 뒤 `python <파일>` 로 실행함
+
+| 파일 | 고칠 상수 | 현재값 |
+|---|---|---|
+| `mtf_edge.py` | `ROOT` | `/mnt/e/bkchoi/working/debulr` |
+| `mtf_plot.py` | `INK` | `#0b0b0b` |
+|  | `INK2` | `#52514e` |
+| `mtf_spectral.py` | `ROOT` | `/mnt/e/bkchoi/working/debulr` |
+
+- 명령줄 인자가 없는 스크립트 — 파일 안의 입력 경로를 확인한 뒤 실행함: `tile_deconv.py`

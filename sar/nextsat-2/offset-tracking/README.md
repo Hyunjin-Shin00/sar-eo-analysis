@@ -74,3 +74,18 @@ flowchart TD
 |---|---|---|---|
 | `ncc_vs_time.py` | 모든 오프셋 트래킹 쌍의 NCC 중앙값 vs 시간차 — 탈상관 진단 종합 그래프. | JSON | PNG 그림 |
 | `offset_track.py` | 진폭 오프셋 트래킹 (사구) — 모드 선택형 + 지상footprint 기준 사각 템플릿 + 방향 화살표. | GeoTIFF | GeoTIFF · PNG 그림 · 텍스트/로그 |
+
+---
+
+## 실행
+
+> 새 영상·새 자료가 들어왔을 때 이 모듈만으로 결과까지 가는 순서임.
+> 아래 인자와 상수는 코드에서 그대로 뽑은 것임.
+
+### 환경
+
+```bash
+conda activate pyps      # geopandas · rasterio
+```
+
+- 환경 정의: [`environment/`](../../../environment/)

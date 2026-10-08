@@ -13,3 +13,32 @@ Gao 2017 (S1+S2 변화탐지) — 국내 가평·화성 적용.
 | `05_validate_figs.py` | Gao(2017) 방법 1·2 결과 검증(RDA 현장) + 그림. 논문 보고값과 같은 지표(RMSE, ubRMSE, bias, R). | CSV · NumPy · JSON | CSV · PNG 그림 |
 | `06_region_rain_response.py` | 지역 평균 위성 토양수분(Gao 방법1) vs 선행강수지수(API, k=0.8) — 관측소 한 점이 아닌 지도 전체의 강수 반응 검증. | CSV | CSV · PNG 그림 |
 | `site_config.py` | 지점 설정. 환경변수 SITE=GP/HS (기본 GP) | CSV | — |
+
+---
+
+## 실행
+
+> 새 영상·새 자료가 들어왔을 때 이 모듈만으로 결과까지 가는 순서임.
+> 아래 인자와 상수는 코드에서 그대로 뽑은 것임.
+
+### 환경
+
+```bash
+conda activate pyps      # geopandas · rasterio
+```
+
+- 환경 정의: [`environment/`](../../../../../environment/)
+
+### 환경변수
+
+| 이름 | 설명 |
+|---|---|
+| `SITE` | 코드 참조 |
+
+### 상수를 고쳐 돌리는 스크립트
+
+- 명령줄 인자가 없음. 파일 위쪽 상수를 대상 자료에 맞게 바꾼 뒤 `python <파일>` 로 실행함
+
+| 파일 | 고칠 상수 | 현재값 |
+|---|---|---|
+| `03_s2_ndvi.py` | `ROOT` | `<WORK_ROOT>` |

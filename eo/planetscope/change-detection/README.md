@@ -46,3 +46,31 @@ flowchart LR
 ## 주요 인자
 
 - `measure_construction.py` — `--csv` `--mdl` `--works`
+
+---
+
+## 실행
+
+> 새 영상·새 자료가 들어왔을 때 이 모듈만으로 결과까지 가는 순서임.
+> 아래 인자와 상수는 코드에서 그대로 뽑은 것임.
+
+### 환경
+
+```bash
+conda activate pyps      # geopandas · rasterio
+```
+
+- 환경 정의: [`environment/`](../../../environment/)
+
+### 진입점
+
+```bash
+python measure_construction.py --works <값> --mdl <값>
+```
+시기별 공사현황 선형(shapefile)에서 누적 연장과 군사분계선까지 최단거리를 산출함. 디지타이징은 QGIS 에서 손으로 했고, 이 스크립트는 그 결과를 미터 단위로 재는 역할만 함. 경위도(EPSG:4326)에서 길이를 그대로 재면 위도에 따라 오차가 생기므로
+
+| 인자 | 필수 | 기본값 | 설명 |
+|---|---|---|---|
+| `--works` | ● |  | 시기별 공사현황 shapefile 디렉터리 |
+| `--mdl` | ● |  | 군사분계선 shapefile |
+| `--csv` |  |  | 결과 CSV 경로 |

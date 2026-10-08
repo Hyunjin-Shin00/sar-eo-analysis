@@ -70,3 +70,42 @@ flowchart TD
 ## 주요 인자
 
 - `export_ps.py` — `--coh-min` `--fmt` `--max-pts` `--with-ts`
+
+---
+
+## 실행
+
+> 새 영상·새 자료가 들어왔을 때 이 모듈만으로 결과까지 가는 순서임.
+> 아래 인자와 상수는 코드에서 그대로 뽑은 것임.
+
+### 환경
+
+```bash
+conda activate isce2_snaphu      # ISCE2 · snaphu
+```
+
+- 환경 정의: [`environment/`](../../../../environment/)
+
+### 환경변수
+
+| 이름 | 설명 |
+|---|---|
+| `COH_THRESH` | 결맞음 임계값 |
+
+### 진입점
+
+```bash
+python export_ps.py 
+```
+Export a PS result (npz) to Shapefile / GeoPackage via OGR. geopandas is not in this env and the `insar` env has a broken pyproj, so write with osgeo.
+
+| 인자 | 필수 | 기본값 | 설명 |
+|---|---|---|---|
+| `npz` |  |  |  |
+| `out_base` |  |  |  |
+| `--fmt` |  | `both` |  |
+| `--coh-min` |  |  |  |
+| `--max-pts` |  |  |  |
+| `--with-ts` |  |  |  |
+
+- 명령줄 인자가 없는 스크립트 — 파일 안의 입력 경로를 확인한 뒤 실행함: `crop_seoul.py`, `export_final.py`

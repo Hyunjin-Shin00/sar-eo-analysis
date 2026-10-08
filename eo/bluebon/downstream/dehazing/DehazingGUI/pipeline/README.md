@@ -18,3 +18,27 @@
 ## 주요 인자
 
 - `runner.py` — `--fin` `--output-dir` `--sensor`
+
+---
+
+## 실행
+
+> 새 영상·새 자료가 들어왔을 때 이 모듈만으로 결과까지 가는 순서임.
+> 아래 인자와 상수는 코드에서 그대로 뽑은 것임.
+
+### 환경
+
+- 표준 과학 스택(numpy · pandas · matplotlib)이면 충분함
+
+### 진입점
+
+```bash
+python runner.py --fin <값> --sensor <값>
+```
+TELEPIX Dehazing 메인 파이프라인. 원본 basematch_NEW.py의 __main__ 블록을 함수화한 것. 변경점: - print는 유지 (worker에서 builtins.print 가로채기로 GUI 로그에 흘려보냄) - progress_fn(pct, 
+
+| 인자 | 필수 | 기본값 | 설명 |
+|---|---|---|---|
+| `--fin` | ● |  |  |
+| `--sensor` | ● |  |  |
+| `--output-dir` |  |  |  |

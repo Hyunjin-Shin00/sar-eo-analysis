@@ -17,3 +17,44 @@
 | `run_stamps_s1.sh` | StaMPS 단계별 실행 | — | — |
 | `sbas_lib_s1.py` | S1 SBAS helpers - multilooked interferograms from the cropped coregistered stack. | JSON | — |
 | `unwrap_s1.py` | snaphu unwrapping for the S1 SBAS pairs. | XML | — |
+
+---
+
+## 실행
+
+> 새 영상·새 자료가 들어왔을 때 이 모듈만으로 결과까지 가는 순서임.
+> 아래 인자와 상수는 코드에서 그대로 뽑은 것임.
+
+### 환경
+
+```bash
+conda activate isce2_snaphu      # ISCE2 · snaphu
+```
+
+- 환경 정의: [`environment/`](../../../../../environment/)
+
+### 환경변수
+
+| 이름 | 설명 |
+|---|---|
+| `COH_THRESH` | 결맞음 임계값 |
+| `S1_ROOT` | Sentinel-1 원본 트리 |
+| `S1_SRC_STACK` | 코드 참조 |
+
+### 진입점
+
+```bash
+python unwrap_s1.py -i <값> -c <값> -u <값>
+```
+snaphu unwrapping for the S1 SBAS pairs. stripmapStack's unwrap.py wants a full ISCE frame shelve, which topsStack's merged product does not provide. 
+
+| 인자 | 필수 | 기본값 | 설명 |
+|---|---|---|---|
+| `-i` | ● |  |  |
+| `-c` | ● |  |  |
+| `-u` | ● |  |  |
+| `-r` |  | `8` |  |
+| `-a` |  | `2` |  |
+| `-d` |  | `4.0` |  |
+
+- 명령줄 인자가 없는 스크립트 — 파일 안의 입력 경로를 확인한 뒤 실행함: `crop_s1.py`

@@ -12,3 +12,24 @@
 | `ramp_check.py` | 언래핑 위상의 잔여 경사(ramp)가 남아 있는지 점검 | NumPy | — |
 | `recalc_ccd_emsr.py` | 재계산 1: CCD 면적·EMSR884 교차·v7 분류 교차 (읽기 전용) | GeoTIFF · shp/GeoJSON · JSON | — |
 | `recalc_dinsar.py` | 재계산 2: CCD 등급 래스터 · DInSAR 변위 통계 · EMS GRM 비교 (읽기 전용) | GeoTIFF | — |
+
+---
+
+## 실행
+
+> 새 영상·새 자료가 들어왔을 때 이 모듈만으로 결과까지 가는 순서임.
+> 아래 인자와 상수는 코드에서 그대로 뽑은 것임.
+
+### 환경
+
+```bash
+conda activate pyps      # geopandas · rasterio
+```
+
+- 환경 정의: [`environment/`](../../../../environment/)
+
+### 환경변수
+
+| 이름 | 설명 |
+|---|---|
+| `DATA_ROOT` | 원본·중간 산출물이 놓인 데이터 루트 |

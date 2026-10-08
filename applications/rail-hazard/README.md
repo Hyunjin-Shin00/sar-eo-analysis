@@ -62,3 +62,26 @@ flowchart TD
 | `damage_extent_survey.py` | 과거 재해의 피해 범위를 「얼마나 넓게, 얼마나 길게 퍼지는가」로 정리함. | GeoTIFF · NumPy | — |
 | `revisit_stats.py` | 사건 후 첫 SAR 취득까지 걸리는 시간의 분포 — 「지바의 +10.2 h 를 일반화할 수 있는가」에 답함. | JSON | — |
 | `run.sh` | 분석 env 실행 래퍼. CONDA_PREFIX 의 python 을 직접 호출하므로 PROJ/GDAL 데이터 경로를 명시함. PYTHONPATH는 ISCE2 경로 오염을 피하기 위해 비움. | — | — |
+
+---
+
+## 실행
+
+> 새 영상·새 자료가 들어왔을 때 이 모듈만으로 결과까지 가는 순서임.
+> 아래 인자와 상수는 코드에서 그대로 뽑은 것임.
+
+### 환경
+
+```bash
+conda activate pyps      # geopandas · rasterio
+```
+
+- 환경 정의: [`environment/`](../../environment/)
+
+### 환경변수
+
+| 이름 | 설명 |
+|---|---|
+| `WORK_ROOT` | 작업 디렉터리 루트 |
+
+- 명령줄 인자가 없는 스크립트 — 파일 안의 입력 경로를 확인한 뒤 실행함: `damage_extent_survey.py`, `revisit_stats.py`
