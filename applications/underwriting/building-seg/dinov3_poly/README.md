@@ -164,11 +164,11 @@ permutation). Strictly more expressive, and unnecessary at a median of 4
 vertices per polygon with 35 px edges. Revisit only if ordering, not placement,
 turns out to be the error source.
 
-**Stage 1 as a mere box detector — is DINOv3 wasted here?** Partly, and it is
+**Stage 1 as a mere box detector â€” is DINOv3 wasted here?** Partly, and it is
 worth being honest about. Detection in this fabric is the genuinely hard part:
 stage 1's recall is a hard ceiling on everything downstream, and its AP is
 0.38, so detection is nowhere near solved. Its *masks* also earn their keep
-outside this project — tiled de-duplication uses mask IoU and containment
+outside this project â€” tiled de-duplication uses mask IoU and containment
 between buildings a median 1.9 px apart, where box NMS would merge them. What
 this project discards is only the mask's role as the polygon's *geometry*.
 A cheaper detector would still have to solve detection, de-duplication and
